@@ -60,7 +60,7 @@ const sizes = computed(() =>
 
     <figure v-else-if="block.type === 'video'" class="blk-fig">
       <div class="blk-media">
-        <SiteVideo v-if="m" :media="m" :effect="block.effect" :autoplay="block.autoplay" :fit="block.fit" :label="caption" />
+        <SiteVideo v-if="m" :media="m" :effect="block.effect" :autoplay="block.autoplay" :fit="block.fit" :label="caption" zoomable @zoom="emit('zoom', block.id)" />
         <DotImage v-else :seed="block.id" />
       </div>
       <figcaption v-if="caption" class="label">{{ caption }}</figcaption>

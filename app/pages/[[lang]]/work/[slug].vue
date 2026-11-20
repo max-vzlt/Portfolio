@@ -33,14 +33,13 @@ const nextHover = (e: PointerEvent, on: boolean) => {
 const titleWords = computed(() => tr(p.value.title).split(/\s+/).filter(Boolean))
 const external = computed(() => /^https?:/i.test(p.value.link.url))
 
+// images and videos of the page, in reading order, for the viewer
+const galleryBlocks = computed(() => p.value.blocks.filter((b) => (b.type === 'image' || b.type === 'video') && b.mediaId && m(b.mediaId)))
 const gallery = computed<LightboxItem[]>(() =>
-  p.value.blocks
-    .filter((b) => b.type === 'image' && b.mediaId && m(b.mediaId))
-    .map((b) => ({ media: m(b.mediaId)!, effect: b.effect || 'none', caption: tr(b.caption) })),
+  galleryBlocks.value.map((b) => ({ media: m(b.mediaId)!, effect: b.effect || 'none', caption: tr(b.caption) })),
 )
 function zoom(blockId: string) {
-  const imgs = p.value.blocks.filter((b) => b.type === 'image' && b.mediaId && m(b.mediaId))
-  const i = imgs.findIndex((b) => b.id === blockId)
+  const i = galleryBlocks.value.findIndex((b) => b.id === blockId)
   if (i >= 0) lightbox.open(gallery.value, i)
 }
 

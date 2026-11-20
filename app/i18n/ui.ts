@@ -46,6 +46,7 @@ export const ui = {
     'error.back': "Retour à l'accueil",
     'media.close': 'Fermer',
     'media.play': 'Lire la vidéo',
+    'media.open': 'Afficher en grand',
   },
   en: {
     'nav.work': 'Work',
@@ -93,6 +94,7 @@ export const ui = {
     'error.back': 'Back to home',
     'media.close': 'Close',
     'media.play': 'Play video',
+    'media.open': 'View larger',
   },
 } as const
 

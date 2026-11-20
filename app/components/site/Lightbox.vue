@@ -27,17 +27,33 @@ watch(() => route.fullPath, close)
 <template>
   <Transition name="lb">
     <div v-if="current" class="lightbox tone-blue" role="dialog" aria-modal="true" data-lenis-prevent @click.self="close">
+      <!-- soft backdrop made from the current media, so it does not pop out of the blue -->
+      <div class="lb-ambient" aria-hidden="true">
+        <img v-if="current.media.kind === 'image'" :src="current.media.url" alt="">
+      </div>
       <div class="lb-frame" @click.self="close">
-        <DotImage
+        <video
+          v-if="current.media.kind === 'video'"
           :key="current.media.id"
-          :media="current.media"
-          effect="none"
-          fit="contain"
-          :alt="tr(current.media.alt) || current.caption || ''"
-          sizes="100vw"
-          :dot="0"
-          eager
+          class="lb-media"
+          :src="current.media.url"
+          controls
+          autoplay
+          playsinline
+          :aria-label="current.caption || ''"
         />
+        <img
+          v-else
+          class="lb-media"
+          :src="current.media.url"
+          :srcset="current.media.srcset"
+          sizes="100vw"
+          :width="current.media.width"
+          :height="current.media.height"
+          :alt="tr(current.media.alt) || current.caption || ''"
+          decoding="async"
+          @click.self="close"
+        >
       </div>
       <div class="lb-bar">
         <p class="label">{{ String(index + 1).padStart(2, '0') }} / {{ String(items.length).padStart(2, '0') }}<span v-if="current.caption"> — {{ current.caption }}</span></p>
@@ -53,6 +69,7 @@ watch(() => route.fullPath, close)
 
 <style>
 .lightbox {
+  --lb-bg: color-mix(in srgb, var(--blue-deep) 70%, #000);
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -60,12 +77,36 @@ watch(() => route.fullPath, close)
   grid-template-rows: 1fr auto;
   padding: clamp(12px, 3vw, 40px);
   gap: 16px;
+  background: var(--lb-bg);
+  isolation: isolate;
 }
+.lb-ambient { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.lb-ambient img {
+  position: absolute;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  filter: blur(60px) saturate(0.6);
+  opacity: 0.32;
+}
+.lightbox.tone-blue { background: var(--lb-bg); }
 .lb-frame { position: relative; min-height: 0; }
-.lb-frame .dimg, .lb-frame .dimg.fx-none { background: transparent; }
-.lb-frame .dimg-paper { display: none; }
+.lb-media {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 3px;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6), 0 0 0 1px color-mix(in srgb, var(--paper) 10%, transparent);
+}
+video.lb-media { width: 100%; height: 100%; background: transparent; box-shadow: none; }
 .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .lb-actions { display: flex; gap: 8px; }
-.lb-enter-active, .lb-leave-active { transition: opacity 0.35s var(--ease), transform 0.45s var(--ease); }
-.lb-enter-from, .lb-leave-to { opacity: 0; transform: scale(0.985); }
+.lb-enter-active, .lb-leave-active { transition: opacity 0.35s var(--ease); }
+.lb-enter-from, .lb-leave-to { opacity: 0; }
 </style>
