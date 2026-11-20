@@ -374,11 +374,11 @@ watch(() => [props.media?.url, props.effect, props.fit, props.seed, props.dot], 
   mix-blend-mode: normal;
   opacity: 1;
   clip-path: circle(0% at var(--mx, 50%) var(--my, 50%));
-  transform: scale(1.08);
-  transition: clip-path 0.95s cubic-bezier(0.76, 0, 0.24, 1), transform 1.2s var(--ease);
+  transform: scale(1.06);
+  transition: clip-path 0.42s cubic-bezier(0.33, 1, 0.68, 1), transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
 }
 .dimg.is-revealed .dimg-layer img.dimg-orig { clip-path: circle(150% at var(--mx, 50%) var(--my, 50%)); transform: scale(1); }
 .dimg.is-contain .dimg-layer img.dimg-orig { object-fit: contain; }
-.dimg.can-reveal .dimg-paper { transition: opacity 0.6s var(--ease); }
+.dimg.can-reveal .dimg-paper { transition: opacity 0.35s var(--ease); }
 .dimg.is-revealed .dimg-paper { opacity: 0.18; }
 </style>

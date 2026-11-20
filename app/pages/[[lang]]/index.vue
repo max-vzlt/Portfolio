@@ -28,7 +28,9 @@ const filter = computed({
     router.replace({ query: { ...route.query, cat: v || undefined } })
   },
 })
+const featuredCount = computed(() => projects.value.filter((p) => p.rank > 0).length)
 const filtered = computed(() => {
+  if (filter.value === 'top') return projects.value.filter((p) => p.rank > 0)
   const cat = categories.value.find((c) => c.slug === filter.value)
   return cat ? projects.value.filter((p) => p.categoryIds.includes(cat.id)) : projects.value
 })
@@ -82,7 +84,7 @@ const sections = computed(() =>
     .map((x, i) => ({ id: x.id, index: String(i + 1).padStart(2, '0') })),
 )
 const workTitle = computed(() => tr(s.value?.home?.work.title) || t('work.title'))
-const showFilters = computed(() => s.value?.home?.work.filters !== false && categories.value.length > 1)
+const showFilters = computed(() => s.value?.home?.work.filters !== false && (categories.value.length > 1 || featuredCount.value > 0))
 const heroWords = computed(() => heroTitle.value.split(/\s+/).filter(Boolean))
 const { pin } = useHeaderPin()
 watch(sections, () => nextTick(() => {
@@ -185,7 +187,7 @@ if (import.meta.client && route.query.preview !== undefined) {
       <section v-if="sec.id === 'work'" id="work" data-nav class="section tone-paper guides">
         <div class="wrap">
           <SiteSectionHead :index="sec.index" :title="workTitle" glyph="eye">
-            <SiteFilterBar v-if="showFilters" v-model="filter" :categories="categories" :total="projects.length" />
+            <SiteFilterBar v-if="showFilters" v-model="filter" :categories="categories" :total="projects.length" :featured="featuredCount" />
           </SiteSectionHead>
           <SiteRichText v-if="tr(s.home?.work.intro)" :text="tr(s.home?.work.intro)" class="lead work-intro" v-reveal />
 

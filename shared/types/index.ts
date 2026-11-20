@@ -101,6 +101,9 @@ export interface Project {
   card: { col: Span; row: 1 | 2 }
   link: { url: string; label: I18nText }
   visible: boolean
+  /** Highlighted work: shown first on the site, ranked by featuredRank (1 = best) */
+  featured: boolean
+  featuredRank: number
   order: number
   blocks: Block[]
   createdAt: string
@@ -192,6 +195,8 @@ export interface ProjectCard {
   coverId: string | null
   coverEffect: ImageEffect
   card: Project['card']
+  /** 0 = not highlighted, otherwise its place in the ranking */
+  rank: number
 }
 
 export interface SitePayload {

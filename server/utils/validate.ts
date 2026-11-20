@@ -96,6 +96,7 @@ export function sanitizeProject(db: Database, raw: any, current: Project): Proje
       label: i18n(raw?.link?.label ?? current.link.label, 200),
     },
     visible: bool(raw?.visible, current.visible),
+    featured: bool(raw?.featured, current.featured),
     blocks: Array.isArray(raw?.blocks)
       ? raw.blocks.slice(0, 300).map((b: any) => sanitizeBlock(db, b))
       : current.blocks,
@@ -119,6 +120,8 @@ export function blankProject(db: Database, title?: Partial<I18nText>): Project {
     card: { col: 1, row: 1 },
     link: { url: '', label: { fr: '', en: '' } },
     visible: false,
+    featured: false,
+    featuredRank: 0,
     order: db.projects.length ? Math.min(...db.projects.map((p) => p.order)) - 1 : 0,
     blocks: [],
     createdAt: now,

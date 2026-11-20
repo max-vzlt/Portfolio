@@ -156,6 +156,10 @@ const previewUrl = computed(() => `/work/${JSON.parse(savedJson.value).slug}?pre
           <AdminSwitch v-model="draft.visible">
             <strong>{{ draft.visible ? 'Visible sur le site' : 'Masquée (brouillon)' }}</strong>
           </AdminSwitch>
+          <AdminSwitch v-model="draft.featured">
+            <strong>{{ draft.featured ? (draft.featuredRank ? `Mise en avant — Top ${draft.featuredRank}` : 'Mise en avant (à la fin du classement)') : 'Mettre en avant' }}</strong>
+          </AdminSwitch>
+          <p class="a-hint">Le classement des projets mis en avant se règle dans <NuxtLink to="/admin" class="a-link">Traces</NuxtLink>.</p>
         </div>
 
         <div class="a-panel a-panel-pad a-stack">

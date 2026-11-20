@@ -4,13 +4,11 @@ export default defineEventHandler(async (event): Promise<ProjectPayload> => {
   const slug = getRouterParam(event, 'slug')
   const preview = getQuery(event).preview !== undefined && (await isAdmin(event))
   const db = await getDB()
-  const list = db.projects.filter((p) => p.visible || preview).sort((a, b) => a.order - b.order)
-  const i = list.findIndex((p) => p.slug === slug)
-  const found = list[i]
+  const found = db.projects.find((p) => p.slug === slug && (p.visible || preview))
   if (!found) throw createError({ statusCode: 404, statusMessage: 'Projet introuvable' })
 
   const project = { ...found, blocks: found.blocks.filter((b) => b.visible) }
-  const visible = list.filter((p) => p.visible)
+  const visible = publicOrder(db.projects)
   const vi = visible.findIndex((p) => p.id === found.id)
   const prevP = vi > 0 ? visible[vi - 1] : visible.length > 1 ? visible[visible.length - 1] : null
   const nextP = vi >= 0 && vi < visible.length - 1 ? visible[vi + 1] : visible.length > 1 ? visible[0] : null

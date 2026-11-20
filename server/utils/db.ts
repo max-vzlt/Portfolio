@@ -47,6 +47,10 @@ function migrate(db: Database): Database {
   db.settings.home = sanitizeHome(db.settings.home)
   db.categories ||= []
   db.projects ||= []
+  for (const p of db.projects) {
+    p.featured = p.featured === true
+    p.featuredRank = Number(p.featuredRank) || 0
+  }
   db.media ||= []
   return db
 }

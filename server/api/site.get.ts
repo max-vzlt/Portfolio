@@ -2,13 +2,11 @@ import type { ProjectCard, SitePayload } from '#shared/types'
 
 export default defineEventHandler(async (): Promise<SitePayload> => {
   const db = await getDB()
-  const projects: ProjectCard[] = db.projects
-    .filter((p) => p.visible)
-    .sort((a, b) => a.order - b.order)
-    .map((p) => ({
-      id: p.id, slug: p.slug, title: p.title, summary: p.summary, categoryIds: p.categoryIds,
-      year: p.year, tools: p.tools, coverId: p.coverId, coverEffect: p.coverEffect, card: p.card,
-    }))
+  const projects: ProjectCard[] = publicOrder(db.projects).map((p) => ({
+    id: p.id, slug: p.slug, title: p.title, summary: p.summary, categoryIds: p.categoryIds,
+    year: p.year, tools: p.tools, coverId: p.coverId, coverEffect: p.coverEffect, card: p.card,
+    rank: p.featured ? p.featuredRank : 0,
+  }))
   const s = db.settings
   return {
     settings: s,

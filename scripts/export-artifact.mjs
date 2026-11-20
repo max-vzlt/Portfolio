@@ -38,10 +38,12 @@ async function main() {
   await fs.rm(OUT, { recursive: true, force: true })
   await fs.mkdir(join(OUT, 'media'), { recursive: true })
 
-  const projects = db.projects
-    .filter((p) => p.visible)
-    .sort((a, b) => a.order - b.order)
-    .map((p) => ({ ...p, blocks: p.blocks.filter((b) => b.visible) }))
+  // same order as the site: highlighted projects first (by rank), then the others
+  const visible = db.projects.filter((p) => p.visible)
+  const projects = [
+    ...visible.filter((p) => p.featured).sort((a, b) => a.featuredRank - b.featuredRank),
+    ...visible.filter((p) => !p.featured).sort((a, b) => a.order - b.order),
+  ].map((p) => ({ ...p, rank: p.featured ? p.featuredRank : 0, blocks: p.blocks.filter((b) => b.visible) }))
   const s = db.settings
   const wanted = new Set([s.hero.imageId, s.about.imageId, ...projects.flatMap((p) => [p.coverId, ...p.blocks.map((b) => b.mediaId)])].filter(Boolean))
 

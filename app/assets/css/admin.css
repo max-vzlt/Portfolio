@@ -139,6 +139,7 @@ button.a-chip:hover { border-color: var(--blue); }
 .a-badge.is-off { background: transparent; border: 1px dashed color-mix(in srgb, var(--blue) 35%, transparent); color: var(--muted); }
 
 .a-empty { padding: 40px 20px; text-align: center; color: var(--muted); }
+.a-link { color: var(--blue); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------------------------------------------------------- dropzone */
 .a-drop {

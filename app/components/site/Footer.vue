@@ -30,6 +30,9 @@ const mark = computed(() => {
         <p class="label muted">© {{ year }} · {{ t('footer.rights') }}</p>
       </div>
       <ul class="footer-socials">
+        <li v-if="settings?.contact.email">
+          <a :href="`mailto:${settings.contact.email}`" :aria-label="settings.contact.email" :title="settings.contact.email"><Mail aria-hidden="true" /></a>
+        </li>
         <li v-for="s in settings?.socials || []" :key="s.url">
           <a :href="s.url" target="_blank" rel="noopener" :aria-label="s.label" :title="s.label">
             <component :is="iconFor(s.url)" aria-hidden="true" />

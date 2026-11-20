@@ -185,10 +185,10 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .dimg.fx-none { background: var(--surface); }
 .dimg-paper { position: absolute; inset: 0; pointer-events: none; background: url('paper.png') 0 0 / 300px 300px repeat; mix-blend-mode: multiply; opacity: .55; z-index: 1; }
 .dimg.fx-none .dimg-paper { opacity: .28; }
-.dimg .dimg-layer img.dimg-orig { z-index: 1; filter: none; mix-blend-mode: normal; opacity: 1; clip-path: circle(0% at var(--mx, 50%) var(--my, 50%)); transform: scale(1.08); transition: clip-path .95s cubic-bezier(.76, 0, .24, 1), transform 1.2s var(--ease); }
+.dimg .dimg-layer img.dimg-orig { z-index: 1; filter: none; mix-blend-mode: normal; opacity: 1; clip-path: circle(0% at var(--mx, 50%) var(--my, 50%)); transform: scale(1.06); transition: clip-path .42s cubic-bezier(.33, 1, .68, 1), transform .6s cubic-bezier(.33, 1, .68, 1); }
 .dimg.is-revealed .dimg-layer img.dimg-orig { clip-path: circle(150% at var(--mx, 50%) var(--my, 50%)); transform: scale(1); }
 .dimg.is-contain .dimg-layer img.dimg-orig { object-fit: contain; }
-.dimg.can-reveal .dimg-paper { transition: opacity .6s var(--ease); }
+.dimg.can-reveal .dimg-paper { transition: opacity .35s var(--ease); }
 .dimg.is-revealed .dimg-paper { opacity: .18; }
 .work-intro { max-width: 60ch; margin: calc(-1 * clamp(12px, 2vw, 28px)) 0 clamp(36px, 5vw, 56px); }
 
@@ -285,6 +285,11 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .pcard-link { display: flex; flex-direction: column; height: 100%; }
 .pcard-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 14px; color: var(--muted); }
 .pcard-meta span:first-child { color: var(--fg); }
+.pcard-meta span.pcard-top { display: inline-flex; align-items: center; gap: 6px; margin: -3px 0; padding: 3px 7px 2px; background: var(--blue); color: var(--paper); border-radius: var(--radius); }
+.pcard-top .pixel-glyph, .chip-top .pixel-glyph { width: 9px; height: 9px; margin: 0; }
+.contact-mail .contact-addr { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 2.1rem); line-height: 1.1; overflow-wrap: anywhere; user-select: all; }
+.contact-mail .btn { justify-self: end; }
+@media (max-width: 639px) { .contact-mail .btn { grid-row: span 2; } }
 .pcard-title { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
 .pcard-title-text { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .55s var(--ease); }
 .pcard-arrow { width: .62em; height: .62em; margin-top: .12em; stroke-width: 1.2; opacity: 0; transform: translate(-8px, 8px); transition: opacity .35s var(--ease), transform .45s var(--ease); }
@@ -480,6 +485,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       back: 'Toutes les réalisations', year: 'Année', category: 'Catégorie', tools: 'Outils', visit: 'Voir le projet en ligne',
       next: 'Projet suivant', prev: 'Projet précédent', made: 'Design & code par', rights: 'Tous droits réservés',
       top: 'Haut de page', close: 'Fermer', play: 'Lire la vidéo',
+      highlights: 'Sélection', rank: 'Top', email: 'Email', copy: 'Copier', copied: 'Copié', copyFail: 'Sélectionne l’adresse',
     },
     en: {
       work: 'Work', about: 'About', skills: 'Skills', contact: 'Contact', cv: 'Resume', home: 'Home',
@@ -489,6 +495,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       back: 'All projects', year: 'Year', category: 'Category', tools: 'Tools', visit: 'Visit the project',
       next: 'Next project', prev: 'Previous project', made: 'Design & code by', rights: 'All rights reserved',
       top: 'Back to top', close: 'Close', play: 'Play video',
+      highlights: 'Highlights', rank: 'Top', email: 'Email', copy: 'Copy', copied: 'Copied', copyFail: 'Select the address',
     },
   }
   let lang = 'fr'
@@ -526,6 +533,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
   /* ------------------------------------------------------------ glyphs */
   const GLYPHS = {
     eye: ['..###..', '.#...#.', '#..#..#', '#.###.#', '#..#..#', '.#...#.', '..###..'],
+    star: ['...#...', '...#...', '.#.#.#.', '#######', '.#.#.#.', '...#...', '...#...'],
     spark: ['#.....#', '.#...#.', '..#.#..', '...#...', '..#.#..', '.#...#.', '#.....#'],
     grid: ['##.##.#', '##.##.#', '.......', '##.##.#', '##.##.#', '.......', '##.##.#'],
     mail: ['#######', '##...##', '#.#.#.#', '#..#..#', '#.....#', '#.....#', '#######'],
@@ -794,22 +802,26 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
     const sizes = p.card.col === 3 ? '(max-width: 1023px) 100vw, 1240px' : p.card.col === 2 ? '(max-width: 1023px) 100vw, 820px' : '(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 400px'
     return `<article class="pcard c-${p.card.col} r-${p.card.row}">
       <a class="pcard-link" href="#${esc(p.slug)}" aria-label="${esc(t('open'))} : ${esc(tr(p.title))}">
-        <p class="label pcard-meta"><span>${pad(i + 1)}</span>${cats.map((c) => `<span>${esc(c)}</span>`).join('')}${p.year ? `<span style="margin-left:auto">${esc(p.year)}</span>` : ''}</p>
+        <p class="label pcard-meta">${p.rank ? `<span class="pcard-top">${glyph('star')} ${esc(t('rank'))} ${pad(p.rank)}</span>` : `<span>${pad(i + 1)}</span>`}${cats.map((c) => `<span>${esc(c)}</span>`).join('')}${p.year ? `<span style="margin-left:auto">${esc(p.year)}</span>` : ''}</p>
         <h3 class="display-m pcard-title"><span class="pcard-title-text">${esc(tr(p.title))}</span>${icon('arrow-up-right', 'pcard-arrow')}</h3>
         ${tr(p.summary) ? `<p class="pcard-summary">${esc(plain(tr(p.summary)))}</p>` : ''}
         <div class="pcard-media">${dotImage({ media: cover, effect: p.coverEffect, alt: cover ? tr(cover.alt) || tr(p.title) : tr(p.title), seed: p.id, parallax: 0.16, sizes })}</div>
       </a>
     </article>`
   }
+  const featuredCount = () => DATA.projects.filter((p) => p.rank > 0).length
   function filteredProjects() {
+    if (filter === 'top') return DATA.projects.filter((p) => p.rank > 0)
     const cat = visibleCats().find((c) => c.slug === filter)
     return cat ? DATA.projects.filter((p) => p.categoryIds.includes(cat.id)) : DATA.projects
   }
   function filtersHtml() {
     const cats = visibleCats()
-    if (cats.length < 2) return ''
+    const top = featuredCount()
+    if (cats.length < 2 && !top) return ''
     return `<div class="filters" role="group" aria-label="${esc(t('filter'))}">
       <button type="button" class="chip${!filter ? ' is-active' : ''}" aria-pressed="${!filter}" data-filter="">${esc(t('all'))} <sup>${DATA.projects.length}</sup></button>
+      ${top ? `<button type="button" class="chip chip-top${filter === 'top' ? ' is-active' : ''}" aria-pressed="${filter === 'top'}" data-filter="top">${glyph('star')} ${esc(t('highlights'))} <sup>${top}</sup></button>` : ''}
       ${cats.map((c) => `<button type="button" class="chip${filter === c.slug ? ' is-active' : ''}" aria-pressed="${filter === c.slug}" data-filter="${esc(c.slug)}">${esc(tr(c.name))} <sup>${c.count}</sup></button>`).join('')}
     </div>`
   }
@@ -863,7 +875,9 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
         ${sectionHead(index, tr(S.contact.title) || t('contactTitle'), 'mail')}
         <div class="grid3 contact-grid">
           ${tr(S.contact.text) ? `<div class="rich lead contact-text">${rich(tr(S.contact.text))}</div>` : ''}
-          <ul class="contact-list">${(S.socials || []).map((l) => `<li><a class="contact-row" href="${esc(l.url)}" target="_blank" rel="noopener">
+          <ul class="contact-list">${S.contact.email ? `<li><div class="contact-row contact-mail">
+            <span class="label muted contact-host">${esc(t('email'))}</span><span class="contact-addr">${esc(S.contact.email)}</span>
+            <button type="button" class="btn btn-solid" data-copy="${esc(S.contact.email)}">${esc(t('copy'))}</button></div></li>` : ''}${(S.socials || []).map((l) => `<li><a class="contact-row" href="${esc(l.url)}" target="_blank" rel="noopener">
             <span class="label muted contact-host">${esc(hostOf(l.url))}</span><span class="display-m">${esc(l.label)}</span>${icon('arrow-up-right', 'contact-arrow')}</a></li>`).join('')}
           </ul>
         </div>
@@ -1094,6 +1108,15 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       tab = Number(tb.dataset.tab)
       tb.parentElement.querySelectorAll('[data-tab]').forEach((b, i) => { b.classList.toggle('is-active', i === tab); b.setAttribute('aria-selected', i === tab) })
       document.getElementById('console-text').textContent = tr(S.hero.tabs[tab] && S.hero.tabs[tab].line)
+      return
+    }
+    const cp = e.target.closest('[data-copy]')
+    if (cp) {
+      const done = (ok) => { cp.textContent = ok ? t('copied') : t('copyFail'); setTimeout(() => { cp.textContent = t('copy') }, 1800) }
+      const selectIt = () => { const addr = cp.parentElement.querySelector('.contact-addr'); const r = document.createRange(); r.selectNodeContents(addr); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r) }
+      try {
+        navigator.clipboard.writeText(cp.dataset.copy).then(() => done(true), () => { selectIt(); done(false) })
+      } catch (err) { selectIt(); done(false) }
       return
     }
     const z = e.target.closest('[data-zoom]')

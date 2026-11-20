@@ -376,7 +376,7 @@ async function main() {
         'Un stage, une alternance, un projet ou simplement une idée à partager ? Écris-moi, je réponds rapidement.',
         'An internship, a work-study position, a project or just an idea to share? Drop me a line, I reply quickly.',
       ),
-      email: '',
+      email: 'verzeletti.maxime@gmail.com',
     },
     socials: [
       { label: 'LinkedIn', url: 'https://www.linkedin.com/in/maxime-verzeletti' },

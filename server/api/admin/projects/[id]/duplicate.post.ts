@@ -8,6 +8,8 @@ export default defineEventHandler(async (event) => {
     copy.title = { fr: `${src.title.fr} (copie)`, en: src.title.en ? `${src.title.en} (copy)` : '' }
     copy.slug = uniqueSlug(copy.title.fr, db.projects.map((p) => p.slug))
     copy.visible = false
+    copy.featured = false
+    copy.featuredRank = 0
     copy.blocks = copy.blocks.map((b) => ({ ...b, id: newId('b') }))
     copy.order = src.order + 0.5
     copy.createdAt = copy.updatedAt = new Date().toISOString()

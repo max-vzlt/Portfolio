@@ -24,7 +24,8 @@ const sizes = computed(() => {
   <article class="pcard" :class="[`c-${project.card.col}`, `r-${project.card.row}`]">
     <NuxtLink :to="lp(`/work/${project.slug}`)" class="pcard-link" :aria-label="`${t('work.open')} : ${tr(project.title)}`">
       <p class="label pcard-meta">
-        <span>{{ num }}</span>
+        <span v-if="project.rank" class="pcard-top"><SitePixelGlyph name="star" /> {{ t('work.rank') }} {{ String(project.rank).padStart(2, '0') }}</span>
+        <span v-else>{{ num }}</span>
         <span v-for="c in cats" :key="c">{{ c }}</span>
         <span v-if="project.year" class="pcard-year">{{ project.year }}</span>
       </p>
@@ -54,6 +55,8 @@ const sizes = computed(() => {
 .pcard-link { display: flex; flex-direction: column; height: 100%; }
 .pcard-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 14px; color: var(--muted); }
 .pcard-meta span:first-child { color: var(--fg); }
+.pcard-meta span.pcard-top { display: inline-flex; align-items: center; gap: 6px; margin: -3px 0; padding: 3px 7px 2px; background: var(--blue); color: var(--paper); border-radius: var(--radius); }
+.pcard-top .pixel-glyph { width: 9px; height: 9px; margin: 0; }
 .pcard-year { margin-left: auto; }
 .pcard-title { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
 .pcard-title-text {
