@@ -13,13 +13,23 @@
   --paper: #f4f3ff;
   --white: #ffffff;
 
-  --bg: var(--paper);
-  --fg: var(--blue-deep);
-  --accent: var(--blue);
-  --muted: color-mix(in srgb, var(--blue-deep) 62%, var(--paper));
-  --line: color-mix(in srgb, var(--blue) 20%, transparent);
-  --line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
-  --surface: color-mix(in srgb, var(--blue) 6%, var(--paper));
+  /* page-level tokens (the "paper" bands); the dark theme redefines these and the two blues */
+  --page: var(--paper);
+  --ink: var(--blue-deep);
+  --page-accent: var(--blue);
+  --page-muted: color-mix(in srgb, var(--ink) 62%, var(--page));
+  --rule: color-mix(in srgb, var(--blue) 18%, transparent);
+  --page-line: color-mix(in srgb, var(--blue) 20%, transparent);
+  --page-line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
+  --page-surface: color-mix(in srgb, var(--blue) 6%, var(--page));
+  --img-light: var(--paper);
+  --bg: var(--page);
+  --fg: var(--ink);
+  --accent: var(--page-accent);
+  --muted: var(--page-muted);
+  --line: var(--page-line);
+  --line-strong: var(--page-line-strong);
+  --surface: var(--page-surface);
 
   --font-display: 'Oswald', 'Arial Narrow', 'Roboto Condensed', sans-serif;
   --font-body: 'Mona Sans', 'Helvetica Neue', Arial, system-ui, sans-serif;
@@ -36,38 +46,47 @@
   --radius: 2px;
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
-  --night: #050828;
-  --night-2: #0b1046;
-  --ink-light: #ecebff;
-  --accent-light: #91a6ff;
-  --page: var(--paper);
-  --ink: var(--blue-deep);
-  --rule: color-mix(in srgb, var(--blue) 18%, transparent);
   color-scheme: light;
 }
-/* dark theme: follows the system, or the viewer's explicit choice (data-theme) */
+/* dark theme: follows the system, or the viewer's choice (data-theme, header switch).
+   The blue gets deeper, the white bands turn into a dark ink blue. */
+:root[data-theme="dark"] {
+    color-scheme: dark; --blue: #1432b8; --blue-deep: #0c2290; --page: #161b4b; --ink: #e8e7ff; --page-accent: #aab8ff;
+    --rule: color-mix(in srgb, var(--ink) 13%, transparent); --page-line: color-mix(in srgb, var(--ink) 14%, transparent);
+    --page-line-strong: color-mix(in srgb, var(--ink) 32%, transparent); --page-surface: color-mix(in srgb, var(--ink) 6%, var(--page)); --img-light: #e4e5ff;
+}
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    color-scheme: dark; --page: var(--night); --ink: var(--ink-light); --rule: color-mix(in srgb, var(--ink-light) 14%, transparent);
-    --fg: var(--ink-light); --accent: var(--accent-light); --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
-    --line: color-mix(in srgb, var(--ink-light) 13%, transparent); --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent); --surface: var(--night-2);
+    color-scheme: dark; --blue: #1432b8; --blue-deep: #0c2290; --page: #161b4b; --ink: #e8e7ff; --page-accent: #aab8ff;
+    --rule: color-mix(in srgb, var(--ink) 13%, transparent); --page-line: color-mix(in srgb, var(--ink) 14%, transparent);
+    --page-line-strong: color-mix(in srgb, var(--ink) 32%, transparent); --page-surface: color-mix(in srgb, var(--ink) 6%, var(--page)); --img-light: #e4e5ff;
   }
-  :root:not([data-theme="light"]) .tone-paper {
-    --accent: var(--accent-light); --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
-    --line: color-mix(in srgb, var(--ink-light) 13%, transparent); --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent); --surface: var(--night-2);
-  }
-  :root:not([data-theme="light"]) .tone-paper .btn-solid:hover { --btn-bg: var(--blue-soft); --btn-fg: var(--blue-deep); }
 }
-:root[data-theme="dark"] {
-  color-scheme: dark; --page: var(--night); --ink: var(--ink-light); --rule: color-mix(in srgb, var(--ink-light) 14%, transparent);
-  --fg: var(--ink-light); --accent: var(--accent-light); --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
-  --line: color-mix(in srgb, var(--ink-light) 13%, transparent); --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent); --surface: var(--night-2);
+/* theme switch: the new theme opens as a circle from the switch, its edge breaking into round pixels */
+@property --vt-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) {
+  --vt-big: radial-gradient(circle, #000 4.6px, transparent 5.2px) 50% 50% / 13px 13px repeat;
+  --vt-small: radial-gradient(circle, #000 2.2px, transparent 2.8px) 50% 50% / 13px 13px repeat;
+  -webkit-mask:
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 var(--vt-r), transparent calc(var(--vt-r) + .5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-big),
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 70px), transparent calc(var(--vt-r) + 70.5px)) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 150px), transparent calc(var(--vt-r) + 150.5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-small);
+  mask:
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 var(--vt-r), transparent calc(var(--vt-r) + .5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-big),
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 70px), transparent calc(var(--vt-r) + 70.5px)) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 150px), transparent calc(var(--vt-r) + 150.5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-small);
+  -webkit-mask-composite: source-over, source-in, source-over, source-in;
+  mask-composite: add, intersect, add, intersect;
 }
-:root[data-theme="dark"] .tone-paper {
-  --accent: var(--accent-light); --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
-  --line: color-mix(in srgb, var(--ink-light) 13%, transparent); --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent); --surface: var(--night-2);
-}
-:root[data-theme="dark"] .tone-paper .btn-solid:hover { --btn-bg: var(--blue-soft); --btn-fg: var(--blue-deep); }
+html.theme-switch *:not(.theme-ico-half), html.theme-switch *::before, html.theme-switch *::after { transition: none !important; }
+html.theme-fade body, html.theme-fade .tone-paper, html.theme-fade .tone-blue, html.theme-fade .site-header { transition: background-color .5s var(--ease), color .5s var(--ease) !important; }
+.theme-ico-half { transform-origin: 12px 12px; transition: transform .7s cubic-bezier(.65, 0, .35, 1); }
+.is-dark > .theme-ico-half { transform: rotate(180deg); }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { background: var(--page); }
@@ -100,7 +119,7 @@ ul { padding: 0; list-style: none; }
   --surface: var(--blue-deep);
   background: var(--bg); color: var(--fg);
 }
-.tone-paper { --bg: var(--page); --fg: var(--ink); --accent: var(--blue); background: var(--bg); color: var(--fg); }
+.tone-paper { --bg: var(--page); --fg: var(--ink); --accent: var(--page-accent); --muted: var(--page-muted); --line: var(--page-line); --line-strong: var(--page-line-strong); --surface: var(--page-surface); background: var(--bg); color: var(--fg); }
 
 .wrap { max-width: calc(var(--container) + var(--pad-l) + var(--pad-r)); margin-inline: auto; padding-left: var(--pad-l); padding-right: var(--pad-r); }
 .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
@@ -227,12 +246,25 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .h-right { justify-content: flex-end; }
 .h-link { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0; border: 0; background: none; }
 .h-ico { display: none; width: 20px; height: 20px; }
-.h-lang { display: inline-flex; align-items: center; gap: 2px; height: 30px; padding: 2px 3px; border: 1px solid color-mix(in srgb, var(--fg) 45%, transparent); border-radius: 999px; background: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; transition: border-color .25s var(--ease); }
+.h-lang, .h-theme { --ctl-h: 36px; }
+.h-lang { display: inline-flex; align-items: center; gap: 2px; height: var(--ctl-h); padding: 3px 3px 3px 10px; border: 1px solid color-mix(in srgb, var(--fg) 45%, transparent); border-radius: 999px; background: none; font-family: var(--font-display); font-size: 14px; font-weight: 400; letter-spacing: .05em; line-height: 1; transition: border-color .25s var(--ease); }
 .h-lang:hover { border-color: var(--fg); }
-.h-lang-opt { display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; border-radius: 999px; opacity: .6; transition: background .25s var(--ease), color .25s var(--ease), opacity .25s; }
+.h-lang .ico { width: 16px; height: 16px; margin-right: 4px; opacity: .8; }
+.h-lang-opt { display: grid; place-items: center; min-width: 34px; height: 100%; padding: 1px 8px 0; border-radius: 999px; opacity: .62; transition: background .25s var(--ease), color .25s var(--ease), opacity .25s; }
 .h-lang-opt.is-on { background: var(--fg); color: var(--hdr-bg); opacity: 1; }
 .h-lang:hover .h-lang-opt:not(.is-on) { opacity: 1; }
-@media (max-width: 639px) { .h-lang { margin-left: 2px; } .h-lang-opt { min-width: 22px; padding: 0 4px; } }
+.h-theme { display: grid; place-items: center; width: var(--ctl-h); height: var(--ctl-h); margin-right: -6px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--fg); opacity: .78; transition: opacity .25s var(--ease), background .25s var(--ease); }
+.h-theme:hover { opacity: 1; background: color-mix(in srgb, var(--fg) 12%, transparent); }
+.h-theme svg { width: 19px; height: 19px; }
+@media (max-width: 639px) {
+  .h-lang, .h-theme { --ctl-h: 34px; }
+  .h-lang { padding-left: 3px; margin-left: 2px; font-size: 13px; }
+  .h-lang .ico { display: none; }
+  .h-lang-opt { min-width: 26px; padding: 1px 5px 0; }
+  .h-theme { margin-right: -4px; }
+}
+@media (max-width: 419px) { .h-theme { width: 30px; } .h-lang-opt { min-width: 24px; padding: 1px 4px 0; } }
+@media (max-width: 374px) { .h-theme { display: none; } }
 .h-logo { display: flex; flex-direction: column; align-items: center; border: 0; background: none; padding: 0; font-family: var(--font-display); font-weight: 300; font-size: clamp(22px, 2.3vw, 30px); line-height: .98; letter-spacing: -.01em; text-align: center; transition: font-size .35s var(--ease); }
 .is-solid .h-logo { font-size: 21px; }
 .h-cv { --btn-bg: var(--paper); --btn-fg: var(--blue); min-height: 36px; padding: 8px 12px; }
@@ -491,14 +523,15 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 @keyframes lbIn { from { opacity: 0; } }
 .lb-ambient { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 .halftone { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; pointer-events: none; }
-/* change of media: halftone dissolve (round pixels grow on the new one, shrink on the old one) */
-@property --lbdot { syntax: '<length>'; inherits: false; initial-value: 0px; }
-.lb-media.lb-dots { --lbdot: 16px; -webkit-mask-image: radial-gradient(circle, #000 var(--lbdot), transparent calc(var(--lbdot) + .6px)); mask-image: radial-gradient(circle, #000 var(--lbdot), transparent calc(var(--lbdot) + .6px)); -webkit-mask-size: 22px 22px; mask-size: 22px 22px; -webkit-mask-position: center; mask-position: center; transition: --lbdot .8s cubic-bezier(.65, 0, .35, 1), transform .8s cubic-bezier(.22, 1, .36, 1); }
-.lb-media.lb-dots.lb-dots-0 { --lbdot: 0px; }
-.lb-media.lb-from-next { transform: translate3d(3%, 0, 0) scale(1.02); }
-.lb-media.lb-from-prev { transform: translate3d(-3%, 0, 0) scale(1.02); }
-.lb-media.lb-to-next { transform: translate3d(-3%, 0, 0) scale(.98); }
-.lb-media.lb-to-prev { transform: translate3d(3%, 0, 0) scale(.98); }
+/* change of media: a wipe. The new one slides in and is uncovered from its side,
+   the previous one drifts away the other way, shrinks and fades. */
+.lb-media.lb-in { z-index: 1; transition: clip-path .8s cubic-bezier(.77, 0, .18, 1), transform .9s cubic-bezier(.22, 1, .36, 1); }
+.lb-media.lb-in.lb-from-next { clip-path: inset(-120px -120px -120px 100%); transform: translate3d(10%, 0, 0); }
+.lb-media.lb-in.lb-from-prev { clip-path: inset(-120px 100% -120px -120px); transform: translate3d(-10%, 0, 0); }
+.lb-media.lb-in.lb-open { clip-path: inset(-120px -120px -120px -120px); }
+.lb-media.lb-out { transition: transform .8s cubic-bezier(.77, 0, .18, 1), opacity .4s ease .35s; }
+.lb-media.lb-out.lb-to-next { transform: translate3d(-14%, 0, 0) scale(.92); opacity: 0; }
+.lb-media.lb-out.lb-to-prev { transform: translate3d(14%, 0, 0) scale(.92); opacity: 0; }
 .lb-media.lb-still { transition: none; }
 .lb-num { display: inline-block; transition: transform .25s var(--ease), opacity .25s; }
 .lb-num.from-below { transform: translateY(70%); opacity: 0; transition: none; }
@@ -519,8 +552,8 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
 .footer-col { display: grid; gap: 6px; min-width: 0; }
 .footer-right { justify-items: end; text-align: right; }
 .footer-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-.footer-top { display: inline-flex; align-items: center; gap: 4px; background: none; border: 0; padding: 0 0 2px; font: inherit; letter-spacing: inherit; text-transform: inherit; }
-.footer-top .ico { width: 14px; height: 14px; }
+.footer-top { display: inline-flex; align-items: center; gap: 5px; background: none; border: 0; padding: 0 0 2px; font: inherit; letter-spacing: inherit; text-transform: inherit; }
+.footer-top .ico, .footer-top svg { width: 14px; height: 14px; }
 .footer-socials { display: flex; justify-content: center; gap: 12px; }
 .footer-socials a { display: grid; place-items: center; width: 44px; height: 52px; border: 1px solid var(--line-strong); border-radius: var(--radius); transition: background .25s var(--ease), color .25s var(--ease), transform .35s var(--ease); }
 .footer-socials a:hover { background: var(--blue); color: var(--paper); border-color: var(--blue); transform: translateY(-3px); }
@@ -558,7 +591,7 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
   const UI = {
     fr: {
       work: 'Réalisations', about: 'À propos', skills: 'Compétences', contact: 'Contact', cv: 'Mon CV', home: 'Accueil',
-      lang: 'English', langShort: 'EN', cta: 'Voir mes réalisations', cvLong: 'Voir mon CV', scroll: 'Défiler',
+      lang: 'English', langShort: 'EN', toDark: 'Passer au thème sombre', toLight: 'Passer au thème clair', themeDark: 'Thème sombre', themeLight: 'Thème clair', cta: 'Voir mes réalisations', cvLong: 'Voir mon CV', scroll: 'Défiler',
       workTitle: 'Réalisations', all: 'Tout', filter: 'Filtrer', empty: 'Aucun projet dans cette catégorie pour le moment.',
       open: 'Voir le projet', aboutTitle: 'Qui suis-je ?', skillsTitle: 'Compétences', contactTitle: 'Contact',
       back: 'Toutes les réalisations', year: 'Année', category: 'Catégorie', tools: 'Outils', visit: 'Voir le projet en ligne',
@@ -569,7 +602,7 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
     },
     en: {
       work: 'Work', about: 'About', skills: 'Skills', contact: 'Contact', cv: 'Resume', home: 'Home',
-      lang: 'Français', langShort: 'FR', cta: 'See my work', cvLong: 'View my resume', scroll: 'Scroll',
+      lang: 'Français', langShort: 'FR', toDark: 'Switch to dark theme', toLight: 'Switch to light theme', themeDark: 'Dark theme', themeLight: 'Light theme', cta: 'See my work', cvLong: 'View my resume', scroll: 'Scroll',
       workTitle: 'Selected work', all: 'All', filter: 'Filter', empty: 'No project in this category yet.',
       open: 'Open project', aboutTitle: 'Who am I?', skillsTitle: 'Skills', contactTitle: 'Contact',
       back: 'All projects', year: 'Year', category: 'Category', tools: 'Tools', visit: 'Visit the project',
@@ -589,6 +622,11 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
     lang = String(prefs[0] || 'fr').toLowerCase().startsWith('fr') ? 'fr' : 'en'
   }
   const t = (k) => UI[lang][k] ?? UI.fr[k] ?? k
+  // theme: follows the browser (or the page host's data-theme) until the viewer flips the switch
+  const mqDark = window.matchMedia('(prefers-color-scheme: dark)')
+  try { const th = localStorage.getItem('mv-theme'); if (th === 'dark' || th === 'light') document.documentElement.dataset.theme = th } catch (e) {}
+  const isDark = () => { const d = document.documentElement.dataset.theme; return d === 'dark' || (d !== 'light' && mqDark.matches) }
+  const themeIcon = () => `<svg viewBox="0 0 24 24" aria-hidden="true" class="theme-ico${isDark() ? ' is-dark' : ''}"><circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="theme-ico-half" d="M12 3.6a8.4 8.4 0 0 1 0 16.8z" fill="currentColor"/></svg>`
   const tr = (v) => (!v ? '' : v[lang] && v[lang].trim() ? v[lang] : v.fr || v.en || '')
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
   const icon = (name, cls = '') => (ICONS[name] || '').replace('<svg', `<svg class="ico ${cls}" aria-hidden="true"`)
@@ -735,8 +773,9 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
       const field = placeholderField(fig.dataset.seed || 'mv'), aspect = W / H
       lum = (i, j) => field((i * step) / W, (j * rs) / H, aspect)
     }
-    ctx.fillStyle = '#0037ff'; ctx.fillRect(0, 0, W, H)
-    ctx.fillStyle = '#f4f3ff'; ctx.beginPath()
+    const cs = getComputedStyle(fig)
+    ctx.fillStyle = cs.getPropertyValue('--blue').trim() || '#0037ff'; ctx.fillRect(0, 0, W, H)
+    ctx.fillStyle = cs.getPropertyValue('--img-light').trim() || '#f4f3ff'; ctx.beginPath()
     const maxR = step * 0.56, minR = 0.45 * dpr
     for (let j = 0; j < rows; j++) {
       const y = (j + 0.5) * rs, off = j % 2 ? step / 2 : 0
@@ -872,7 +911,8 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
       <button type="button" class="h-logo" data-nav="top" aria-label="${esc(S.name)} — ${esc(t('home'))}">${nameParts().map((p) => `<span>${esc(p)}</span>`).join('')}</button>
       <nav class="h-group h-right" aria-label="Menu">
         <span class="h-links">${navs.slice(half).join('')}</span>
-        <button type="button" class="h-lang" data-lang title="${esc(t('lang'))}" aria-label="${esc(t('lang'))}"><span class="h-lang-opt${lang === 'fr' ? ' is-on' : ''}">FR</span><span class="h-lang-opt${lang === 'en' ? ' is-on' : ''}">EN</span></button>
+        <button type="button" class="h-theme" data-theme-toggle title="${esc(t(isDark() ? 'toLight' : 'toDark'))}" aria-label="${esc(t(isDark() ? 'toLight' : 'toDark'))}">${themeIcon()}</button>
+        <button type="button" class="h-lang" data-lang title="${esc(t('lang'))}" aria-label="${esc(t('lang'))}">${icon('languages')}<span class="h-lang-opt${lang === 'fr' ? ' is-on' : ''}">FR</span><span class="h-lang-opt${lang === 'en' ? ' is-on' : ''}">EN</span></button>
         ${DATA.cvUrl ? `<a class="btn h-cv" href="${esc(DATA.cvUrl)}" target="_blank" rel="noopener" title="${esc(t('cvLong'))}">${icon('download')}<span class="h-txt">${esc(t('cv'))}</span></a>` : ''}
       </nav>
     </div>`
@@ -889,6 +929,7 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
           <p class="nav-label footer-links">
             ${DATA.cvUrl ? `<a href="${esc(DATA.cvUrl)}" target="_blank" rel="noopener" class="link-underline">${esc(t('cv'))}</a><span aria-hidden="true">|</span>` : ''}
             <button type="button" class="link-underline footer-top" data-lang>${esc(t('lang'))}</button><span aria-hidden="true">|</span>
+            <button type="button" class="link-underline footer-top" data-theme-toggle aria-label="${esc(t(isDark() ? 'toLight' : 'toDark'))}">${themeIcon()} <span class="theme-txt">${esc(t(isDark() ? 'themeLight' : 'themeDark'))}</span></button><span aria-hidden="true">|</span>
             <button type="button" class="link-underline footer-top" data-nav="top">${esc(t('top'))} ${icon('arrow-up')}</button>
           </p>
           <p class="label muted">${esc(t('made'))} ${esc(S.name)} <span style="color:var(--accent)">♥</span></p>
@@ -1180,22 +1221,23 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
     const count = `<span class="lb-num">${pad(lbIndex + 1)}</span> / ${pad(gallery.length)}${it.caption ? ` — ${esc(it.caption)}` : ''}`
     const shell = lbRoot.querySelector('.lightbox')
     if (shell) {
-      // change of media: halftone dissolve + small drift in the direction of travel
+      // change of media: a wipe from the side of travel; the previous one drifts away and fades
       const frame = shell.querySelector('.lb-frame')
       const side = lbDir > 0 ? 'next' : 'prev'
       frame.querySelectorAll('.lb-media').forEach((old) => {
         if (old.classList.contains('is-leaving')) return old.remove()
-        old.classList.add('is-leaving', 'lb-dots', 'lb-still') // full dots at once, then they shrink
+        old.classList.remove('lb-in', 'lb-open', 'lb-from-next', 'lb-from-prev')
+        old.classList.add('is-leaving', 'lb-out')
         if (old.tagName === 'VIDEO') old.pause()
-        requestAnimationFrame(() => requestAnimationFrame(() => { old.classList.remove('lb-still'); old.classList.add('lb-dots-0', `lb-to-${side}`) }))
+        requestAnimationFrame(() => requestAnimationFrame(() => old.classList.add(`lb-to-${side}`)))
         setTimeout(() => old.remove(), 850)
       })
       frame.insertAdjacentHTML('beforeend', lbMedia(it))
       const fresh = frame.lastElementChild
-      fresh.classList.add('lb-dots', 'lb-dots-0', `lb-from-${side}`, 'lb-still')
+      fresh.classList.add('lb-in', `lb-from-${side}`, 'lb-still')
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        fresh.classList.remove('lb-still', 'lb-dots-0', `lb-from-${side}`)
-        setTimeout(() => fresh.classList.remove('lb-dots'), 850)
+        fresh.classList.remove('lb-still', `lb-from-${side}`); fresh.classList.add('lb-open')
+        setTimeout(() => fresh.classList.remove('lb-in', 'lb-open'), 950)
       }))
       shell.querySelector('.lb-count').innerHTML = count
       const num = shell.querySelector('.lb-num'); num.classList.add(lbDir > 0 ? 'from-below' : 'from-above')
@@ -1312,9 +1354,49 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
     try { navigator.clipboard.writeText(row.dataset.copy).then(() => ok(true), () => { select(); ok(false) }) } catch (err) { select(); ok(false) }
   }
 
+  // repaint the round-pixel canvases and the switches when the theme changes (switch, system or host)
+  let lastDark = isDark()
+  function syncTheme() {
+    const dark = isDark()
+    if (dark === lastDark) return
+    lastDark = dark
+    document.querySelectorAll('.dimg.is-drawn').forEach((fig) => drawDots(fig))
+    document.querySelectorAll('[data-theme-toggle]').forEach((b) => {
+      const svg = b.querySelector('.theme-ico'); if (svg) svg.classList.toggle('is-dark', dark)
+      b.setAttribute('aria-label', t(dark ? 'toLight' : 'toDark'))
+      if (b.classList.contains('h-theme')) b.title = t(dark ? 'toLight' : 'toDark')
+      const txt = b.querySelector('.theme-txt'); if (txt) txt.textContent = t(dark ? 'themeLight' : 'themeDark')
+    })
+  }
+  mqDark.addEventListener('change', syncTheme)
+  new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+  function applyTheme(next) {
+    const system = mqDark.matches ? 'dark' : 'light'
+    document.documentElement.dataset.theme = next // explicit, also overrides a host-provided data-theme
+    try { if (next === system) localStorage.removeItem('mv-theme'); else localStorage.setItem('mv-theme', next) } catch (e) {}
+    syncTheme()
+  }
+  function toggleTheme(e, btn) {
+    const next = isDark() ? 'light' : 'dark'
+    const root = document.documentElement
+    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      root.classList.add('theme-fade'); applyTheme(next); setTimeout(() => root.classList.remove('theme-fade'), 600); return
+    }
+    let x = e.clientX, y = e.clientY
+    if (!e.detail) { const r = btn.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2 }
+    const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))
+    root.style.setProperty('--vt-x', x + 'px'); root.style.setProperty('--vt-y', y + 'px')
+    root.classList.add('theme-switch')
+    const vt = document.startViewTransition(() => applyTheme(next))
+    vt.ready.then(() => root.animate({ '--vt-r': ['-150px', `${end + 40}px`] }, { duration: 1050, easing: 'cubic-bezier(.6, 0, .3, 1)', fill: 'forwards', pseudoElement: '::view-transition-new(root)' })).catch(() => {})
+    vt.finished.finally(() => root.classList.remove('theme-switch'))
+  }
+
   document.addEventListener('click', (e) => {
     const nav = e.target.closest('[data-nav]')
     if (nav) { e.preventDefault(); pinHeader(); goSection(nav.dataset.nav); return }
+    const th = e.target.closest('[data-theme-toggle]')
+    if (th) { toggleTheme(e, th); return }
     if (e.target.closest('[data-lang]')) {
       lang = lang === 'fr' ? 'en' : 'fr'
       try { localStorage.setItem('mv-lang', lang) } catch (err) {}

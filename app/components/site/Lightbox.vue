@@ -105,24 +105,22 @@ video.lb-media { width: 100%; height: 100%; background: transparent; box-shadow:
 .lb-enter-active, .lb-leave-active { transition: opacity 0.35s var(--ease); }
 .lb-enter-from, .lb-leave-to { opacity: 0; }
 
-/* change of media: halftone dissolve. The new one appears through round pixels that grow,
-   the old one vanishes through shrinking ones; a small drift gives the direction. */
-@property --lbdot { syntax: '<length>'; inherits: false; initial-value: 0px; }
-.lb-next-enter-active, .lb-next-leave-active, .lb-prev-enter-active, .lb-prev-leave-active {
-  -webkit-mask-image: radial-gradient(circle, #000 var(--lbdot), transparent calc(var(--lbdot) + 0.6px));
-  mask-image: radial-gradient(circle, #000 var(--lbdot), transparent calc(var(--lbdot) + 0.6px));
-  -webkit-mask-size: 22px 22px;
-  mask-size: 22px 22px;
-  -webkit-mask-position: center;
-  mask-position: center;
-  transition: --lbdot 0.8s cubic-bezier(0.65, 0, 0.35, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+/* change of media: a wipe. The new one slides in and is uncovered from the side
+   it comes from; the previous one drifts away the other way, shrinks and fades. */
+.lb-next-enter-active, .lb-prev-enter-active {
+  z-index: 1;
+  transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.18, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.lb-next-enter-from, .lb-prev-enter-from, .lb-next-leave-to, .lb-prev-leave-to { --lbdot: 0px; }
-.lb-next-enter-to, .lb-prev-enter-to, .lb-next-leave-from, .lb-prev-leave-from { --lbdot: 16px; }
-.lb-next-enter-from { transform: translate3d(3%, 0, 0) scale(1.02); }
-.lb-prev-enter-from { transform: translate3d(-3%, 0, 0) scale(1.02); }
-.lb-next-leave-to { transform: translate3d(-3%, 0, 0) scale(0.98); }
-.lb-prev-leave-to { transform: translate3d(3%, 0, 0) scale(0.98); }
+/* the previous one stays crisp while it is being covered, then fades out */
+.lb-next-leave-active, .lb-prev-leave-active {
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.18, 1), opacity 0.4s ease 0.35s;
+}
+/* negative insets keep the shadow visible at the end of the wipe */
+.lb-next-enter-from { clip-path: inset(-120px -120px -120px 100%); transform: translate3d(10%, 0, 0); }
+.lb-prev-enter-from { clip-path: inset(-120px 100% -120px -120px); transform: translate3d(-10%, 0, 0); }
+.lb-next-enter-to, .lb-prev-enter-to { clip-path: inset(-120px -120px -120px -120px); }
+.lb-next-leave-to { transform: translate3d(-14%, 0, 0) scale(0.92); opacity: 0; }
+.lb-prev-leave-to { transform: translate3d(14%, 0, 0) scale(0.92); opacity: 0; }
 .lb-count { display: inline-flex; align-items: baseline; gap: 0.5ch; }
 .lb-num { display: inline-block; }
 .lb-num-next-enter-active, .lb-num-next-leave-active, .lb-num-prev-enter-active, .lb-num-prev-leave-active { transition: transform 0.25s var(--ease), opacity 0.25s; }

@@ -5,6 +5,7 @@ const { t, otherLangPath, lang } = useI18n()
 const { data, cvUrl } = useSite()
 const { scrollTo } = useSmoothScroll()
 const rememberLang = useRememberLang()
+const theme = useTheme()
 
 const settings = computed(() => data.value?.settings)
 const year = new Date().getFullYear()
@@ -46,7 +47,11 @@ const mark = computed(() => {
           <span v-if="cvUrl" aria-hidden="true">|</span>
           <NuxtLink :to="otherLangPath" :hreflang="lang === 'fr' ? 'en' : 'fr'" class="link-underline" @click="rememberLang(lang === 'fr' ? 'en' : 'fr')">{{ t('nav.lang') }}</NuxtLink>
           <span aria-hidden="true">|</span>
-          <button type="button" class="link-underline footer-top" @click="scrollTo(0)">
+          <button type="button" class="link-underline footer-btn" :aria-label="t(theme.current.value === 'dark' ? 'theme.toLight' : 'theme.toDark')" @click="theme.toggle($event)">
+            <SiteThemeIcon class="theme-ico" /> {{ t(theme.current.value === 'dark' ? 'theme.light' : 'theme.dark') }}
+          </button>
+          <span aria-hidden="true">|</span>
+          <button type="button" class="link-underline footer-btn footer-top" @click="scrollTo(0)">
             {{ t('footer.top') }} <ArrowUp aria-hidden="true" />
           </button>
         </p>
@@ -88,8 +93,8 @@ const mark = computed(() => {
 .footer-col { display: grid; gap: 6px; }
 .footer-right { justify-items: end; text-align: right; }
 .footer-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
-.footer-top { display: inline-flex; align-items: center; gap: 4px; background: none; border: 0; padding: 0 0 2px; font: inherit; letter-spacing: inherit; text-transform: inherit; }
-.footer-top svg { width: 14px; height: 14px; }
+.footer-btn { display: inline-flex; align-items: center; gap: 5px; background: none; border: 0; padding: 0 0 2px; font: inherit; letter-spacing: inherit; text-transform: inherit; }
+.footer-btn svg { width: 14px; height: 14px; }
 .footer-socials { display: flex; justify-content: center; gap: 12px; }
 .footer-socials a {
   display: grid;

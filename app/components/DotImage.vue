@@ -64,8 +64,14 @@ const isImage = computed(() => props.media?.kind === 'image')
 const usesCanvas = computed(() => !isImage.value || props.effect === 'dots')
 const fx = computed<ImageEffect | 'placeholder'>(() => (isImage.value ? props.effect : 'placeholder'))
 
-const BLUE = '#0037ff'
-const PAPER = '#f4f3ff'
+/* colours come from the theme tokens (deeper blue in the dark theme) */
+function themeColors() {
+  const cs = host.value ? getComputedStyle(host.value) : null
+  return {
+    blue: cs?.getPropertyValue('--blue').trim() || '#0037ff',
+    light: cs?.getPropertyValue('--img-light').trim() || '#f4f3ff',
+  }
+}
 
 /* ---------- procedural placeholder ---------- */
 function hashString(s: string) {
@@ -206,9 +212,10 @@ function draw() {
     lum = (i, j) => field((i * step) / W, (j * rs) / H, aspect)
   }
 
-  ctx.fillStyle = BLUE
+  const col = themeColors()
+  ctx.fillStyle = col.blue
   ctx.fillRect(0, 0, W, H)
-  ctx.fillStyle = PAPER
+  ctx.fillStyle = col.light
   ctx.beginPath()
   const maxR = step * 0.56
   const minR = 0.45 * dpr
@@ -267,7 +274,16 @@ onMounted(() => {
   if (layer.value) ro.observe(layer.value)
 })
 
+// theme change: repaint at once (the switch animation captures the new state)
+function onTheme() {
+  if (!drawn.value) return
+  cancelAnimationFrame(raf)
+  draw()
+}
+onMounted(() => window.addEventListener('mv-theme', onTheme))
+
 onBeforeUnmount(() => {
+  window.removeEventListener('mv-theme', onTheme)
   ro?.disconnect()
   io?.disconnect()
   cancelAnimationFrame(raf)

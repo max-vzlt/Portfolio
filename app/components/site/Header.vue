@@ -29,6 +29,8 @@ const left = computed(() => links.value.slice(0, half.value))
 const right = computed(() => links.value.slice(half.value))
 const { until: pinUntil, pin } = useHeaderPin()
 const rememberLang = useRememberLang()
+const theme = useTheme()
+const themeLabel = computed(() => t(theme.current.value === 'dark' ? 'theme.toLight' : 'theme.toDark'))
 
 const name = computed(() => (data.value?.settings.name || 'Maxime Verzeletti').trim())
 const nameParts = computed(() => {
@@ -100,7 +102,18 @@ watch(() => route.fullPath, () => (hidden.value = false))
           <span class="h-txt nav-label link-underline" :class="{ 'is-active': isHome && active === l.id }">{{ l.label }}</span>
         </NuxtLink>
         </span>
-        <!-- language switch: a FR | EN pill, different from the other header items -->
+        <!-- theme switch: a half-filled disc that turns over -->
+        <button
+          type="button"
+          class="h-theme"
+          :class="{ 'is-dark': theme.current.value === 'dark' }"
+          :title="themeLabel"
+          :aria-label="themeLabel"
+          @click="theme.toggle($event)"
+        >
+          <SiteThemeIcon class="theme-ico" />
+        </button>
+        <!-- language switch: a FR | EN pill, same height as the CV button -->
         <NuxtLink
           :to="otherLangPath"
           class="h-lang"
@@ -159,24 +172,44 @@ watch(() => route.fullPath, () => (hidden.value = false))
 
 .h-link { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; }
 .h-ico { display: none; width: 20px; height: 20px; stroke-width: 1.5; }
+.h-lang, .h-theme { --ctl-h: 36px; }
 .h-lang {
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  height: 30px;
-  padding: 2px 3px 2px 8px;
+  height: var(--ctl-h);
+  padding: 3px 3px 3px 10px;
   border: 1px solid color-mix(in srgb, var(--fg) 45%, transparent);
   border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  line-height: 1;
   transition: border-color 0.25s var(--ease);
 }
 .h-lang:hover { border-color: var(--fg); }
-.h-lang-ico { width: 13px; height: 13px; margin-right: 3px; stroke-width: 1.6; opacity: 0.75; }
-.h-lang-opt { display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; border-radius: 999px; opacity: 0.6; transition: background 0.25s var(--ease), color 0.25s var(--ease), opacity 0.25s; }
+.h-lang-ico { width: 16px; height: 16px; margin-right: 4px; stroke-width: 1.6; opacity: 0.8; }
+.h-lang-opt { display: grid; place-items: center; min-width: 34px; height: 100%; padding: 1px 8px 0; border-radius: 999px; opacity: 0.62; transition: background 0.25s var(--ease), color 0.25s var(--ease), opacity 0.25s; }
 .h-lang-opt.is-on { background: var(--fg); color: var(--hdr-bg); opacity: 1; }
 .h-lang:hover .h-lang-opt:not(.is-on) { opacity: 1; }
+
+.h-theme {
+  display: grid;
+  place-items: center;
+  width: var(--ctl-h);
+  height: var(--ctl-h);
+  margin-right: -6px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--fg);
+  opacity: 0.78;
+  transition: opacity 0.25s var(--ease), background 0.25s var(--ease);
+}
+.h-theme:hover { opacity: 1; background: color-mix(in srgb, var(--fg) 12%, transparent); }
+.h-theme .theme-ico { width: 19px; height: 19px; }
 
 .h-logo {
   display: flex;
@@ -220,16 +253,25 @@ watch(() => route.fullPath, () => (hidden.value = false))
   .h-group, .h-links { gap: 2px; }
   .h-link { min-width: 38px; min-height: 40px; }
   .h-ico { width: 19px; height: 19px; }
-  .h-lang { padding-left: 3px; margin-left: 2px; }
+  .h-lang, .h-theme { --ctl-h: 34px; }
+  .h-lang { padding-left: 3px; margin-left: 2px; font-size: 13px; }
   .h-lang-ico { display: none; }
-  .h-lang-opt { min-width: 22px; padding: 0 4px; }
+  .h-lang-opt { min-width: 26px; padding: 1px 5px 0; }
+  .h-theme { margin-right: -4px; }
   .h-cv { min-height: 34px; padding: 7px 9px; margin-left: 6px; }
   .is-solid .header-grid { height: 58px; }
 }
 @media (max-width: 419px) {
-  .h-link { min-width: 31px; }
+  .h-link { min-width: 29px; }
+  .h-theme { width: 30px; }
+  .h-lang-opt { min-width: 24px; padding: 1px 4px 0; }
+  .h-cv { padding: 7px 8px; }
   .h-ico { width: 18px; height: 18px; }
   .h-logo { font-size: 17px; }
+}
+/* very narrow phones: the theme switch stays available in the footer */
+@media (max-width: 374px) {
+  .h-theme { display: none; }
 }
 @media (max-width: 359px) {
   .h-link { min-width: 28px; }

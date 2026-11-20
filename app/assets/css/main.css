@@ -11,23 +11,26 @@
   --paper: #f4f3ff;
   --white: #ffffff;
 
-  /* Semantic, overridden by .tone-* */
-  --bg: var(--paper);
-  --fg: var(--blue-deep);
-  --accent: var(--blue);
-  --muted: color-mix(in srgb, var(--blue-deep) 62%, var(--paper));
-  --line: color-mix(in srgb, var(--blue) 20%, transparent);
-  --line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
-  --surface: color-mix(in srgb, var(--blue) 6%, var(--paper));
-
-  /* Page-level tokens (switch with the colour scheme) */
-  --night: #050828;
-  --night-2: #0b1046;
-  --ink-light: #ecebff;
-  --accent-light: #91a6ff;
+  /* Page-level tokens: the "paper" bands. The dark theme only redefines these
+     (and the two blues), every component follows. */
   --page: var(--paper);
   --ink: var(--blue-deep);
+  --page-accent: var(--blue);
+  --page-muted: color-mix(in srgb, var(--ink) 62%, var(--page));
   --rule: color-mix(in srgb, var(--blue) 18%, transparent);
+  --page-line: color-mix(in srgb, var(--blue) 20%, transparent);
+  --page-line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
+  --page-surface: color-mix(in srgb, var(--blue) 6%, var(--page));
+  --img-light: var(--paper);
+
+  /* Semantic, overridden by .tone-* */
+  --bg: var(--page);
+  --fg: var(--ink);
+  --accent: var(--page-accent);
+  --muted: var(--page-muted);
+  --line: var(--page-line);
+  --line-strong: var(--page-line-strong);
+  --surface: var(--page-surface);
 
   --font-display: 'Oswald Variable', 'Oswald', 'Arial Narrow', sans-serif;
   --font-body: 'Mona Sans Variable', 'Mona Sans', system-ui, sans-serif;
@@ -91,36 +94,81 @@ ul, ol { padding: 0; list-style: none; }
 .tone-paper {
   --bg: var(--page);
   --fg: var(--ink);
-  --accent: var(--blue);
+  --accent: var(--page-accent);
+  --muted: var(--page-muted);
+  --line: var(--page-line);
+  --line-strong: var(--page-line-strong);
+  --surface: var(--page-surface);
   background: var(--bg);
   color: var(--fg);
 }
 
 /* ---------------------------------------------------------- dark theme
-   Follows the visitor's system / browser setting. Still blue & white:
-   the light "paper" bands become a deep night blue, text turns white. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --page: var(--night);
-    --ink: var(--ink-light);
-    --rule: color-mix(in srgb, var(--ink-light) 14%, transparent);
-    --fg: var(--ink-light);
-    --accent: var(--accent-light);
-    --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
-    --line: color-mix(in srgb, var(--ink-light) 13%, transparent);
-    --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent);
-    --surface: var(--night-2);
-  }
-  .tone-paper {
-    --accent: var(--accent-light);
-    --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
-    --line: color-mix(in srgb, var(--ink-light) 13%, transparent);
-    --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent);
-    --surface: var(--night-2);
-  }
-  .tone-paper .btn-solid:hover { --btn-bg: var(--blue-soft); --btn-fg: var(--blue-deep); }
+   Follows the browser setting until the visitor picks a theme with the
+   header switch (html[data-theme], remembered in the mv_theme cookie).
+   Same two colours, at night: the blue gets deeper, the white bands turn
+   into a dark ink blue. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --blue: #1432b8;
+  --blue-deep: #0c2290;
+  --page: #161b4b;
+  --ink: #e8e7ff;
+  --page-accent: #aab8ff;
+  --rule: color-mix(in srgb, var(--ink) 13%, transparent);
+  --page-line: color-mix(in srgb, var(--ink) 14%, transparent);
+  --page-line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
+  --page-surface: color-mix(in srgb, var(--ink) 6%, var(--page));
+  --img-light: #e4e5ff;
 }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --blue: #1432b8;
+    --blue-deep: #0c2290;
+    --page: #161b4b;
+    --ink: #e8e7ff;
+    --page-accent: #aab8ff;
+    --rule: color-mix(in srgb, var(--ink) 13%, transparent);
+    --page-line: color-mix(in srgb, var(--ink) 14%, transparent);
+    --page-line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
+    --page-surface: color-mix(in srgb, var(--ink) 6%, var(--page));
+    --img-light: #e4e5ff;
+  }
+}
+
+/* Theme switch: the new theme opens as a circle from the switch, its edge
+   breaking into round pixels (big dots, then small ones). View Transitions;
+   other browsers get a short colour fade. */
+@property --vt-r { syntax: '<length>'; inherits: false; initial-value: 0px; }
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) {
+  --vt-big: radial-gradient(circle, #000 4.6px, transparent 5.2px) 50% 50% / 13px 13px repeat;
+  --vt-small: radial-gradient(circle, #000 2.2px, transparent 2.8px) 50% 50% / 13px 13px repeat;
+  -webkit-mask:
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 var(--vt-r), transparent calc(var(--vt-r) + 0.5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-big),
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 70px), transparent calc(var(--vt-r) + 70.5px)) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 150px), transparent calc(var(--vt-r) + 150.5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-small);
+  mask:
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 var(--vt-r), transparent calc(var(--vt-r) + 0.5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-big),
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 70px), transparent calc(var(--vt-r) + 70.5px)) 0 0 / 100% 100% no-repeat,
+    radial-gradient(circle at var(--vt-x, 50%) var(--vt-y, 50%), #000 calc(var(--vt-r) + 150px), transparent calc(var(--vt-r) + 150.5px)) 0 0 / 100% 100% no-repeat,
+    var(--vt-small);
+  /* evaluated bottom-up: small dots in the outer ring, + inner ring, kept on the big dots, + full disc */
+  -webkit-mask-composite: source-over, source-in, source-over, source-in;
+  mask-composite: add, intersect, add, intersect;
+}
+html.theme-switch *:not(.theme-ico-half),
+html.theme-switch *::before,
+html.theme-switch *::after { transition: none !important; }
+html.theme-fade body,
+html.theme-fade .tone-paper,
+html.theme-fade .tone-blue,
+html.theme-fade .site-header { transition: background-color 0.5s var(--ease), color 0.5s var(--ease) !important; }
 
 /* --------------------------------------------------------------- layout */
 .wrap {

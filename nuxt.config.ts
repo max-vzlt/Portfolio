@@ -16,7 +16,6 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'fr' },
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-        { name: 'theme-color', content: '#0037FF' },
       ],
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
       // Lets CSS hide "reveal" elements only when JS is available (no flash without JS).

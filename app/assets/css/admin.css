@@ -4,9 +4,17 @@
 .admin {
   /* the back-office stays light, even when the system is in dark mode */
   color-scheme: light;
+  --blue: #0037ff;
+  --blue-deep: #090bd0;
   --page: var(--paper);
   --ink: var(--blue-deep);
   --rule: color-mix(in srgb, var(--blue) 18%, transparent);
+  --img-light: var(--paper);
+  --page-accent: var(--blue);
+  --page-muted: color-mix(in srgb, var(--blue-deep) 62%, var(--paper));
+  --page-line: color-mix(in srgb, var(--blue) 20%, transparent);
+  --page-line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
+  --page-surface: color-mix(in srgb, var(--blue) 6%, var(--paper));
   --accent: var(--blue);
   --muted: color-mix(in srgb, var(--blue-deep) 62%, var(--paper));
   --line: color-mix(in srgb, var(--blue) 20%, transparent);

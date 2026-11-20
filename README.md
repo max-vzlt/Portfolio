@@ -7,7 +7,7 @@ Portfolio bilingue (FR / EN) avec back-office intégré, construit avec **Nuxt 4
 - Images rendues en **pixels ronds bleu & blanc** (trame générée dans le navigateur), en **bichromie**, ou telles quelles (tes rendus Blender), avec une **texture papier** (sur les images uniquement). Sur une trace, le survol d'une image révèle ses couleurs d'origine dans un cercle qui part du curseur.
 - Transition entre les pages par un rideau bleu, puis animation d'entrée (titres mot par mot, couverture qui se dévoile). Barre de défilement personnalisée.
 - Responsive : sur tablette et téléphone, l'en-tête passe en icônes et la grille passe de 3 à 2 puis 1 colonne.
-- **Thème sombre** automatique selon le réglage du navigateur (bleu nuit et blanc ; le back-office reste clair).
+- **Thème sombre** : suit le réglage du navigateur, et un bouton discret dans l'en-tête (et le pied de page) permet de basculer. Le choix est mémorisé (cookie `mv_theme`) et le serveur affiche directement le bon thème. Le changement s'ouvre en cercle de pixels ronds depuis le bouton. Le back-office reste clair.
 - **Langue automatique** : à la première visite, français pour les visiteurs francophones, anglais pour les autres (d'après la langue du navigateur). Le choix fait avec le bouton FR | EN est mémorisé. Les robots ne sont jamais redirigés.
 
 ## Démarrer en local
