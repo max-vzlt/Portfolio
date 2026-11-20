@@ -19,7 +19,7 @@ Object.assign(map, res.media)
 const s = ref<Settings>(structuredClone(res.settings))
 
 /* Only the keys of the home page are saved here (the rest lives in Réglages). */
-const HOME_KEYS = ['hero', 'about', 'skills', 'contact', 'socials', 'home'] as const
+const HOME_KEYS = ['hero', 'about', 'method', 'services', 'skills', 'contact', 'socials', 'home'] as const
 const pick = (v: Settings) => JSON.stringify(HOME_KEYS.map((k) => v[k]))
 const saved = ref(pick(res.settings))
 const dirty = computed(() => pick(s.value) !== saved.value)
@@ -64,6 +64,8 @@ onBeforeRouteLeave(() => {
 const META: Record<HomeSectionId, { name: string; hint: string }> = {
   work: { name: 'Réalisations', hint: 'La liste des traces et leurs cartes' },
   about: { name: 'Qui suis-je ?', hint: 'Portrait, présentation, infos clés' },
+  method: { name: "Ma méthode avec l'IA", hint: 'Étapes : ce que je fais, ce que fait l’IA, outils' },
+  services: { name: 'Ce que je peux faire', hint: 'Savoir-faire orientés résultats' },
   skills: { name: 'Compétences', hint: 'Colonnes de compétences' },
   contact: { name: 'Contact', hint: 'Texte, email et réseaux' },
 }
@@ -108,6 +110,8 @@ function texts(): I18nText[] {
     v.hero.kicker, v.hero.title, v.hero.intro, ...v.hero.tabs.flatMap((t) => [t.label, t.line]),
     v.home.work.title, v.home.work.intro,
     v.about.title, v.about.body, ...v.about.facts.flatMap((f) => [f.label, f.value]),
+    v.method.title, v.method.intro, ...v.method.steps.flatMap((st) => [st.title, st.me, st.ai]),
+    v.services.title, v.services.intro, ...v.services.items.flatMap((it) => [it.title, it.text, it.ai]),
     v.skills.title, ...v.skills.groups.map((g) => g.title), v.contact.title, v.contact.text,
   ]
 }
@@ -265,6 +269,54 @@ onBeforeUnmount(() => {
                 </div>
               </template>
 
+              <!-- method (AI) -->
+              <template v-else-if="sec.id === 'method'">
+                <AdminI18nField v-model="s.method.title" label="Titre" />
+                <AdminI18nField v-model="s.method.intro" label="Introduction" multiline rich :rows="2" />
+                <div class="a-field">
+                  <span class="a-label">Étapes</span>
+                  <div v-for="(st, i) in s.method.steps" :key="i" class="hm-step">
+                    <div class="hm-step-head">
+                      <span class="hm-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
+                      <AdminI18nField v-model="st.title" compact placeholder="Explorer, Prototyper…" />
+                      <div class="hm-item-actions">
+                        <button type="button" class="a-btn is-icon is-sm is-ghost" aria-label="Monter" @click="move(s.method.steps, i, -1)"><ArrowUp /></button>
+                        <button type="button" class="a-btn is-icon is-sm is-ghost" aria-label="Descendre" @click="move(s.method.steps, i, 1)"><ArrowDown /></button>
+                        <button type="button" class="a-btn is-icon is-sm is-ghost is-danger" aria-label="Supprimer" @click="s.method.steps.splice(i, 1)"><Trash2 /></button>
+                      </div>
+                    </div>
+                    <AdminI18nField v-model="st.me" label="Ce que je fais" multiline :rows="2" />
+                    <AdminI18nField v-model="st.ai" label="Ce que fait l'IA" multiline :rows="2" />
+                    <AdminTags v-model="st.tools" label="Outils" placeholder="Claude, Blender… puis Entrée" />
+                  </div>
+                  <button v-if="s.method.steps.length < 8" type="button" class="a-btn is-sm" @click="s.method.steps.push({ title: e(), me: e(), ai: e(), tools: [] })"><Plus /> Ajouter une étape</button>
+                </div>
+              </template>
+
+              <!-- services -->
+              <template v-else-if="sec.id === 'services'">
+                <AdminI18nField v-model="s.services.title" label="Titre" />
+                <AdminI18nField v-model="s.services.intro" label="Introduction" multiline rich :rows="2" />
+                <div class="a-field">
+                  <span class="a-label">Savoir-faire</span>
+                  <div v-for="(it, i) in s.services.items" :key="i" class="hm-step">
+                    <div class="hm-step-head">
+                      <span class="hm-step-num">{{ String(i + 1).padStart(2, '0') }}</span>
+                      <AdminI18nField v-model="it.title" compact placeholder="Prototyper une app web…" />
+                      <div class="hm-item-actions">
+                        <button type="button" class="a-btn is-icon is-sm is-ghost" aria-label="Monter" @click="move(s.services.items, i, -1)"><ArrowUp /></button>
+                        <button type="button" class="a-btn is-icon is-sm is-ghost" aria-label="Descendre" @click="move(s.services.items, i, 1)"><ArrowDown /></button>
+                        <button type="button" class="a-btn is-icon is-sm is-ghost is-danger" aria-label="Supprimer" @click="s.services.items.splice(i, 1)"><Trash2 /></button>
+                      </div>
+                    </div>
+                    <AdminI18nField v-model="it.text" label="Description" multiline :rows="2" />
+                    <AdminI18nField v-model="it.ai" label="Avec l'IA" multiline :rows="2" />
+                  </div>
+                  <button v-if="s.services.items.length < 9" type="button" class="a-btn is-sm" @click="s.services.items.push({ title: e(), text: e(), ai: e() })"><Plus /> Ajouter un savoir-faire</button>
+                  <p class="a-hint">Un nombre pair rend mieux : ils s'affichent sur 2 colonnes à côté de l'introduction.</p>
+                </div>
+              </template>
+
               <!-- skills -->
               <template v-else-if="sec.id === 'skills'">
                 <AdminI18nField v-model="s.skills.title" label="Titre" />
@@ -359,6 +411,9 @@ onBeforeUnmount(() => {
 .hm-group { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto; }
 .hm-item-actions { display: flex; }
 .hm-social { display: grid; grid-template-columns: 1fr 2fr auto; gap: 8px; }
+.hm-step { display: grid; gap: 10px; padding: 10px; border: 1px solid var(--line); border-radius: 3px; background: color-mix(in srgb, var(--blue) 2%, #fff); }
+.hm-step-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.hm-step-num { font-family: var(--font-display); font-size: 22px; font-weight: 300; color: var(--blue); min-width: 30px; }
 .hm-link { text-decoration: underline; color: var(--blue); }
 
 .hm-preview { position: sticky; top: 76px; display: grid; gap: 8px; min-width: 0; }

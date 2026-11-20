@@ -1,8 +1,9 @@
 <script setup lang="ts">
 /* Small decorative "round pixel" glyph next to section titles. */
-const props = withDefaults(defineProps<{ name?: 'eye' | 'star' | 'grid' | 'spark' | 'mail' }>(), { name: 'star' })
+const props = withDefaults(defineProps<{ name?: 'eye' | 'star' | 'grid' | 'spark' | 'mail' | 'chip' }>(), { name: 'star' })
 const MAPS: Record<string, string[]> = {
   eye: ['..###..', '.#...#.', '#..#..#', '#.###.#', '#..#..#', '.#...#.', '..###..'],
+  chip: ['.#.#.#.', '#######', '.#...#.', '##.#.##', '.#...#.', '#######', '.#.#.#.'],
   star: ['...#...', '...#...', '.#.#.#.', '#######', '.#.#.#.', '...#...', '...#...'],
   grid: ['##.##.#', '##.##.#', '.......', '##.##.#', '##.##.#', '.......', '##.##.#'],
   spark: ['#.....#', '.#...#.', '..#.#..', '...#...', '..#.#..', '.#...#.', '#.....#'],

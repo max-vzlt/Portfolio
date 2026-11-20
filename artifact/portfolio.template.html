@@ -335,6 +335,31 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 @media (max-width: 1023px) { .contact-list { grid-column: 1 / -1; } }
 @media (max-width: 639px) { .contact-row { grid-template-columns: 1fr auto; gap: 4px 12px; } .contact-host { grid-column: 1; grid-row: 2; } .contact-arrow { grid-row: span 2; } }
 
+/* ---------------------------------------------------------- AI method / services */
+.section-intro { max-width: 60ch; margin: calc(-1 * clamp(12px, 2vw, 28px)) 0 clamp(36px, 5vw, 56px); }
+.method { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+.m-step { padding-block: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--line-strong); align-items: start; }
+.m-head { display: grid; gap: 10px; min-width: 0; }
+.m-num { color: var(--muted); }
+.m-col { display: grid; gap: 8px; min-width: 0; font-size: 15.5px; }
+.m-ai-label { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); }
+.m-ai-label .pixel-glyph, .svc-ai .pixel-glyph { width: 10px; height: 10px; margin: 0; }
+.m-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.m-step:hover .m-head .display-m { color: var(--blue); }
+.svc-grid { align-items: start; }
+.svc-intro { max-width: 30ch; min-width: 0; }
+.svc-list { grid-column: span 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 3vw, 44px) var(--gap); min-width: 0; }
+.svc { display: grid; gap: 12px; align-content: start; padding-top: 18px; border-top: 1px solid var(--line-strong); min-width: 0; }
+.svc-num { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.svc-num .ico { width: 14px; height: 14px; transition: transform .45s var(--ease); }
+.svc:hover .svc-num .ico { transform: translateX(5px); }
+.svc-text { font-size: 15.5px; color: color-mix(in srgb, var(--paper) 90%, var(--blue)); }
+.svc-ai { font-size: 14px; color: var(--muted); }
+.svc-ai .label { display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; padding: 3px 6px 2px; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--paper); }
+@media (max-width: 1023px) { .m-head { grid-column: 1 / -1; } .svc-intro { grid-column: 1 / -1; max-width: 60ch; } .svc-list { grid-column: 1 / -1; } }
+@media (max-width: 639px) { .svc-list { grid-template-columns: 1fr; } }
+@media (max-width: 419px) { .h-link { min-width: 31px; } .h-ico { width: 18px; height: 18px; } .h-logo { font-size: 17px; } }
+
 /* ---------------------------------------------------------- project page */
 .proj-hero { position: relative; overflow: hidden; margin-top: calc(-1 * env(safe-area-inset-top, 0px)); padding-top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + clamp(32px, 5vw, 72px)); padding-bottom: clamp(150px, 18vw, 260px); }
 .proj-back { display: inline-flex; align-items: center; gap: 10px; margin-bottom: clamp(36px, 6vw, 80px); padding: 0; border: 0; background: none; opacity: .85; }
@@ -485,6 +510,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       back: 'Toutes les réalisations', year: 'Année', category: 'Catégorie', tools: 'Outils', visit: 'Voir le projet en ligne',
       next: 'Projet suivant', prev: 'Projet précédent', made: 'Design & code par', rights: 'Tous droits réservés',
       top: 'Haut de page', close: 'Fermer', play: 'Lire la vidéo',
+      method: 'Méthode', services: 'Savoir-faire', me: 'Moi', ai: "Avec l'IA",
       highlights: 'Sélection', rank: 'Top', email: 'Email', copy: 'Copier', copied: 'Copié', copyFail: 'Sélectionne l’adresse',
     },
     en: {
@@ -495,6 +521,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       back: 'All projects', year: 'Year', category: 'Category', tools: 'Tools', visit: 'Visit the project',
       next: 'Next project', prev: 'Previous project', made: 'Design & code by', rights: 'All rights reserved',
       top: 'Back to top', close: 'Close', play: 'Play video',
+      method: 'Method', services: 'What I do', me: 'Me', ai: 'With AI',
       highlights: 'Highlights', rank: 'Top', email: 'Email', copy: 'Copy', copied: 'Copied', copyFail: 'Select the address',
     },
   }
@@ -534,6 +561,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
   const GLYPHS = {
     eye: ['..###..', '.#...#.', '#..#..#', '#.###.#', '#..#..#', '.#...#.', '..###..'],
     star: ['...#...', '...#...', '.#.#.#.', '#######', '.#.#.#.', '...#...', '...#...'],
+    chip: ['.#.#.#.', '#######', '.#...#.', '##.#.##', '.#...#.', '#######', '.#.#.#.'],
     spark: ['#.....#', '.#...#.', '..#.#..', '...#...', '..#.#..', '.#...#.', '#.....#'],
     grid: ['##.##.#', '##.##.#', '.......', '##.##.#', '##.##.#', '.......', '##.##.#'],
     mail: ['#######', '##...##', '#.#.#.#', '#..#..#', '#.....#', '#.....#', '#######'],
@@ -743,7 +771,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
   function renderHeader() {
     const link = (id, ic) => `<button type="button" class="h-link" data-nav="${id}" title="${esc(t(id))}" aria-label="${esc(t(id))}">${icon(ic, 'h-ico')}<span class="h-txt nav-label link-underline${view === 'home' && activeSection === id ? ' is-active' : ''}">${esc(t(id))}</span></button>`
-    const ICON = { work: 'layout-grid', about: 'user-round', skills: 'sparkles', contact: 'mail' }
+    const ICON = { work: 'layout-grid', about: 'user-round', method: 'workflow', services: 'wand-sparkles', skills: 'sparkles', contact: 'mail' }
     const navs = sections().map((x) => link(x.id, ICON[x.id]))
     const half = Math.ceil(navs.length / 2)
     header.innerHTML = `<div class="wrap header-grid">
@@ -832,7 +860,8 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
 
   /* Home sections, in the order / visibility set in the back-office (settings.home) */
-  const sections = () => ((S.home && S.home.sections) || ['work', 'about', 'skills', 'contact'].map((id) => ({ id, visible: true })))
+  const sections = () => ((S.home && S.home.sections) || ['work', 'about', 'method', 'services', 'contact'].map((id) => ({ id, visible: true })))
+    .filter((x) => SECTION[x.id])
     .filter((x) => x.visible).map((x, i) => ({ id: x.id, index: pad(i + 1) }))
   const hostOf = (url) => { try { const u = new URL(url); return u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/$/, '') } catch (e) { return url } }
   const SECTION = {
@@ -853,6 +882,38 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
           <div class="about-media">${dotImage({ media: M(S.about.imageId), effect: S.about.effect, alt: S.name, fit: 'contain', parallax: 0.12, seed: 'field-about', sizes: '400px' })}</div>
           <div class="rich about-body lead">${rich(tr(S.about.body))}</div>
           <dl class="facts">${(S.about.facts || []).map((f) => `<div class="fact"><dt class="label">${esc(tr(f.label))}</dt><dd>${esc(tr(f.value))}</dd></div>`).join('')}</dl>
+        </div>
+      </div>
+    </section>`,
+    method: (index) => !S.method ? '' : `
+    <section class="section tone-paper guides" id="method" data-section>
+      <div class="wrap">
+        ${sectionHead(index, tr(S.method.title), 'chip')}
+        ${tr(S.method.intro) ? `<div class="rich lead section-intro">${rich(tr(S.method.intro))}</div>` : ''}
+        <ol class="method">${S.method.steps.map((st, i, all) => `
+          <li class="m-step grid3">
+            <div class="m-head"><span class="label m-num">${pad(i + 1)} / ${pad(all.length)}</span><h3 class="display-m">${esc(tr(st.title))}</h3></div>
+            <div class="m-col"><p class="label muted">${esc(t('me'))}</p><div class="rich">${rich(tr(st.me))}</div></div>
+            <div class="m-col"><p class="label m-ai-label">${glyph('chip')} ${esc(t('ai'))}</p><div class="rich">${rich(tr(st.ai))}</div>
+              ${st.tools.length ? `<p class="m-tools">${st.tools.map((x) => `<span class="chip">${esc(x)}</span>`).join('')}</p>` : ''}</div>
+          </li>`).join('')}
+        </ol>
+      </div>
+    </section>`,
+    services: (index) => !S.services ? '' : `
+    <section class="section tone-blue" id="services" data-section>
+      <div class="wrap">
+        ${sectionHead(index, tr(S.services.title), 'star')}
+        <div class="grid3 svc-grid">
+          ${tr(S.services.intro) ? `<div class="rich lead svc-intro">${rich(tr(S.services.intro))}</div>` : ''}
+          <div class="svc-list">${S.services.items.map((it, i) => `
+            <article class="svc">
+              <p class="label svc-num">${icon('arrow-right')} ${pad(i + 1)}</p>
+              <h3 class="display-s">${esc(tr(it.title))}</h3>
+              <div class="rich svc-text">${rich(tr(it.text))}</div>
+              ${tr(it.ai) ? `<p class="svc-ai"><span class="label">${glyph('chip')} ${esc(t('ai'))}</span> ${esc(tr(it.ai))}</p>` : ''}
+            </article>`).join('')}
+          </div>
         </div>
       </div>
     </section>`,

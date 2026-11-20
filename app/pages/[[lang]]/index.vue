@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArrowDown, ArrowUpRight, Download, Mail } from 'lucide-vue-next'
+import { ArrowDown, ArrowRight, ArrowUpRight, Download, Mail } from 'lucide-vue-next'
 
 definePageMeta({
   validate: (route) => !route.params.lang || route.params.lang === 'en',
@@ -79,7 +79,7 @@ const hostOf = (url: string) => {
 
 /* ---------- sections: order / visibility from the back-office ---------- */
 const sections = computed(() =>
-  (s.value?.home?.sections || [{ id: 'work', visible: true }, { id: 'about', visible: true }, { id: 'skills', visible: true }, { id: 'contact', visible: true }])
+  (s.value?.home?.sections || [{ id: 'work', visible: true }, { id: 'about', visible: true }, { id: 'method', visible: true }, { id: 'services', visible: true }, { id: 'contact', visible: true }])
     .filter((x) => x.visible)
     .map((x, i) => ({ id: x.id, index: String(i + 1).padStart(2, '0') })),
 )
@@ -228,6 +228,49 @@ if (import.meta.client && route.query.preview !== undefined) {
                 <dd>{{ tr(f.value) }}</dd>
               </div>
             </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================== METHOD (AI) -->
+      <section v-else-if="sec.id === 'method'" id="method" data-nav class="section tone-paper guides">
+        <div class="wrap">
+          <SiteSectionHead :index="sec.index" :title="tr(s.method.title)" glyph="chip" />
+          <SiteRichText v-if="tr(s.method.intro)" :text="tr(s.method.intro)" class="lead section-intro" v-reveal />
+          <ol class="method">
+            <li v-for="(st, i) in s.method.steps" :key="i" class="m-step grid3" v-reveal="i * 80">
+              <div class="m-head">
+                <span class="label m-num">{{ String(i + 1).padStart(2, '0') }} / {{ String(s.method.steps.length).padStart(2, '0') }}</span>
+                <h3 class="display-m">{{ tr(st.title) }}</h3>
+              </div>
+              <div class="m-col">
+                <p class="label muted">{{ t('method.me') }}</p>
+                <SiteRichText :text="tr(st.me)" />
+              </div>
+              <div class="m-col m-ai">
+                <p class="label m-ai-label"><SitePixelGlyph name="chip" /> {{ t('method.ai') }}</p>
+                <SiteRichText :text="tr(st.ai)" />
+                <p v-if="st.tools.length" class="m-tools"><span v-for="tool in st.tools" :key="tool" class="chip">{{ tool }}</span></p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ===================================================== SERVICES -->
+      <section v-else-if="sec.id === 'services'" id="services" data-nav class="section tone-blue">
+        <div class="wrap">
+          <SiteSectionHead :index="sec.index" :title="tr(s.services.title)" glyph="star" />
+          <div class="grid3 svc-grid">
+            <SiteRichText v-if="tr(s.services.intro)" :text="tr(s.services.intro)" class="lead svc-intro" v-reveal />
+            <div class="svc-list">
+              <article v-for="(it, i) in s.services.items" :key="i" class="svc" v-reveal="i * 80">
+                <p class="label svc-num"><ArrowRight aria-hidden="true" /> {{ String(i + 1).padStart(2, '0') }}</p>
+                <h3 class="display-s">{{ tr(it.title) }}</h3>
+                <SiteRichText :text="tr(it.text)" class="svc-text" />
+                <p v-if="tr(it.ai)" class="svc-ai"><span class="label"><SitePixelGlyph name="chip" /> {{ t('method.ai') }}</span> {{ tr(it.ai) }}</p>
+              </article>
+            </div>
           </div>
         </div>
       </section>
@@ -389,6 +432,41 @@ if (import.meta.client && route.query.preview !== undefined) {
 }
 @media (max-width: 639px) {
   .about-media { aspect-ratio: 1; grid-row: auto; max-width: 340px; }
+}
+
+/* ---------------------------------------------------------------- method */
+.section-intro { max-width: 60ch; margin: calc(-1 * clamp(12px, 2vw, 28px)) 0 clamp(36px, 5vw, 56px); }
+.method { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-strong); }
+.m-step { padding-block: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--line-strong); align-items: start; transition: background 0.4s var(--ease); }
+.m-head { display: grid; gap: 10px; }
+.m-num { color: var(--muted); }
+.m-col { display: grid; gap: 8px; min-width: 0; font-size: 15.5px; }
+.m-ai-label { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); }
+.m-ai-label .pixel-glyph { width: 10px; height: 10px; margin: 0; }
+.m-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.m-step:hover .m-head .display-m { color: var(--blue); }
+@media (max-width: 1023px) {
+  .m-head { grid-column: 1 / -1; }
+}
+
+/* -------------------------------------------------------------- services */
+.svc-grid { align-items: start; }
+.svc-intro { max-width: 30ch; }
+.svc-list { grid-column: span 2; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 3vw, 44px) var(--gap); }
+.svc { display: grid; gap: 12px; align-content: start; padding-top: 18px; border-top: 1px solid var(--line-strong); }
+.svc-num { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); }
+.svc-num svg { width: 14px; height: 14px; transition: transform 0.45s var(--ease); }
+.svc:hover .svc-num svg { transform: translateX(5px); }
+.svc-text { font-size: 15.5px; color: color-mix(in srgb, var(--paper) 90%, var(--blue)); }
+.svc-ai { font-size: 14px; color: var(--muted); }
+.svc-ai .label { display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; padding: 3px 6px 2px; border: 1px solid var(--line-strong); border-radius: var(--radius); color: var(--paper); }
+.svc-ai .pixel-glyph { width: 9px; height: 9px; margin: 0; }
+@media (max-width: 1023px) {
+  .svc-intro { grid-column: 1 / -1; max-width: 60ch; }
+  .svc-list { grid-column: 1 / -1; }
+}
+@media (max-width: 639px) {
+  .svc-list { grid-template-columns: 1fr; }
 }
 
 /* ---------------------------------------------------------------- skills */

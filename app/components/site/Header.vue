@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LayoutGrid, UserRound, Sparkles, Mail, Download, Languages } from 'lucide-vue-next'
+import { LayoutGrid, UserRound, Sparkles, Mail, Download, Languages, Workflow, WandSparkles } from 'lucide-vue-next'
 
 const { t, lp, otherLangPath, lang } = useI18n()
 const { data, cvUrl } = useSite()
@@ -13,6 +13,8 @@ const isHome = computed(() => route.path === '/' || route.path === '/en')
 const NAV = {
   work: { key: 'nav.work', icon: LayoutGrid },
   about: { key: 'nav.about', icon: UserRound },
+  method: { key: 'nav.method', icon: Workflow },
+  services: { key: 'nav.services', icon: WandSparkles },
   skills: { key: 'nav.skills', icon: Sparkles },
   contact: { key: 'nav.contact', icon: Mail },
 } as const
@@ -197,7 +199,12 @@ watch(() => route.fullPath, () => (hidden.value = false))
   .h-cv { min-height: 34px; padding: 7px 9px; margin-left: 6px; }
   .is-solid .header-grid { height: 58px; }
 }
+@media (max-width: 419px) {
+  .h-link { min-width: 31px; }
+  .h-ico { width: 18px; height: 18px; }
+  .h-logo { font-size: 17px; }
+}
 @media (max-width: 359px) {
-  .h-link { min-width: 32px; }
+  .h-link { min-width: 28px; }
 }
 </style>

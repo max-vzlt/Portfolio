@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{ index?: string; title: string; glyph?: 'eye' | 'star' | 'grid' | 'spark' | 'mail'; tag?: string }>()
+defineProps<{ index?: string; title: string; glyph?: 'eye' | 'star' | 'grid' | 'spark' | 'mail' | 'chip'; tag?: string }>()
 </script>
 
 <template>

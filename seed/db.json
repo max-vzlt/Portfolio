@@ -183,6 +183,152 @@
       }
     ],
     "cvId": "m_cv",
+    "method": {
+      "title": {
+        "fr": "Ma méthode avec l'IA",
+        "en": "How I work with AI"
+      },
+      "intro": {
+        "fr": "L'IA accélère chaque étape de mes projets, mais les choix restent les miens : je l'utilise comme un assistant, pas comme un pilote automatique.",
+        "en": "AI speeds up every step of my projects, but the decisions stay mine: I use it as an assistant, not as an autopilot."
+      },
+      "steps": [
+        {
+          "title": {
+            "fr": "Explorer",
+            "en": "Explore"
+          },
+          "me": {
+            "fr": "Je cadre le besoin, le public et l'intention du projet.",
+            "en": "I frame the need, the audience and the intent of the project."
+          },
+          "ai": {
+            "fr": "Recherche, reformulation du brief, premières pistes et moodboards.",
+            "en": "Research, rewording the brief, first leads and moodboards."
+          },
+          "tools": [
+            "Claude"
+          ]
+        },
+        {
+          "title": {
+            "fr": "Prototyper",
+            "en": "Prototype"
+          },
+          "me": {
+            "fr": "Je choisis l'architecture et les technologies, et je découpe le travail.",
+            "en": "I pick the architecture and the technologies, and break the work down."
+          },
+          "ai": {
+            "fr": "Code assisté, maquettes rapides, essais de plusieurs approches.",
+            "en": "Assisted coding, quick mock-ups, trying out several approaches."
+          },
+          "tools": [
+            "Claude Code"
+          ]
+        },
+        {
+          "title": {
+            "fr": "Produire",
+            "en": "Produce"
+          },
+          "me": {
+            "fr": "Je fixe la direction artistique et je soigne les finitions.",
+            "en": "I set the art direction and polish the details."
+          },
+          "ai": {
+            "fr": "Variantes visuelles, textures, contenus et traductions.",
+            "en": "Visual variations, textures, content and translations."
+          },
+          "tools": [
+            "Blender"
+          ]
+        },
+        {
+          "title": {
+            "fr": "Vérifier",
+            "en": "Check"
+          },
+          "me": {
+            "fr": "Je relis, je teste et je ne garde que ce qui est juste.",
+            "en": "I review, I test and I only keep what is right."
+          },
+          "ai": {
+            "fr": "Relecture du code, accessibilité, détection des oublis.",
+            "en": "Code review, accessibility, spotting what was missed."
+          },
+          "tools": []
+        }
+      ]
+    },
+    "services": {
+      "title": {
+        "fr": "Ce que je peux faire",
+        "en": "What I can do"
+      },
+      "intro": {
+        "fr": "Des résultats concrets plutôt qu'une liste de langages.",
+        "en": "Concrete results rather than a list of languages."
+      },
+      "items": [
+        {
+          "title": {
+            "fr": "Prototyper une app ou un site web",
+            "en": "Prototype a web app or a website"
+          },
+          "text": {
+            "fr": "Du besoin à une version en ligne, avec base de données et back-office si nécessaire.",
+            "en": "From the need to a live version, with a database and a back-office when needed."
+          },
+          "ai": {
+            "fr": "L'IA accélère le code et les tests, je garde la main sur la structure et la qualité.",
+            "en": "AI speeds up code and tests, I stay in charge of structure and quality."
+          }
+        },
+        {
+          "title": {
+            "fr": "Créer une identité et des visuels",
+            "en": "Create an identity and visuals"
+          },
+          "text": {
+            "fr": "Direction artistique, interfaces, visuels pour le web et les réseaux.",
+            "en": "Art direction, interfaces, visuals for the web and social media."
+          },
+          "ai": {
+            "fr": "Exploration rapide de pistes avant de dessiner la version finale.",
+            "en": "Fast exploration of ideas before designing the final version."
+          }
+        },
+        {
+          "title": {
+            "fr": "Produire de la 3D et des prototypes de jeu",
+            "en": "Make 3D and game prototypes"
+          },
+          "text": {
+            "fr": "Scènes Blender, voxel art, prototypes jouables sous Unity.",
+            "en": "Blender scenes, voxel art, playable prototypes in Unity."
+          },
+          "ai": {
+            "fr": "Textures, variantes et scripts générés, puis retravaillés à la main.",
+            "en": "Generated textures, variations and scripts, then reworked by hand."
+          }
+        },
+        {
+          "title": {
+            "fr": "Communiquer et automatiser",
+            "en": "Communicate and automate"
+          },
+          "text": {
+            "fr": "Stratégie de communication, contenus, traduction et petites automatisations du quotidien.",
+            "en": "Communication strategy, content, translation and small everyday automations."
+          },
+          "ai": {
+            "fr": "Rédaction et traduction assistées, scripts pour les tâches répétitives.",
+            "en": "Assisted writing and translation, scripts for repetitive tasks."
+          }
+        }
+      ]
+    },
     "home": {
       "sections": [
         {
@@ -194,8 +340,16 @@
           "visible": true
         },
         {
-          "id": "skills",
+          "id": "method",
           "visible": true
+        },
+        {
+          "id": "services",
+          "visible": true
+        },
+        {
+          "id": "skills",
+          "visible": false
         },
         {
           "id": "contact",
@@ -609,8 +763,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T11:01:55.899Z",
-      "updatedAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z",
+      "updatedAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "p_dbsite",
@@ -744,8 +898,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T11:01:55.899Z",
-      "updatedAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z",
+      "updatedAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "p_photo",
@@ -864,8 +1018,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T11:01:55.899Z",
-      "updatedAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z",
+      "updatedAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "p_voxel",
@@ -1126,8 +1280,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T11:01:55.899Z",
-      "updatedAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z",
+      "updatedAt": "2026-11-20T11:09:01.342Z"
     }
   ],
   "media": [
@@ -1142,7 +1296,7 @@
         "fr": "Portrait dessiné de Maxime",
         "en": "Drawn portrait of Maxime"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 150,
       "height": 150
     },
@@ -1157,7 +1311,7 @@
         "fr": "CV de Maxime Verzeletti",
         "en": "Resume of Maxime Verzeletti"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "m_t1cover",
@@ -1170,7 +1324,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1110,
       "height": 622,
       "variants": [
@@ -1202,7 +1356,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1108,
       "variants": [
@@ -1239,7 +1393,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1112,
       "variants": [
@@ -1276,7 +1430,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1109,
       "variants": [
@@ -1313,7 +1467,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "m_t1p4",
@@ -1326,7 +1480,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1111,
       "variants": [
@@ -1363,7 +1517,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1110,
       "variants": [
@@ -1400,7 +1554,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1111,
       "variants": [
@@ -1437,7 +1591,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "m_t1v3",
@@ -1450,7 +1604,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "m_t1v4",
@@ -1463,7 +1617,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "m_t1v5",
@@ -1476,7 +1630,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z"
+      "createdAt": "2026-11-20T11:09:01.342Z"
     },
     {
       "id": "m_t2cover",
@@ -1489,7 +1643,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1904,
       "height": 1079,
       "variants": [
@@ -1526,7 +1680,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1904,
       "height": 1079,
       "variants": [
@@ -1563,7 +1717,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1904,
       "height": 1079,
       "variants": [
@@ -1600,7 +1754,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1905,
       "height": 1079,
       "variants": [
@@ -1637,7 +1791,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1905,
       "height": 1079,
       "variants": [
@@ -1674,7 +1828,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1919,
       "height": 1079,
       "variants": [
@@ -1711,7 +1865,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 776,
       "height": 776,
       "variants": [
@@ -1738,7 +1892,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 816,
       "height": 816,
       "variants": [
@@ -1765,7 +1919,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 779,
       "height": 779,
       "variants": [
@@ -1792,7 +1946,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 781,
       "height": 781,
       "variants": [
@@ -1819,7 +1973,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 776,
       "height": 776,
       "variants": [
@@ -1846,7 +2000,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 808,
       "height": 808,
       "variants": [
@@ -1873,7 +2027,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 967,
       "height": 967,
       "variants": [
@@ -1905,7 +2059,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 591,
       "height": 591,
       "variants": [
@@ -1932,7 +2086,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 992,
       "height": 992,
       "variants": [
@@ -1964,7 +2118,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 997,
       "height": 997,
       "variants": [
@@ -1996,7 +2150,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 978,
       "height": 978,
       "variants": [
@@ -2028,7 +2182,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1080,
       "height": 1080,
       "variants": [
@@ -2060,7 +2214,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1075,
       "height": 1075,
       "variants": [
@@ -2092,7 +2246,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1080,
       "height": 1080,
       "variants": [
@@ -2124,7 +2278,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 1080,
       "height": 1080,
       "variants": [
@@ -2156,7 +2310,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T11:01:55.899Z",
+      "createdAt": "2026-11-20T11:09:01.342Z",
       "width": 967,
       "height": 967,
       "variants": [

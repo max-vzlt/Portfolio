@@ -160,12 +160,32 @@ export interface Settings {
   socials: Social[]
   cvId: string | null
   seo: { description: I18nText }
+  /** "Ma méthode avec l'IA": steps of the process */
+  method: { title: I18nText; intro: I18nText; steps: MethodStep[] }
+  /** "Ce que je peux faire": outcomes rather than languages */
+  services: { title: I18nText; intro: I18nText; items: ServiceItem[] }
   /** Home page: order / visibility of the sections + work section texts */
   home: HomeSettings
 }
 
-export type HomeSectionId = 'work' | 'about' | 'skills' | 'contact'
-export const HOME_SECTIONS: HomeSectionId[] = ['work', 'about', 'skills', 'contact']
+export interface MethodStep {
+  title: I18nText
+  /** what I do */
+  me: I18nText
+  /** what the AI does */
+  ai: I18nText
+  tools: string[]
+}
+
+export interface ServiceItem {
+  title: I18nText
+  text: I18nText
+  /** how AI speeds it up */
+  ai: I18nText
+}
+
+export type HomeSectionId = 'work' | 'about' | 'method' | 'services' | 'skills' | 'contact'
+export const HOME_SECTIONS: HomeSectionId[] = ['work', 'about', 'method', 'services', 'skills', 'contact']
 
 export interface HomeSettings {
   sections: { id: HomeSectionId; visible: boolean }[]

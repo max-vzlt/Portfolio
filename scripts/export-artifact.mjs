@@ -17,7 +17,7 @@ const SRC = existsSync(join(ROOT, 'data/db.json')) ? join(ROOT, 'data') : join(R
 const CV_URL = 'https://mverzeletti.com/CV%20-%20Verzeletti%20Maxime.pdf'
 const ICON_NAMES = [
   'layout-grid', 'user-round', 'sparkles', 'mail', 'download', 'arrow-up-right', 'arrow-left', 'arrow-right',
-  'arrow-down', 'arrow-up', 'x', 'play', 'maximize-2', 'linkedin', 'github', 'instagram', 'globe',
+  'arrow-down', 'arrow-up', 'x', 'play', 'maximize-2', 'linkedin', 'github', 'instagram', 'globe', 'workflow', 'wand-sparkles',
 ]
 
 async function icons() {

@@ -189,6 +189,29 @@ export function sanitizeSettings(db: Database, raw: any, current: Settings): Set
       : current.socials,
     cvId: 'cvId' in r ? mediaRef(db, r.cvId) : current.cvId,
     seo: { description: i18n(r.seo?.description ?? current.seo.description, 400) },
+    method: r.method
+      ? {
+          title: i18n(r.method.title, 200),
+          intro: i18n(r.method.intro, 2000),
+          steps: list(r.method.steps, (x) => ({
+            title: i18n(x?.title, 120),
+            me: i18n(x?.me, 1000),
+            ai: i18n(x?.ai, 1000),
+            tools: list(x?.tools, (i) => str(i, 60).trim(), 20).filter(Boolean),
+          }), 8),
+        }
+      : current.method,
+    services: r.services
+      ? {
+          title: i18n(r.services.title, 200),
+          intro: i18n(r.services.intro, 2000),
+          items: list(r.services.items, (x) => ({
+            title: i18n(x?.title, 200),
+            text: i18n(x?.text, 1000),
+            ai: i18n(x?.ai, 1000),
+          }), 9),
+        }
+      : current.services,
     home: sanitizeHome(r.home ?? current.home),
   }
 }
@@ -204,7 +227,14 @@ export function sanitizeHome(raw: any): HomeSettings {
       sections.push({ id: s.id, visible: bool(s.visible, true) })
     }
   }
-  for (const id of HOME_SECTIONS) if (!seen.has(id)) sections.push({ id, visible: true })
+  for (const id of HOME_SECTIONS) {
+    if (seen.has(id)) continue
+    // sections added later (method, services) go before "contact"
+    const at = sections.findIndex((x) => x.id === 'contact')
+    const entry = { id, visible: id !== 'skills' }
+    if (at >= 0) sections.splice(at, 0, entry)
+    else sections.push(entry)
+  }
   return {
     sections,
     work: {
