@@ -10,7 +10,8 @@
     "start": "node .output/server/index.mjs",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "import:legacy": "node scripts/import-legacy.mjs"
+    "import:legacy": "node scripts/import-legacy.mjs",
+    "export:artifact": "node scripts/export-artifact.mjs"
   },
   "engines": {
     "node": ">=20.12"

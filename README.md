@@ -81,6 +81,10 @@ NUXT_ADMIN_PASSWORD='un-mot-de-passe-solide' NUXT_PUBLIC_SITE_URL='https://mverz
 - Avec Nginx, autorise les gros envois de vidéos : `client_max_body_size 300m;`.
 - En production, le back-office refuse toute connexion tant que `NUXT_ADMIN_PASSWORD` n'est pas défini.
 
+## Aperçu dans Claude (artefact)
+
+`npm run export:artifact` génère dans `.artifact/` une version statique du site public : traces visibles, images en webp, vidéos, FR / EN, filtres, pixels ronds et parallaxe. Elle est publiée comme artefact sur claude.ai pour être consultée depuis l'app Claude. Le back-office n'en fait pas partie, car il a besoin du serveur Node. Après des modifications dans `/admin`, relance l'export et republie l'artefact.
+
 ## Structure
 
 ```
