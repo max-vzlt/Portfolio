@@ -80,6 +80,8 @@ Pour sauvegarder ou déplacer le contenu (par exemple de ton PC vers ton serveur
 
 ## Mise en production sur ton serveur
 
+Le guide pas à pas (Nginx, HTTPS, service systemd, sauvegardes, mises à jour, dépannage) est dans [`DEPLOIEMENT.md`](DEPLOIEMENT.md). En résumé :
+
 ```bash
 npm ci
 ```
