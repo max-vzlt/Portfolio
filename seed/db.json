@@ -1,0 +1,2150 @@
+{
+  "version": 1,
+  "settings": {
+    "name": "Maxime Verzeletti",
+    "role": {
+      "fr": "Développeur web & designer",
+      "en": "Web developer & designer"
+    },
+    "hero": {
+      "kicker": {
+        "fr": "Portfolio",
+        "en": "Portfolio"
+      },
+      "title": {
+        "fr": "Donner vie aux projets numériques",
+        "en": "Bringing digital projects to life"
+      },
+      "intro": {
+        "fr": "Bonjour, je suis **Maxime Verzeletti**. Actuellement étudiant en **BUT MMI** à l'IUT de Troyes, j'allie **développement web**, **design** et **stratégie de communication** pour donner vie à des **projets interactifs numériques**.",
+        "en": "Hi, I'm **Maxime Verzeletti**. Currently studying for a **BUT MMI** degree (Multimedia & Internet) at the IUT of Troyes, I combine **web development**, **design** and **communication strategy** to bring **interactive digital projects** to life."
+      },
+      "imageId": null,
+      "effect": "dots",
+      "tabs": [
+        {
+          "label": {
+            "fr": "Développement",
+            "en": "Development"
+          },
+          "line": {
+            "fr": "HTML, CSS, JS, PHP, SQL — des sites rapides et soignés",
+            "en": "HTML, CSS, JS, PHP, SQL — fast, polished websites"
+          }
+        },
+        {
+          "label": {
+            "fr": "Design",
+            "en": "Design"
+          },
+          "line": {
+            "fr": "Interfaces, voxel art et photographie",
+            "en": "Interfaces, voxel art and photography"
+          }
+        },
+        {
+          "label": {
+            "fr": "Communication",
+            "en": "Communication"
+          },
+          "line": {
+            "fr": "Des stratégies et des contenus qui ont du sens",
+            "en": "Strategies and content that make sense"
+          }
+        }
+      ]
+    },
+    "about": {
+      "title": {
+        "fr": "Qui suis-je ?",
+        "en": "Who am I?"
+      },
+      "body": {
+        "fr": "Étudiant en **BUT Métiers du Multimédia et de l'Internet** à l'IUT de Troyes, je navigue entre **code**, **design** et **communication**. J'aime construire des expériences interactives soignées, du site web au prototype de jeu vidéo.\n\nEn dehors des cours, je pratique la **photographie** avec le club photo de l'IUT, je modélise en **voxel art** et j'apprends en continu : Three.js, Vue.js, Symfony ou encore C# avec Unity.",
+        "en": "A student in the **BUT MMI** (Multimedia & Internet) programme at the IUT of Troyes, I move between **code**, **design** and **communication**. I love building polished interactive experiences, from websites to video game prototypes.\n\nOutside class, I do **photography** with the IUT photo club, model in **voxel art** and keep learning: Three.js, Vue.js, Symfony and C# with Unity."
+      },
+      "imageId": "m_avatar",
+      "effect": "none",
+      "facts": [
+        {
+          "label": {
+            "fr": "Formation",
+            "en": "Education"
+          },
+          "value": {
+            "fr": "BUT MMI — IUT de Troyes",
+            "en": "BUT MMI — IUT of Troyes"
+          }
+        },
+        {
+          "label": {
+            "fr": "Domaines",
+            "en": "Fields"
+          },
+          "value": {
+            "fr": "Développement web, design, stratégie de communication",
+            "en": "Web development, design, communication strategy"
+          }
+        },
+        {
+          "label": {
+            "fr": "Passions",
+            "en": "Interests"
+          },
+          "value": {
+            "fr": "Photographie, voxel art, jeu vidéo",
+            "en": "Photography, voxel art, video games"
+          }
+        },
+        {
+          "label": {
+            "fr": "En ce moment",
+            "en": "Right now"
+          },
+          "value": {
+            "fr": "J'apprends Three.js, Vue.js, Symfony et C#",
+            "en": "Learning Three.js, Vue.js, Symfony and C#"
+          }
+        }
+      ]
+    },
+    "skills": {
+      "title": {
+        "fr": "Compétences",
+        "en": "Skills"
+      },
+      "groups": [
+        {
+          "title": {
+            "fr": "Je maîtrise",
+            "en": "What I master"
+          },
+          "items": [
+            "HTML5",
+            "CSS3",
+            "Sass",
+            "JavaScript",
+            "PHP",
+            "SQL",
+            "JSON",
+            "WordPress",
+            "Git"
+          ]
+        },
+        {
+          "title": {
+            "fr": "J'apprends activement",
+            "en": "Actively learning"
+          },
+          "items": [
+            "Three.js",
+            "Vue.js",
+            "Symfony",
+            "C#"
+          ]
+        },
+        {
+          "title": {
+            "fr": "Outils & logiciels",
+            "en": "Tools & software"
+          },
+          "items": [
+            "Unity",
+            "Blender",
+            "MagicaVoxel",
+            "Lightroom"
+          ]
+        }
+      ]
+    },
+    "contact": {
+      "title": {
+        "fr": "Travaillons ensemble",
+        "en": "Let's work together"
+      },
+      "text": {
+        "fr": "Un stage, une alternance, un projet ou simplement une idée à partager ? Écris-moi, je réponds rapidement.",
+        "en": "An internship, a work-study position, a project or just an idea to share? Drop me a line, I reply quickly."
+      },
+      "email": ""
+    },
+    "socials": [
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/maxime-verzeletti"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/max-vzlt"
+      },
+      {
+        "label": "Instagram",
+        "url": "https://www.instagram.com/maxime.vzlt/"
+      }
+    ],
+    "cvId": "m_cv",
+    "seo": {
+      "description": {
+        "fr": "Portfolio de Maxime Verzeletti, étudiant en BUT MMI à l'IUT de Troyes : développement web, design et communication.",
+        "en": "Portfolio of Maxime Verzeletti, BUT MMI student at the IUT of Troyes: web development, design and communication."
+      }
+    }
+  },
+  "categories": [
+    {
+      "id": "c_gamedev",
+      "slug": "game-dev",
+      "name": {
+        "fr": "Game Dev",
+        "en": "Game dev"
+      },
+      "order": 0
+    },
+    {
+      "id": "c_web",
+      "slug": "developpement-web",
+      "name": {
+        "fr": "Développement web",
+        "en": "Web development"
+      },
+      "order": 1
+    },
+    {
+      "id": "c_crea",
+      "slug": "crea-numerique",
+      "name": {
+        "fr": "Créa numérique",
+        "en": "Digital art"
+      },
+      "order": 2
+    },
+    {
+      "id": "c_photo",
+      "slug": "photographie",
+      "name": {
+        "fr": "Photographie",
+        "en": "Photography"
+      },
+      "order": 3
+    },
+    {
+      "id": "c_other",
+      "slug": "autre",
+      "name": {
+        "fr": "Autre",
+        "en": "Other"
+      },
+      "order": 4
+    }
+  ],
+  "projects": [
+    {
+      "id": "p_unity",
+      "slug": "prototype-unity",
+      "title": {
+        "fr": "Prototype Unity",
+        "en": "Unity prototype"
+      },
+      "summary": {
+        "fr": "Mes premiers pas avec le moteur **Unity** et le langage **C#** : une petite scène 3D jouable dans le navigateur.",
+        "en": "My first steps with the **Unity** engine and **C#**: a small 3D scene you can play in the browser."
+      },
+      "categoryIds": [
+        "c_gamedev"
+      ],
+      "year": "",
+      "tools": [
+        "Unity",
+        "C#",
+        "WebGL"
+      ],
+      "coverId": "m_t1cover",
+      "coverEffect": "dots",
+      "card": {
+        "col": 2,
+        "row": 1
+      },
+      "link": {
+        "url": "http://mmi24h10.mmi-troyes.fr/games/mov/",
+        "label": {
+          "fr": "Jouer au prototype",
+          "en": "Play the prototype"
+        }
+      },
+      "visible": true,
+      "order": 0,
+      "blocks": [
+        {
+          "id": "b_seed1",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "**Unity** est un **moteur de jeu** multiplateforme (smartphone, ordinateur, consoles de jeux vidéo et Web) développé par Unity Technologies. Il a la particularité de proposer une licence gratuite dite « Personal », avec quelques limitations de technologies avancées au niveau de l'éditeur, mais sans limitation au niveau du moteur.",
+            "en": "**Unity** is a cross-platform **game engine** (smartphone, computer, consoles and web) developed by Unity Technologies. It offers a free “Personal” licence, with a few limitations on advanced editor features but none on the engine itself."
+          },
+          "variant": "lead"
+        },
+        {
+          "id": "b_seed2",
+          "type": "text",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "C'est **l'un des deux moteurs les plus répandus dans l'industrie** du jeu vidéo, aussi bien chez les **grands studios** que chez les **indépendants**. Par rapport à son principal concurrent, Unreal Engine, Unity est réputé pour son interface plus accessible et mieux adaptée aux créations indépendantes.",
+            "en": "It is **one of the two most widely used engines in the industry**, by **big studios** and **indie developers** alike. Compared with its main competitor, Unreal Engine, Unity is known for a more approachable interface that suits independent productions."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed3",
+          "type": "heading",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Démarche",
+            "en": "Process"
+          },
+          "level": 2
+        },
+        {
+          "id": "b_seed4",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Dans un cadre universitaire et pour mon avenir professionnel, j'ai commencé l'apprentissage du moteur de jeu Unity et du langage C#.",
+            "en": "As part of my degree, and with my future career in mind, I started learning the Unity engine and the C# language."
+          },
+          "variant": "lead"
+        },
+        {
+          "id": "b_seed5",
+          "type": "heading",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Première étape",
+            "en": "Step one"
+          },
+          "level": 3
+        },
+        {
+          "id": "b_seed6",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Pour expérimenter avec le moteur, j'ai réalisé un petit projet sans prétention afin de découvrir le système d'herbe. J'ai d'abord créé une petite scène que j'ai sculptée pour y ajouter des bosses, de la complexité et de la vie. J'ai ensuite ajouté de l'herbe avec le système intégré à Unity, ainsi qu'une capsule qui servira plus tard de joueur.\n\n*Dans les moteurs de jeu, on représente souvent un humain par une capsule : c'est une forme simple et stable qui gère bien les collisions, les déplacements et les marches sans se coincer dans le décor.*",
+            "en": "To experiment with the engine, I built a small, unpretentious project to discover the grass system. I first created a little scene that I sculpted to add bumps, complexity and life. I then added grass with Unity's built-in system, plus a capsule that would later become the player.\n\n*Game engines often use a capsule to represent a human: it is a simple, stable shape that handles collisions, movement and stairs without getting stuck in the scenery.*"
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed7",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1p1",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed8",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1p2",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed9",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1p3",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed10",
+          "type": "video",
+          "col": 3,
+          "row": 3,
+          "visible": true,
+          "mediaId": "m_t1v1",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          },
+          "autoplay": true
+        },
+        {
+          "id": "b_seed11",
+          "type": "heading",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Deuxième étape",
+            "en": "Step two"
+          },
+          "level": 3
+        },
+        {
+          "id": "b_seed12",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "J'ai ensuite enrichi la scène avec des arbres et des pierres. Pour cela, j'ai installé des *prefabs* depuis une bibliothèque en ligne (un prefab est un modèle d'objet déjà configuré, avec ses composants et ses réglages, que l'on peut réutiliser facilement dans son jeu). J'ai aussi ajouté de gros rochers pour délimiter la zone de jeu et éviter que le joueur ne sorte de la carte et tombe dans le vide.",
+            "en": "Next, I enriched the scene with trees and rocks. To do so, I installed *prefabs* from an online library (a prefab is a pre-configured object template, with its components and settings, that can easily be reused across a game). I also added large boulders to fence in the play area so the player can't leave the map and fall into the void."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed13",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1p4",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed14",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1p5",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed15",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1p6",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed16",
+          "type": "video",
+          "col": 3,
+          "row": 3,
+          "visible": true,
+          "mediaId": "m_t1v2",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          },
+          "autoplay": true
+        },
+        {
+          "id": "b_seed17",
+          "type": "heading",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Troisième étape",
+            "en": "Step three"
+          },
+          "level": 3
+        },
+        {
+          "id": "b_seed18",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "J'ai ensuite ajouté le système de déplacement du joueur et le mouvement de la caméra à la souris.",
+            "en": "Then I added the player's movement system and the mouse-controlled camera."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed19",
+          "type": "video",
+          "col": 2,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t1v3",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          },
+          "autoplay": true
+        },
+        {
+          "id": "b_seed20",
+          "type": "video",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t1v4",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          },
+          "autoplay": true
+        },
+        {
+          "id": "b_seed21",
+          "type": "text",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "**Dernière étape**\n\nPour finir, j'ai utilisé le module WebGL pour pouvoir jouer au prototype directement depuis un navigateur web.",
+            "en": "**Final step**\n\nFinally, I used the WebGL build target so the prototype can be played straight from a web browser."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed22",
+          "type": "video",
+          "col": 2,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t1v5",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          },
+          "autoplay": true
+        },
+        {
+          "id": "b_seed23",
+          "type": "link",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "url": "http://mmi24h10.mmi-troyes.fr/games/mov/",
+          "text": {
+            "fr": "Jouer au prototype",
+            "en": "Play the prototype"
+          }
+        }
+      ],
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "updatedAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "p_dbsite",
+      "slug": "site-avec-base-de-donnees",
+      "title": {
+        "fr": "Site avec base de données",
+        "en": "Database-driven website"
+      },
+      "summary": {
+        "fr": "Un site dynamique autour du jeu de rythme osu! : deux tables liées, un back-office complet et une interface responsive.",
+        "en": "A dynamic website about the rhythm game osu!: two linked tables, a full back-office and a responsive interface."
+      },
+      "categoryIds": [
+        "c_web"
+      ],
+      "year": "",
+      "tools": [
+        "HTML5",
+        "CSS3",
+        "PHP",
+        "SQL"
+      ],
+      "coverId": "m_t2cover",
+      "coverEffect": "dots",
+      "card": {
+        "col": 1,
+        "row": 1
+      },
+      "link": {
+        "url": "",
+        "label": {
+          "fr": "",
+          "en": ""
+        }
+      },
+      "visible": true,
+      "order": 1,
+      "blocks": [
+        {
+          "id": "b_seed24",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Pour un **projet universitaire**, j'ai dû réaliser un site reposant sur des **bases de données**, sur un sujet libre. L'une des consignes était d'avoir **deux tables qui communiquent entre elles**. J'ai choisi le jeu osu! : une table recense les cartes du jeu et une autre les personnes qui les ont créées. osu! est un jeu de rythme dans lequel le joueur doit accomplir des actions en rythme avec la musique. Une **partie back-office** était également demandée pour modifier, ajouter ou supprimer les données directement depuis le site.",
+            "en": "For a **university project**, I had to build a website backed by **databases**, on a topic of my choice. One requirement was to have **two tables that talk to each other**. I chose the game osu!: one table lists the game's maps and another the people who created them. osu! is a rhythm game where the player has to perform actions in time with the music. A **back-office** was also required to edit, add or delete data straight from the site."
+          },
+          "variant": "lead"
+        },
+        {
+          "id": "b_seed25",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t2p1",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed26",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "J'ai ajouté de nombreuses fonctionnalités, comme un **menu latéral** qui s'ouvre à droite au clic sur le bouton « + » et qui regroupe de nombreuses informations sur la carte et sur son auteur. Dans le back-office, l'ajout d'un mappeur affiche un drapeau mis à jour en temps réel, pour visualiser simplement celui qui apparaîtra dans le menu.\n\nPour faciliter la gestion, j'ai aussi retravaillé le tableau d'administration pour le rendre plus agréable, lisible et **responsive**, afin qu'il reste consultable même sur téléphone.",
+            "en": "I added many features, such as a **side panel** that slides in from the right when you click the “+” button, gathering plenty of information about the map and its creator. In the back-office, adding a mapper shows a flag that updates in real time, so you can easily preview the one displayed in the panel.\n\nTo make management easier, I also restyled the admin table to make it more pleasant, readable and **responsive**, so it can be used even on a phone."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed27",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t2p2",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed28",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t2p3",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed29",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t2p4",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed30",
+          "type": "image",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "mediaId": "m_t2p5",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        }
+      ],
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "updatedAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "p_photo",
+      "slug": "photo-organique",
+      "title": {
+        "fr": "Photo organique",
+        "en": "Organic photography"
+      },
+      "summary": {
+        "fr": "Une série de photographies de nature réalisée avec le club photo de l'IUT.",
+        "en": "A series of nature photographs taken with the IUT photo club."
+      },
+      "categoryIds": [
+        "c_photo"
+      ],
+      "year": "",
+      "tools": [
+        "Lightroom"
+      ],
+      "coverId": "m_t3cover",
+      "coverEffect": "dots",
+      "card": {
+        "col": 1,
+        "row": 1
+      },
+      "link": {
+        "url": "",
+        "label": {
+          "fr": "",
+          "en": ""
+        }
+      },
+      "visible": true,
+      "order": 2,
+      "blocks": [
+        {
+          "id": "b_seed31",
+          "type": "text",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "La photographie étant l'une de mes passions, j'ai choisi de m'inscrire au **club photo de l'IUT**. J'y ai amélioré mes compétences et pris plusieurs photos dont je suis fier.",
+            "en": "Photography being one of my passions, I joined the **IUT photo club**. There I sharpened my skills and took several pictures I'm proud of."
+          },
+          "variant": "lead"
+        },
+        {
+          "id": "b_seed32",
+          "type": "image",
+          "col": 2,
+          "row": 3,
+          "visible": true,
+          "mediaId": "m_t3p1",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed33",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t3p2",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed34",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t3p3",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed35",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t3p4",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed36",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t3p5",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        }
+      ],
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "updatedAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "p_voxel",
+      "slug": "modelisation-voxel-art",
+      "title": {
+        "fr": "Modélisation en voxel art",
+        "en": "Voxel art modelling"
+      },
+      "summary": {
+        "fr": "Des armes et des paysages modélisés dans **MagicaVoxel** pour préparer mes futurs jeux.",
+        "en": "Weapons and landscapes modelled in **MagicaVoxel** as groundwork for my future games."
+      },
+      "categoryIds": [
+        "c_crea"
+      ],
+      "year": "",
+      "tools": [
+        "MagicaVoxel"
+      ],
+      "coverId": "m_t4cover",
+      "coverEffect": "dots",
+      "card": {
+        "col": 2,
+        "row": 1
+      },
+      "link": {
+        "url": "",
+        "label": {
+          "fr": "",
+          "en": ""
+        }
+      },
+      "visible": true,
+      "order": 3,
+      "blocks": [
+        {
+          "id": "b_seed37",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Pour la création de mes futurs jeux, et par amour du voxel art, j'ai décidé de m'entraîner en réalisant des prototypes avec le logiciel **MagicaVoxel**, choisi pour sa simplicité et sa popularité.",
+            "en": "With my future games in mind, and out of love for voxel art, I decided to practise by making prototypes in **MagicaVoxel**, chosen for its simplicity and popularity."
+          },
+          "variant": "lead"
+        },
+        {
+          "id": "b_seed38",
+          "type": "divider",
+          "col": 3,
+          "row": 1,
+          "visible": true
+        },
+        {
+          "id": "b_seed39",
+          "type": "heading",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Armes",
+            "en": "Weapons"
+          },
+          "level": 2
+        },
+        {
+          "id": "b_seed40",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Pour commencer mon apprentissage, j'ai choisi des objets simples à créer : différentes armes (épée, dague, arc et sceptre magique). J'ai commencé par l'épée en réalisant un croquis assez vague de la forme, dans un style fantastique et exagéré, avant d'en modéliser la forme de base.\n\nUne fois celle-ci terminée, j'ai ajouté du relief et des détails pour apporter du volume et du dynamisme. J'ai ensuite choisi une palette de couleurs chaudes et vives rappelant la lave ou le magma, pour donner du mystère et une histoire à l'objet. Pour finir, j'ai peaufiné la forme et les couleurs de l'épée.",
+            "en": "To start learning, I picked objects that are simple to build: various weapons (sword, dagger, bow and magic sceptre). I began with the sword by sketching a rough shape in an exaggerated fantasy style, then modelled its basic form.\n\nOnce that was done, I added relief and details to bring volume and dynamism. I then chose a warm, vivid colour palette reminiscent of lava or magma to give the object mystery and a story. Finally, I polished the sword's shape and colours."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed41",
+          "type": "heading",
+          "col": 3,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Processus pour l'épée",
+            "en": "Making the sword"
+          },
+          "level": 3
+        },
+        {
+          "id": "b_seed42",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p1",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed43",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p2",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed44",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p3",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed45",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p4",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed46",
+          "type": "heading",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Autres armes",
+            "en": "Other weapons"
+          },
+          "level": 3
+        },
+        {
+          "id": "b_seed47",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p5",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed48",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p6",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed49",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p7",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed50",
+          "type": "divider",
+          "col": 3,
+          "row": 1,
+          "visible": true
+        },
+        {
+          "id": "b_seed51",
+          "type": "heading",
+          "col": 1,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Paysages",
+            "en": "Landscapes"
+          },
+          "level": 2
+        },
+        {
+          "id": "b_seed52",
+          "type": "text",
+          "col": 2,
+          "row": 1,
+          "visible": true,
+          "text": {
+            "fr": "Pour expérimenter avec les différentes options du logiciel, comme la transparence et l'émission de lumière, j'ai aussi réalisé des scènes avec de l'eau. Pour donner un effet de profondeur, j'ai appliqué différents niveaux de transparence aux différentes couches, et j'ai ajouté des éléments lumineux pour donner vie à la scène.",
+            "en": "To experiment with the software's options such as transparency and light emission, I also made scenes with water. To create a sense of depth, I applied different levels of transparency to each layer, and added glowing elements to bring the scene to life."
+          },
+          "variant": "body"
+        },
+        {
+          "id": "b_seed53",
+          "type": "image",
+          "col": 2,
+          "row": 3,
+          "visible": true,
+          "mediaId": "m_t4p8",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        },
+        {
+          "id": "b_seed54",
+          "type": "image",
+          "col": 1,
+          "row": 2,
+          "visible": true,
+          "mediaId": "m_t4p9",
+          "effect": "duotone",
+          "fit": "cover",
+          "caption": {
+            "fr": "",
+            "en": ""
+          }
+        }
+      ],
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "updatedAt": "2026-11-20T01:55:08.235Z"
+    }
+  ],
+  "media": [
+    {
+      "id": "m_avatar",
+      "kind": "image",
+      "mime": "image/svg+xml",
+      "file": "original.svg",
+      "originalName": "Profil.svg",
+      "size": 21174,
+      "alt": {
+        "fr": "Portrait dessiné de Maxime",
+        "en": "Drawn portrait of Maxime"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 150,
+      "height": 150
+    },
+    {
+      "id": "m_cv",
+      "kind": "file",
+      "mime": "application/pdf",
+      "file": "original.pdf",
+      "originalName": "CV - Verzeletti Maxime.pdf",
+      "size": 502182,
+      "alt": {
+        "fr": "CV de Maxime Verzeletti",
+        "en": "Resume of Maxime Verzeletti"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "m_t1cover",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "minia.png",
+      "size": 552287,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1110,
+      "height": 622,
+      "variants": [
+        {
+          "width": 480,
+          "height": 269,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 538,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1110,
+          "height": 622,
+          "file": "w1110.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1p1",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic1.png",
+      "size": 122991,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1108,
+      "variants": [
+        {
+          "width": 480,
+          "height": 277,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 554,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 924,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1108,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1p2",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic2.png",
+      "size": 145963,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1112,
+      "variants": [
+        {
+          "width": 480,
+          "height": 278,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 556,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 927,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1112,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1p3",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic3.png",
+      "size": 187070,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1109,
+      "variants": [
+        {
+          "width": 480,
+          "height": 277,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 555,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 925,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1109,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1v1",
+      "kind": "video",
+      "mime": "video/mp4",
+      "file": "original.mp4",
+      "originalName": "mov1.mp4",
+      "size": 6755717,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "m_t1p4",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic4.png",
+      "size": 179236,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1111,
+      "variants": [
+        {
+          "width": 480,
+          "height": 278,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 556,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 926,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1111,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1p5",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic5.png",
+      "size": 120047,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1110,
+      "variants": [
+        {
+          "width": 480,
+          "height": 278,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 555,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 925,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1110,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1p6",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic6.png",
+      "size": 188756,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1111,
+      "variants": [
+        {
+          "width": 480,
+          "height": 278,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 556,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 926,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1111,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t1v2",
+      "kind": "video",
+      "mime": "video/mp4",
+      "file": "original.mp4",
+      "originalName": "mov2.mp4",
+      "size": 8912461,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "m_t1v3",
+      "kind": "video",
+      "mime": "video/mp4",
+      "file": "original.mp4",
+      "originalName": "mov3.mp4",
+      "size": 9453088,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "m_t1v4",
+      "kind": "video",
+      "mime": "video/mp4",
+      "file": "original.mp4",
+      "originalName": "mov4.mp4",
+      "size": 6950980,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "m_t1v5",
+      "kind": "video",
+      "mime": "video/mp4",
+      "file": "original.mp4",
+      "originalName": "mov5.mp4",
+      "size": 6063605,
+      "alt": {
+        "fr": "Capture d'écran du prototype Unity",
+        "en": "Screenshot of the Unity prototype"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z"
+    },
+    {
+      "id": "m_t2cover",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "minia.png",
+      "size": 826142,
+      "alt": {
+        "fr": "Capture d'écran du site osu!",
+        "en": "Screenshot of the osu! website"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1904,
+      "height": 1079,
+      "variants": [
+        {
+          "width": 480,
+          "height": 272,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1904,
+          "height": 1079,
+          "file": "w1904.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t2p1",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic1.png",
+      "size": 184567,
+      "alt": {
+        "fr": "Capture d'écran du site osu!",
+        "en": "Screenshot of the osu! website"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1904,
+      "height": 1079,
+      "variants": [
+        {
+          "width": 480,
+          "height": 272,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1904,
+          "height": 1079,
+          "file": "w1904.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t2p2",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic2.png",
+      "size": 291767,
+      "alt": {
+        "fr": "Capture d'écran du site osu!",
+        "en": "Screenshot of the osu! website"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1904,
+      "height": 1079,
+      "variants": [
+        {
+          "width": 480,
+          "height": 272,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 907,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1904,
+          "height": 1079,
+          "file": "w1904.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t2p3",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic3.png",
+      "size": 148063,
+      "alt": {
+        "fr": "Capture d'écran du site osu!",
+        "en": "Screenshot of the osu! website"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1905,
+      "height": 1079,
+      "variants": [
+        {
+          "width": 480,
+          "height": 272,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1905,
+          "height": 1079,
+          "file": "w1905.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t2p4",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic4.png",
+      "size": 138269,
+      "alt": {
+        "fr": "Capture d'écran du site osu!",
+        "en": "Screenshot of the osu! website"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1905,
+      "height": 1079,
+      "variants": [
+        {
+          "width": 480,
+          "height": 272,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 544,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 906,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1905,
+          "height": 1079,
+          "file": "w1905.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t2p5",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic5.png",
+      "size": 11000,
+      "alt": {
+        "fr": "Capture d'écran du site osu!",
+        "en": "Screenshot of the osu! website"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1919,
+      "height": 1079,
+      "variants": [
+        {
+          "width": 480,
+          "height": 270,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 540,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1600,
+          "height": 900,
+          "file": "w1600.webp"
+        },
+        {
+          "width": 1919,
+          "height": 1079,
+          "file": "w1919.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t3cover",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "minia.png",
+      "size": 880401,
+      "alt": {
+        "fr": "Photographie de nature",
+        "en": "Nature photograph"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 776,
+      "height": 776,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 776,
+          "height": 776,
+          "file": "w776.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t3p1",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic1.png",
+      "size": 954817,
+      "alt": {
+        "fr": "Photographie de nature",
+        "en": "Nature photograph"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 816,
+      "height": 816,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 816,
+          "height": 816,
+          "file": "w816.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t3p2",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic2.png",
+      "size": 1028734,
+      "alt": {
+        "fr": "Photographie de nature",
+        "en": "Nature photograph"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 779,
+      "height": 779,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 779,
+          "height": 779,
+          "file": "w779.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t3p3",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic3.png",
+      "size": 1028292,
+      "alt": {
+        "fr": "Photographie de nature",
+        "en": "Nature photograph"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 781,
+      "height": 781,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 781,
+          "height": 781,
+          "file": "w781.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t3p4",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic4.png",
+      "size": 880401,
+      "alt": {
+        "fr": "Photographie de nature",
+        "en": "Nature photograph"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 776,
+      "height": 776,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 776,
+          "height": 776,
+          "file": "w776.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t3p5",
+      "kind": "image",
+      "mime": "image/png",
+      "file": "original.png",
+      "originalName": "pic5.png",
+      "size": 1123495,
+      "alt": {
+        "fr": "Photographie de nature",
+        "en": "Nature photograph"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 808,
+      "height": 808,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 808,
+          "height": 808,
+          "file": "w808.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4cover",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "minia.jpg",
+      "size": 89866,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 967,
+      "height": 967,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 967,
+          "height": 967,
+          "file": "w967.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p1",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic1.jpg",
+      "size": 8914,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 591,
+      "height": 591,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 591,
+          "height": 591,
+          "file": "w591.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p2",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic2.jpg",
+      "size": 79124,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 992,
+      "height": 992,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 992,
+          "height": 992,
+          "file": "w992.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p3",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic3.jpg",
+      "size": 81309,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 997,
+      "height": 997,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 997,
+          "height": 997,
+          "file": "w997.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p4",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic4.jpg",
+      "size": 22447,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 978,
+      "height": 978,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 978,
+          "height": 978,
+          "file": "w978.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p5",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic5.jpg",
+      "size": 13826,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1080,
+      "height": 1080,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1080,
+          "height": 1080,
+          "file": "w1080.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p6",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic6.jpg",
+      "size": 21408,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1075,
+      "height": 1075,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1075,
+          "height": 1075,
+          "file": "w1075.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p7",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic7.jpg",
+      "size": 19467,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1080,
+      "height": 1080,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1080,
+          "height": 1080,
+          "file": "w1080.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p8",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic8.jpg",
+      "size": 36992,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 1080,
+      "height": 1080,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 1080,
+          "height": 1080,
+          "file": "w1080.webp"
+        }
+      ]
+    },
+    {
+      "id": "m_t4p9",
+      "kind": "image",
+      "mime": "image/jpeg",
+      "file": "original.jpg",
+      "originalName": "pic9.jpg",
+      "size": 25055,
+      "alt": {
+        "fr": "Modèle en voxel art",
+        "en": "Voxel art model"
+      },
+      "createdAt": "2026-11-20T01:55:08.235Z",
+      "width": 967,
+      "height": 967,
+      "variants": [
+        {
+          "width": 480,
+          "height": 480,
+          "file": "w480.webp"
+        },
+        {
+          "width": 960,
+          "height": 960,
+          "file": "w960.webp"
+        },
+        {
+          "width": 967,
+          "height": 967,
+          "file": "w967.webp"
+        }
+      ]
+    }
+  ]
+}

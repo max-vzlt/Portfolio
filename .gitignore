@@ -1,0 +1,25 @@
+# Nuxt
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+node_modules
+
+# Runtime content (created from /seed on first start)
+/data
+
+# Logs & OS
+logs
+*.log
+.DS_Store
+.fleet
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Local env files
+.env
+.env.*
+!.env.example
