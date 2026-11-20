@@ -188,11 +188,6 @@ server {
     # import d'images et de vidéos depuis le back-office (300 Mo max)
     client_max_body_size 300m;
 
-    # ancien lien du CV (LinkedIn, candidatures…) → CV actuel
-    location = "/CV - Verzeletti Maxime.pdf" {
-        return 301 /cv;
-    }
-
     location / {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
@@ -246,7 +241,7 @@ Ouvre ces adresses :
 - [ ] `https://mverzeletti.com/en` : la version anglaise.
 - [ ] `https://mverzeletti.com/work/prototype-unity` : une trace, avec images et vidéos.
 - [ ] `https://mverzeletti.com/admin` : connexion avec `NUXT_ADMIN_PASSWORD`. Teste l'import d'une image et l'enregistrement d'une trace.
-- [ ] `https://mverzeletti.com/cv` et `https://mverzeletti.com/CV%20-%20Verzeletti%20Maxime.pdf` : le CV.
+- [ ] `https://mverzeletti.com/cv` et l'ancien lien `https://mverzeletti.com/CV%20-%20Verzeletti%20Maxime.pdf` : le CV. L'ancien lien est redirigé automatiquement par le site.
 - [ ] `https://mverzeletti.com/sitemap.xml` et `/robots.txt` : les adresses commencent bien par `https://mverzeletti.com`.
 - [ ] `https://mverzeletti.com/llms.txt`, `/llms-full.txt` et `/work/prototype-unity.md` : versions pour les IA.
 - [ ] Traduction automatique : dans une trace, bouton « Traduire en anglais ».
