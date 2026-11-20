@@ -10,14 +10,22 @@ const solid = ref(false)
 const hidden = ref(false)
 
 const isHome = computed(() => route.path === '/' || route.path === '/en')
-const links = computed(() => [
-  { id: 'work', label: t('nav.work'), icon: LayoutGrid },
-  { id: 'about', label: t('nav.about'), icon: UserRound },
-  { id: 'skills', label: t('nav.skills'), icon: Sparkles },
-  { id: 'contact', label: t('nav.contact'), icon: Mail },
-])
-const left = computed(() => links.value.slice(0, 2))
-const right = computed(() => links.value.slice(2))
+const NAV = {
+  work: { key: 'nav.work', icon: LayoutGrid },
+  about: { key: 'nav.about', icon: UserRound },
+  skills: { key: 'nav.skills', icon: Sparkles },
+  contact: { key: 'nav.contact', icon: Mail },
+} as const
+// same order / visibility as the sections of the home page (editable in /admin/home)
+const links = computed(() =>
+  (data.value?.settings.home?.sections || [])
+    .filter((s) => s.visible)
+    .map((s) => ({ id: s.id, label: t(NAV[s.id].key), icon: NAV[s.id].icon })),
+)
+const half = computed(() => Math.ceil(links.value.length / 2))
+const left = computed(() => links.value.slice(0, half.value))
+const right = computed(() => links.value.slice(half.value))
+const { until: pinUntil, pin } = useHeaderPin()
 
 const name = computed(() => (data.value?.settings.name || 'Maxime Verzeletti').trim())
 const nameParts = computed(() => {
@@ -29,6 +37,12 @@ let lastY = 0
 function onScroll() {
   const y = window.scrollY
   solid.value = y > 40
+  // scrolling triggered by a link: keep the header on screen
+  if (Date.now() < pinUntil.value) {
+    hidden.value = false
+    lastY = y
+    return
+  }
   if (Math.abs(y - lastY) > 6) {
     hidden.value = y > lastY && y > 420
     lastY = y
@@ -56,6 +70,7 @@ watch(() => route.fullPath, () => (hidden.value = false))
           :class="{ 'is-active': isHome && active === l.id }"
           :title="l.label"
           :aria-label="l.label"
+          @click="pin()"
         >
           <component :is="l.icon" class="h-ico" aria-hidden="true" />
           <span class="h-txt nav-label link-underline" :class="{ 'is-active': isHome && active === l.id }">{{ l.label }}</span>
@@ -63,7 +78,7 @@ watch(() => route.fullPath, () => (hidden.value = false))
         </span>
       </nav>
 
-      <NuxtLink :to="lp('/')" class="h-logo" :aria-label="`${name} — ${t('nav.home')}`">
+      <NuxtLink :to="lp('/')" class="h-logo" @click="pin()" :aria-label="`${name} — ${t('nav.home')}`">
         <span v-for="(p, i) in nameParts" :key="i">{{ p }}</span>
       </NuxtLink>
 
@@ -76,6 +91,7 @@ watch(() => route.fullPath, () => (hidden.value = false))
           class="h-link"
           :title="l.label"
           :aria-label="l.label"
+          @click="pin()"
         >
           <component :is="l.icon" class="h-ico" aria-hidden="true" />
           <span class="h-txt nav-label link-underline" :class="{ 'is-active': isHome && active === l.id }">{{ l.label }}</span>

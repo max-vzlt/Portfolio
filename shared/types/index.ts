@@ -157,6 +157,16 @@ export interface Settings {
   socials: Social[]
   cvId: string | null
   seo: { description: I18nText }
+  /** Home page: order / visibility of the sections + work section texts */
+  home: HomeSettings
+}
+
+export type HomeSectionId = 'work' | 'about' | 'skills' | 'contact'
+export const HOME_SECTIONS: HomeSectionId[] = ['work', 'about', 'skills', 'contact']
+
+export interface HomeSettings {
+  sections: { id: HomeSectionId; visible: boolean }[]
+  work: { title: I18nText; intro: I18nText; filters: boolean }
 }
 
 export interface Database {

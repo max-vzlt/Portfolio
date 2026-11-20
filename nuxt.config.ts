@@ -22,7 +22,8 @@ export default defineNuxtConfig({
       // Lets CSS hide "reveal" elements only when JS is available (no flash without JS).
       script: [{ innerHTML: "document.documentElement.classList.add('js')", tagPosition: 'head' }],
     },
-    pageTransition: { name: 'page', mode: 'out-in' },
+    // page changes are animated by the curtain (plugins/curtain.client.ts)
+    pageTransition: false,
   },
 
   // Everything here can be overridden with NUXT_* environment variables (see .env.example).

@@ -74,7 +74,45 @@ const hostOf = (url: string) => {
     return url
   }
 }
+
+/* ---------- sections: order / visibility from the back-office ---------- */
+const sections = computed(() =>
+  (s.value?.home?.sections || [{ id: 'work', visible: true }, { id: 'about', visible: true }, { id: 'skills', visible: true }, { id: 'contact', visible: true }])
+    .filter((x) => x.visible)
+    .map((x, i) => ({ id: x.id, index: String(i + 1).padStart(2, '0') })),
+)
+const workTitle = computed(() => tr(s.value?.home?.work.title) || t('work.title'))
+const showFilters = computed(() => s.value?.home?.work.filters !== false && categories.value.length > 1)
+const heroWords = computed(() => heroTitle.value.split(/\s+/).filter(Boolean))
+const { pin } = useHeaderPin()
+watch(sections, () => nextTick(() => {
+  io?.disconnect()
+  document.querySelectorAll('section[data-nav]').forEach((el) => io?.observe(el))
+}))
+
+/* ---------- live preview from /admin/home (iframe + postMessage) ---------- */
+if (import.meta.client && route.query.preview !== undefined) {
+  const onMessage = (e: MessageEvent) => {
+    if (e.origin !== window.location.origin) return
+    if (e.data?.type === 'mv-preview-scroll') {
+      const id = String(e.data.id || '')
+      return id === 'top' ? scrollTo(0) : scrollTo(`#${id}`)
+    }
+    if (e.data?.type !== 'mv-preview' || !data.value) return
+    data.value = {
+      ...data.value,
+      settings: e.data.settings,
+      media: { ...data.value.media, ...(e.data.media || {}) },
+    }
+  }
+  onMounted(() => {
+    window.addEventListener('message', onMessage)
+    window.parent?.postMessage({ type: 'mv-preview-ready' }, window.location.origin)
+  })
+  onBeforeUnmount(() => window.removeEventListener('message', onMessage))
+}
 </script>
+
 
 <template>
   <div v-if="s" :key="lang">
@@ -83,14 +121,16 @@ const hostOf = (url: string) => {
       <div class="hero-frame" aria-hidden="true" />
       <div class="wrap hero-grid">
         <div class="hero-text">
-          <p class="label hero-kicker" v-reveal>
+          <p class="label hero-kicker enter" style="--i: 0">
             <span class="hero-dot" aria-hidden="true" />
             {{ tr(s.hero.kicker) }} — {{ tr(s.role) }}
           </p>
-          <h1 class="display-xl hero-title" v-reveal="80">{{ heroTitle }}</h1>
-          <SiteRichText v-if="tr(s.hero.intro)" :text="tr(s.hero.intro)" class="hero-intro" v-reveal="160" />
-          <div class="hero-actions" v-reveal="220">
-            <NuxtLink :to="{ hash: '#work' }" class="btn btn-solid">
+          <h1 class="display-xl hero-title" :aria-label="heroTitle">
+            <template v-for="(w, i) in heroWords" :key="i"><span class="enter-mask" aria-hidden="true"><span class="enter-word" :style="{ '--i': i + 1 }">{{ w }}</span></span>{{ ' ' }}</template>
+          </h1>
+          <SiteRichText v-if="tr(s.hero.intro)" :text="tr(s.hero.intro)" class="hero-intro enter" style="--i: 4" />
+          <div class="hero-actions enter" style="--i: 5">
+            <NuxtLink v-if="sections.some((x) => x.id === 'work')" :to="{ hash: '#work' }" class="btn btn-solid" @click="pin()">
               <ArrowDown aria-hidden="true" /> {{ t('hero.cta') }}
             </NuxtLink>
             <a v-if="cvUrl" :href="cvUrl" class="btn btn-ghost" download target="_blank">
@@ -98,7 +138,7 @@ const hostOf = (url: string) => {
             </a>
           </div>
 
-          <div v-if="tabs.length" class="console" v-reveal="300">
+          <div v-if="tabs.length" class="console enter" style="--i: 6">
             <div class="console-tabs" role="tablist">
               <button
                 v-for="(tb, i) in tabs"
@@ -122,111 +162,114 @@ const hostOf = (url: string) => {
           </div>
         </div>
 
-        <div class="hero-media" v-reveal="120">
+        <div class="hero-media enter-media">
           <DotImage
             :media="media(s.hero.imageId)"
             :effect="s.hero.effect"
             :alt="tr(media(s.hero.imageId)?.alt) || s.name"
-            :parallax="0.14"
+            :parallax="0.24"
             seed="globe-hero"
             sizes="(max-width: 1023px) 100vw, 620px"
             eager
           />
         </div>
       </div>
-      <button type="button" class="hero-scroll label" @click="scrollTo('#work')">
+      <button v-if="sections.length" type="button" class="hero-scroll label" @click="scrollTo(`#${sections[0]!.id}`)">
         <span>{{ t('hero.scroll') }}</span>
         <ArrowDown aria-hidden="true" />
       </button>
     </section>
 
-    <!-- ===================================================== WORK -->
-    <section id="work" data-nav class="section tone-paper guides">
-      <div class="wrap">
-        <SiteSectionHead index="01" :title="t('work.title')" glyph="eye">
-          <SiteFilterBar v-if="categories.length > 1" v-model="filter" :categories="categories" :total="projects.length" />
-        </SiteSectionHead>
+    <template v-for="sec in sections" :key="sec.id">
+      <!-- ===================================================== WORK -->
+      <section v-if="sec.id === 'work'" id="work" data-nav class="section tone-paper guides">
+        <div class="wrap">
+          <SiteSectionHead :index="sec.index" :title="workTitle" glyph="eye">
+            <SiteFilterBar v-if="showFilters" v-model="filter" :categories="categories" :total="projects.length" />
+          </SiteSectionHead>
+          <SiteRichText v-if="tr(s.home?.work.intro)" :text="tr(s.home?.work.intro)" class="lead work-intro" v-reveal />
 
-        <TransitionGroup tag="div" name="cards" class="grid3 work-grid">
-          <SiteProjectCard
-            v-for="(p, i) in filtered"
-            :key="p.id"
-            :project="p"
-            :index="i"
-            :categories="data!.categories"
-            :cover="media(p.coverId)"
-          />
-        </TransitionGroup>
-        <p v-if="!filtered.length" class="work-empty label">{{ t('work.empty') }}</p>
-      </div>
-    </section>
-
-    <!-- ===================================================== ABOUT -->
-    <section id="about" data-nav class="section tone-blue about">
-      <div class="wrap">
-        <SiteSectionHead index="02" :title="tr(s.about.title) || t('about.title')" glyph="spark" />
-        <div class="grid3 about-grid">
-          <div class="about-media" v-reveal>
-            <DotImage
-              :media="media(s.about.imageId)"
-              :effect="s.about.effect"
-              :alt="s.name"
-              fit="contain"
-              :parallax="0.06"
-              seed="field-about"
-              sizes="(max-width: 639px) 100vw, 400px"
+          <TransitionGroup tag="div" name="cards" class="grid3 work-grid">
+            <SiteProjectCard
+              v-for="(p, i) in filtered"
+              :key="p.id"
+              :project="p"
+              :index="i"
+              :categories="data!.categories"
+              :cover="media(p.coverId)"
             />
-          </div>
-          <SiteRichText :text="tr(s.about.body)" class="about-body lead" v-reveal="100" />
-          <dl class="facts" v-reveal="200">
-            <div v-for="(f, i) in s.about.facts" :key="i" class="fact">
-              <dt class="label">{{ tr(f.label) }}</dt>
-              <dd>{{ tr(f.value) }}</dd>
-            </div>
-          </dl>
+          </TransitionGroup>
+          <p v-if="!filtered.length" class="work-empty label">{{ t('work.empty') }}</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ===================================================== SKILLS -->
-    <section id="skills" data-nav class="section tone-paper guides">
-      <div class="wrap">
-        <SiteSectionHead index="03" :title="tr(s.skills.title) || t('skills.title')" glyph="grid" />
-        <div class="grid3 skills-grid">
-          <div v-for="(g, gi) in s.skills.groups" :key="gi" class="skill-col" v-reveal="gi * 90">
-            <p class="label muted">{{ String(gi + 1).padStart(2, '0') }} / {{ String(s.skills.groups.length).padStart(2, '0') }}</p>
-            <h3 class="display-m">{{ tr(g.title) }}</h3>
-            <ul class="skill-list">
-              <li v-for="(item, ii) in g.items" :key="item">
-                <span class="label skill-idx">{{ String(ii + 1).padStart(2, '0') }}</span>
-                <span>{{ item }}</span>
+      <!-- ===================================================== ABOUT -->
+      <section v-else-if="sec.id === 'about'" id="about" data-nav class="section tone-blue about">
+        <div class="wrap">
+          <SiteSectionHead :index="sec.index" :title="tr(s.about.title) || t('about.title')" glyph="spark" />
+          <div class="grid3 about-grid">
+            <div class="about-media" v-reveal>
+              <DotImage
+                :media="media(s.about.imageId)"
+                :effect="s.about.effect"
+                :alt="s.name"
+                fit="contain"
+                :parallax="0.12"
+                seed="field-about"
+                sizes="(max-width: 639px) 100vw, 400px"
+              />
+            </div>
+            <SiteRichText :text="tr(s.about.body)" class="about-body lead" v-reveal="100" />
+            <dl class="facts" v-reveal="200">
+              <div v-for="(f, i) in s.about.facts" :key="i" class="fact">
+                <dt class="label">{{ tr(f.label) }}</dt>
+                <dd>{{ tr(f.value) }}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================== SKILLS -->
+      <section v-else-if="sec.id === 'skills'" id="skills" data-nav class="section tone-paper guides">
+        <div class="wrap">
+          <SiteSectionHead :index="sec.index" :title="tr(s.skills.title) || t('skills.title')" glyph="grid" />
+          <div class="grid3 skills-grid">
+            <div v-for="(g, gi) in s.skills.groups" :key="gi" class="skill-col" v-reveal="gi * 90">
+              <p class="label muted">{{ String(gi + 1).padStart(2, '0') }} / {{ String(s.skills.groups.length).padStart(2, '0') }}</p>
+              <h3 class="display-m">{{ tr(g.title) }}</h3>
+              <ul class="skill-list">
+                <li v-for="(item, ii) in g.items" :key="item">
+                  <span class="label skill-idx">{{ String(ii + 1).padStart(2, '0') }}</span>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================== CONTACT -->
+      <section v-else-if="sec.id === 'contact'" id="contact" data-nav class="section tone-paper contact">
+        <div class="wrap">
+          <SiteSectionHead :index="sec.index" :title="tr(s.contact.title) || t('contact.title')" glyph="mail">
+            <a v-if="mailto" :href="mailto" class="btn btn-solid"><Mail aria-hidden="true" /> {{ t('contact.email') }}</a>
+          </SiteSectionHead>
+          <div class="grid3 contact-grid">
+            <SiteRichText v-if="tr(s.contact.text)" :text="tr(s.contact.text)" class="lead contact-text" v-reveal />
+            <ul class="contact-list">
+              <li v-for="(l, i) in allLinks" :key="l.url" v-reveal="i * 60">
+                <a :href="l.url" :target="l.url.startsWith('mailto:') ? undefined : '_blank'" rel="noopener" class="contact-row">
+                  <span class="label muted contact-host">{{ hostOf(l.url) }}</span>
+                  <span class="display-m contact-name">{{ l.label }}</span>
+                  <ArrowUpRight class="contact-arrow" aria-hidden="true" />
+                </a>
               </li>
             </ul>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ===================================================== CONTACT -->
-    <section id="contact" data-nav class="section tone-paper contact">
-      <div class="wrap">
-        <SiteSectionHead index="04" :title="tr(s.contact.title) || t('contact.title')" glyph="mail">
-          <a v-if="mailto" :href="mailto" class="btn btn-solid"><Mail aria-hidden="true" /> {{ t('contact.email') }}</a>
-        </SiteSectionHead>
-        <div class="grid3 contact-grid">
-          <SiteRichText v-if="tr(s.contact.text)" :text="tr(s.contact.text)" class="lead contact-text" v-reveal />
-          <ul class="contact-list">
-            <li v-for="(l, i) in allLinks" :key="l.url" v-reveal="i * 60">
-              <a :href="l.url" :target="l.url.startsWith('mailto:') ? undefined : '_blank'" rel="noopener" class="contact-row">
-                <span class="label muted contact-host">{{ hostOf(l.url) }}</span>
-                <span class="display-m contact-name">{{ l.label }}</span>
-                <ArrowUpRight class="contact-arrow" aria-hidden="true" />
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </section>
+    </template>
   </div>
 </template>
 
@@ -323,6 +366,7 @@ const hostOf = (url: string) => {
 /* ------------------------------------------------------------------ work */
 .work-grid { row-gap: clamp(48px, 6vw, 88px); }
 .work-empty { padding: 40px 0; color: var(--muted); }
+.work-intro { max-width: 60ch; margin: calc(-1 * clamp(12px, 2vw, 28px)) 0 clamp(36px, 5vw, 56px); }
 .cards-move, .cards-enter-active, .cards-leave-active { transition: opacity 0.45s var(--ease), transform 0.6s var(--ease); }
 .cards-enter-from, .cards-leave-to { opacity: 0; transform: translateY(24px) scale(0.98); }
 .cards-leave-active { position: absolute; visibility: hidden; }

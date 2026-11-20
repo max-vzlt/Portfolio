@@ -51,7 +51,7 @@ const sizes = computed(() =>
 
     <figure v-else-if="block.type === 'image'" class="blk-fig">
       <button v-if="m" type="button" class="blk-media blk-zoom" :aria-label="caption || tr(m.alt) || 'Image'" @click="emit('zoom', block.id)">
-        <DotImage :media="m" :effect="block.effect" :fit="block.fit" :alt="tr(m.alt) || caption" :parallax="block.row > 1 ? 0.06 : 0.04" :sizes="sizes" :seed="block.id" />
+        <DotImage :media="m" :effect="block.effect" :fit="block.fit" :alt="tr(m.alt) || caption" :parallax="block.row > 1 ? 0.14 : 0.1" :sizes="sizes" :seed="block.id" reveal />
         <span class="blk-zoom-ico" aria-hidden="true"><Maximize2 /></span>
       </button>
       <div v-else class="blk-media"><DotImage :seed="block.id" /></div>

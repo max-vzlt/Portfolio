@@ -41,14 +41,8 @@ export default <RouterConfig>{
         resolve({ top: 0 })
       }
       if (samePage) return go()
-      let done = false
-      const once = () => {
-        if (done) return
-        done = true
-        setTimeout(go, 20)
-      }
-      nuxtApp.hooks.hookOnce('page:transition:finish', once)
-      nuxtApp.hooks.hookOnce('page:finish', () => setTimeout(once, 420))
+      // the new page is under the curtain: scroll as soon as it is rendered
+      nuxtApp.hooks.hookOnce('page:finish', () => setTimeout(go, 0))
     })
   },
 }

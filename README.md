@@ -4,7 +4,8 @@ Portfolio bilingue (FR / EN) avec back-office intégré, construit avec **Nuxt 4
 
 - Direction artistique **bleu & blanc uniquement** (`#0037FF`, `#090BD0`, `#C9C7FF`, `#F4F3FF`), typographies Oswald (titres condensés), Mona Sans (texte) et Geist Mono (labels).
 - Mise en page sur une **grille de 3 colonnes**, défilement fluide (Lenis), parallaxe sur les images, apparitions au scroll.
-- Images rendues en **pixels ronds bleu & blanc** (trame générée dans le navigateur), en **bichromie**, ou telles quelles (tes rendus Blender), avec une **texture papier**.
+- Images rendues en **pixels ronds bleu & blanc** (trame générée dans le navigateur), en **bichromie**, ou telles quelles (tes rendus Blender), avec une **texture papier** (sur les images uniquement). Sur une trace, le survol d'une image révèle ses couleurs d'origine dans un cercle qui part du curseur.
+- Transition entre les pages par un rideau bleu, puis animation d'entrée (titres mot par mot, couverture qui se dévoile). Barre de défilement personnalisée.
 - Responsive : sur tablette et téléphone, l'en-tête passe en icônes et la grille passe de 3 à 2 puis 1 colonne.
 
 ## Démarrer en local
@@ -30,9 +31,10 @@ Au premier démarrage, le contenu de départ (`seed/` : les 4 traces de l'ancien
 | --- | --- |
 | **Traces** | Créer une trace, la masquer ou l'afficher, la dupliquer, la supprimer, changer l'ordre par glisser-déposer. **Création express** : dépose des images, une trace est créée avec la 1re en couverture et les autres en blocs. |
 | **Éditeur de trace** | Grille de 3 colonnes : ajoute des blocs (titre, texte, image, vidéo, lien, citation, séparateur), **déplace-les** avec la poignée ⠿, règle leur **taille** (largeur 1 à 3 colonnes, hauteur 1 à 4 lignes) avec les boutons ou en tirant le coin ↘, **masque** un bloc, glisse des images ou vidéos depuis ton ordinateur directement dans la grille. Catégories, couverture, résumé, taille de la carte sur l'accueil, année, outils, lien externe. `Ctrl / Cmd + S` pour enregistrer. |
+| **Accueil** | Toutes les sections de la page d'accueil au même endroit : haut de page (titre, introduction, image, console), Réalisations, Qui suis-je, Compétences, Contact et réseaux. Réordonne les sections par glisser-déposer, masque-les, modifie leurs textes. Un **aperçu en direct** (ordinateur, tablette, mobile) montre les changements avant l'enregistrement. L'en-tête du site suit l'ordre et la visibilité des sections. |
 | **Catégories** | Ce sont les filtres proposés aux visiteurs (ex. Développement web, Photographie, Création visuelle). Renommer, réordonner, supprimer. Une catégorie sans trace visible n'apparaît pas sur le site. |
 | **Médiathèque** | Import par glisser-déposer ou depuis l'ordinateur, texte alternatif FR/EN, suppression (avec la liste des endroits où le média est utilisé). Les images sont converties automatiquement en versions webp optimisées. |
-| **Réglages** | Textes de l'accueil, image principale, onglets de la console, « Qui suis-je », infos clés, compétences, contact, réseaux sociaux, CV (PDF). |
+| **Réglages** | Nom, métier, CV (PDF) et description pour Google. |
 
 **Rendu des images** (pour chaque image) :
 - **Original** : l'image telle quelle. À utiliser pour tes rendus Blender déjà en bleu et blanc.

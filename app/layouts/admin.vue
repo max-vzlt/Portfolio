@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LayoutGrid, Tags, Images, Settings, ExternalLink, LogOut, CircleAlert, Check } from 'lucide-vue-next'
+import { LayoutGrid, House, Tags, Images, Settings, ExternalLink, LogOut, CircleAlert, Check } from 'lucide-vue-next'
 import '~/assets/css/admin.css'
 
 const { toasts } = useToast()
@@ -24,6 +24,7 @@ useHead({ title: 'Back-office — Portfolio', meta: [{ name: 'robots', content: 
         </NuxtLink>
         <nav class="a-nav">
           <NuxtLink to="/admin" :class="{ 'router-link-active': route.path === '/admin' || route.path.startsWith('/admin/projects') }"><LayoutGrid /> <span>Traces</span></NuxtLink>
+          <NuxtLink to="/admin/home"><House /> <span>Accueil</span></NuxtLink>
           <NuxtLink to="/admin/categories"><Tags /> <span>Catégories</span></NuxtLink>
           <NuxtLink to="/admin/media"><Images /> <span>Médiathèque</span></NuxtLink>
           <NuxtLink to="/admin/settings"><Settings /> <span>Réglages</span></NuxtLink>
@@ -37,6 +38,7 @@ useHead({ title: 'Back-office — Portfolio', meta: [{ name: 'robots', content: 
         <slot />
       </main>
     </div>
+    <SiteScrollbar />
     <TransitionGroup tag="div" name="toast" class="a-toasts" aria-live="polite">
       <div v-for="t in toasts" :key="t.id" class="a-toast" :class="{ 'is-error': t.error }">
         <CircleAlert v-if="t.error" /><Check v-else /> <span>{{ t.text }}</span>

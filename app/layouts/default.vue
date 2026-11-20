@@ -12,6 +12,7 @@ useHead({ htmlAttrs: { lang } })
     </main>
     <SiteFooter />
     <SiteLightbox />
-    <div class="paper-grain" aria-hidden="true" />
+    <SiteCurtain />
+    <SiteScrollbar />
   </div>
 </template>

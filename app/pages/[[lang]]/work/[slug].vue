@@ -26,6 +26,7 @@ const cats = computed(() =>
   p.value.categoryIds.map((id) => data.value!.categories.find((c) => c.id === id)).filter(Boolean).map((c) => tr(c!.name)),
 )
 const cover = computed(() => m(p.value.coverId))
+const titleWords = computed(() => tr(p.value.title).split(/\s+/).filter(Boolean))
 const external = computed(() => /^https?:/i.test(p.value.link.url))
 
 const gallery = computed<LightboxItem[]>(() =>
@@ -55,18 +56,20 @@ if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] }
     <header class="proj-hero tone-blue">
       <div class="hero-frame" aria-hidden="true" />
       <div class="wrap">
-        <NuxtLink :to="{ path: lp('/'), hash: '#work' }" class="proj-back nav-label" v-reveal>
+        <NuxtLink :to="{ path: lp('/'), hash: '#work' }" class="proj-back nav-label enter" @click="pin()">
           <ArrowLeft aria-hidden="true" /> <span class="link-underline">{{ t('project.back') }}</span>
         </NuxtLink>
         <div class="proj-head grid3">
           <div class="proj-title-wrap">
-            <p class="label proj-kicker" v-reveal="60">
+            <p class="label proj-kicker enter" style="--i: 1">
               <span v-for="c in cats" :key="c">{{ c }}</span>
               <span v-if="p.year">{{ p.year }}</span>
             </p>
-            <h1 class="display-xl proj-title" v-reveal="120">{{ tr(p.title) }}</h1>
+            <h1 class="display-xl proj-title" :aria-label="tr(p.title)">
+              <template v-for="(w, i) in titleWords" :key="i"><span class="enter-mask" aria-hidden="true"><span class="enter-word" :style="{ '--i': i + 2 }">{{ w }}</span></span>{{ ' ' }}</template>
+            </h1>
           </div>
-          <div class="proj-side" v-reveal="200">
+          <div class="proj-side enter" style="--i: 4">
             <SiteRichText v-if="tr(p.summary)" :text="tr(p.summary)" class="proj-summary" />
             <dl class="proj-meta">
               <div v-if="cats.length">
@@ -98,13 +101,14 @@ if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] }
 
     <div class="proj-cover-band">
       <div class="wrap">
-        <div class="proj-cover" v-reveal>
+        <div class="proj-cover enter-media">
           <DotImage
             :media="cover"
             :effect="p.coverEffect"
             :alt="tr(cover?.alt) || tr(p.title)"
             :seed="p.id"
-            :parallax="0.12"
+            :parallax="0.22"
+            reveal
             sizes="(max-width: 1023px) 100vw, 1240px"
             eager
           />
@@ -127,7 +131,7 @@ if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] }
           <p class="display-l">{{ tr(data.next.title) }} <ArrowRight class="proj-next-arrow" aria-hidden="true" /></p>
         </div>
         <div class="proj-next-media">
-          <DotImage :media="m(data.next.coverId)" :effect="data.next.coverEffect" :seed="data.next.slug" :parallax="0.1" sizes="400px" />
+          <DotImage :media="m(data.next.coverId)" :effect="data.next.coverEffect" :seed="data.next.slug" :parallax="0.2" sizes="400px" />
         </div>
       </NuxtLink>
     </nav>

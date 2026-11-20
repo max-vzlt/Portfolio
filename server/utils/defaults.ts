@@ -1,4 +1,4 @@
-import type { Database, Settings } from '#shared/types'
+import { HOME_SECTIONS, type Database, type HomeSettings, type Settings } from '#shared/types'
 
 const t = (fr: string, en: string) => ({ fr, en })
 
@@ -30,6 +30,14 @@ export function defaultSettings(): Settings {
     socials: [],
     cvId: null,
     seo: { description: t('', '') },
+    home: defaultHome(),
+  }
+}
+
+export function defaultHome(): HomeSettings {
+  return {
+    sections: HOME_SECTIONS.map((id) => ({ id, visible: true })),
+    work: { title: t('Réalisations', 'Selected work'), intro: t('', ''), filters: true },
   }
 }
 

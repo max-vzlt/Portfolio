@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<{
   dot?: number
   eager?: boolean
   paper?: boolean
+  /** On hover, the original image is revealed in a circle growing from the cursor */
+  reveal?: boolean
 }>(), {
   media: null,
   effect: 'none',
@@ -31,6 +33,7 @@ const props = withDefaults(defineProps<{
   dot: 0,
   eager: false,
   paper: true,
+  reveal: false,
 })
 
 const host = ref<HTMLElement | null>(null)
@@ -38,6 +41,15 @@ const layer = ref<HTMLElement | null>(null)
 const img = ref<HTMLImageElement | null>(null)
 const canvas = ref<HTMLCanvasElement | null>(null)
 const drawn = ref(false)
+const revealed = ref(false)
+const canReveal = computed(() => props.reveal && isImage.value && props.effect !== 'none')
+function revealAt(e: PointerEvent, on: boolean) {
+  if (!canReveal.value || e.pointerType !== 'mouse' || !host.value) return
+  const r = host.value.getBoundingClientRect()
+  host.value.style.setProperty('--mx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`)
+  host.value.style.setProperty('--my', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`)
+  revealed.value = on
+}
 const visible = ref(false)
 
 const isImage = computed(() => props.media?.kind === 'image')
@@ -266,7 +278,9 @@ watch(() => [props.media?.url, props.effect, props.fit, props.seed, props.dot], 
   <figure
     ref="host"
     class="dimg"
-    :class="[`fx-${fx}`, { 'is-drawn': drawn, 'is-contain': fit === 'contain' }]"
+    :class="[`fx-${fx}`, { 'is-drawn': drawn, 'is-contain': fit === 'contain', 'can-reveal': canReveal, 'is-revealed': revealed }]"
+    @pointerenter="revealAt($event, true)"
+    @pointerleave="revealAt($event, false)"
   >
     <div ref="layer" v-parallax="parallax" class="dimg-layer">
       <img
@@ -285,6 +299,18 @@ watch(() => [props.media?.url, props.effect, props.fit, props.seed, props.dot], 
         @load="onLoad"
       >
       <canvas v-if="usesCanvas" ref="canvas" aria-hidden="true" />
+      <img
+        v-if="canReveal && media"
+        class="dimg-orig"
+        :src="media.url"
+        :srcset="media.srcset"
+        :sizes="media.srcset ? sizes : undefined"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        draggable="false"
+      >
       <span v-if="!isImage && alt" class="sr-only">{{ alt }}</span>
     </div>
     <div v-if="paper" class="dimg-paper" aria-hidden="true" />
@@ -341,4 +367,18 @@ watch(() => [props.media?.url, props.effect, props.fit, props.seed, props.dot], 
   z-index: 1;
 }
 .dimg.fx-none .dimg-paper { opacity: 0.28; }
+/* hover: the original colours open in a circle from the cursor */
+.dimg .dimg-layer img.dimg-orig {
+  z-index: 1;
+  filter: none;
+  mix-blend-mode: normal;
+  opacity: 1;
+  clip-path: circle(0% at var(--mx, 50%) var(--my, 50%));
+  transform: scale(1.08);
+  transition: clip-path 0.95s cubic-bezier(0.76, 0, 0.24, 1), transform 1.2s var(--ease);
+}
+.dimg.is-revealed .dimg-layer img.dimg-orig { clip-path: circle(150% at var(--mx, 50%) var(--my, 50%)); transform: scale(1); }
+.dimg.is-contain .dimg-layer img.dimg-orig { object-fit: contain; }
+.dimg.can-reveal .dimg-paper { transition: opacity 0.6s var(--ease); }
+.dimg.is-revealed .dimg-paper { opacity: 0.18; }
 </style>

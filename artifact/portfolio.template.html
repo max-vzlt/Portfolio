@@ -126,9 +126,50 @@ button.chip:hover { border-color: var(--fg); }
 .chip sup { font-size: 9px; opacity: .7; }
 .link-underline { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .45s var(--ease); padding-bottom: 2px; }
 .link-underline:hover, .link-underline.is-active { background-size: 100% 1px; }
-.paper-grain { position: fixed; inset: 0; z-index: 90; pointer-events: none; background: url('paper.png') 0 0 / 360px 360px repeat; mix-blend-mode: multiply; opacity: .15; }
 .view-in { animation: viewIn .55s var(--ease) both; }
 @keyframes viewIn { from { transform: translate3d(0, 14px, 0); } to { transform: none; } }
+
+/* scrollbars: page one is custom (#sbar), inner ones thin and blue */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar { width: 0; height: 0; display: none; }
+* { scrollbar-width: thin; scrollbar-color: var(--blue) transparent; }
+*::-webkit-scrollbar { width: 6px; height: 6px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 6px; border: 1px solid var(--paper); }
+.sbar { position: fixed; z-index: 95; top: calc(env(safe-area-inset-top, 0px) + 6px); bottom: calc(env(safe-area-inset-bottom, 0px) + 6px); right: calc(env(safe-area-inset-right, 0px) + 2px); width: 14px; cursor: pointer; opacity: 0; transition: opacity .35s var(--ease); }
+.sbar:hover, .sbar.is-active { opacity: 1; }
+.sbar[hidden] { display: none; }
+.sbar::before { content: ''; position: absolute; top: 0; bottom: 0; right: 5px; width: 1px; background: color-mix(in srgb, var(--blue) 30%, transparent); }
+.sbar-thumb { position: absolute; top: 0; right: 3px; width: 5px; border-radius: 6px; background: var(--blue); box-shadow: 0 0 0 1.5px var(--paper); cursor: grab; transition: width .25s var(--ease), right .25s var(--ease); }
+.sbar:hover .sbar-thumb, .sbar.is-drag .sbar-thumb { width: 8px; right: 2px; }
+@media (hover: none) { .sbar { pointer-events: none; } }
+
+/* entrance of a view: words rise from a mask, blocks slide up, media unclip (paused under the curtain) */
+.enter { animation: enterUp 1s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms + 80ms); }
+.enter-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+.enter-word { display: inline-block; animation: wordUp 1.1s var(--ease) both; animation-delay: calc(var(--i, 0) * 60ms + 60ms); }
+.enter-media { animation: mediaIn 1.4s var(--ease) both; animation-delay: 160ms; }
+.enter-media > .dimg { animation: mediaScale 1.6s var(--ease) both; animation-delay: 160ms; }
+@keyframes enterUp { from { opacity: 0; transform: translate3d(0, 36px, 0); } }
+@keyframes wordUp { from { transform: translate3d(0, 105%, 0) rotate(2deg); } }
+@keyframes mediaIn { from { clip-path: inset(22% 0 0 0); transform: translate3d(0, 40px, 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes mediaScale { from { transform: scale(1.18); } }
+.is-covered :is(.enter, .enter-word, .enter-media, .enter-media > .dimg) { animation-play-state: paused; }
+
+/* page curtain between two views */
+.curtain { position: fixed; inset: 0; z-index: 98; display: grid; place-items: center; pointer-events: none; transform: translate3d(0, 101%, 0); visibility: hidden; }
+.curtain.is-cover { visibility: visible; pointer-events: auto; animation: curtainIn .62s cubic-bezier(.76, 0, .24, 1) both; }
+.curtain.is-reveal { visibility: visible; animation: curtainOut .9s cubic-bezier(.76, 0, .24, 1) both; }
+@keyframes curtainIn { from { transform: translate3d(0, 101%, 0); } to { transform: none; } }
+@keyframes curtainOut { from { transform: none; } to { transform: translate3d(0, -101%, 0); } }
+.curtain-dots { position: absolute; inset: -90px 0; background: radial-gradient(circle, var(--blue) 42%, transparent 46%) 0 0 / 14px 14px; -webkit-mask: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%); mask: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%); }
+.curtain-inner { position: relative; display: grid; justify-items: center; gap: 18px; padding-inline: 24px; text-align: center; }
+.curtain-title { overflow: hidden; padding-bottom: .06em; }
+.curtain-title span { display: inline-block; }
+.curtain.is-cover .curtain-title span { animation: wordUp .8s var(--ease) both .22s; }
+.curtain.is-cover .label { animation: enterUp .6s var(--ease) both .2s; }
+.curtain.is-reveal .curtain-inner { animation: curtainText .6s var(--ease-io) both; }
+@keyframes curtainText { to { transform: translate3d(0, -60px, 0); opacity: 0; } }
 
 /* ---------------------------------------------------------- images */
 .dimg { position: relative; overflow: hidden; background: var(--blue); isolation: isolate; width: 100%; height: 100%; margin: 0; }
@@ -144,6 +185,12 @@ button.chip:hover { border-color: var(--fg); }
 .dimg.fx-none { background: var(--surface); }
 .dimg-paper { position: absolute; inset: 0; pointer-events: none; background: url('paper.png') 0 0 / 300px 300px repeat; mix-blend-mode: multiply; opacity: .55; z-index: 1; }
 .dimg.fx-none .dimg-paper { opacity: .28; }
+.dimg .dimg-layer img.dimg-orig { z-index: 1; filter: none; mix-blend-mode: normal; opacity: 1; clip-path: circle(0% at var(--mx, 50%) var(--my, 50%)); transform: scale(1.08); transition: clip-path .95s cubic-bezier(.76, 0, .24, 1), transform 1.2s var(--ease); }
+.dimg.is-revealed .dimg-layer img.dimg-orig { clip-path: circle(150% at var(--mx, 50%) var(--my, 50%)); transform: scale(1); }
+.dimg.is-contain .dimg-layer img.dimg-orig { object-fit: contain; }
+.dimg.can-reveal .dimg-paper { transition: opacity .6s var(--ease); }
+.dimg.is-revealed .dimg-paper { opacity: .18; }
+.work-intro { max-width: 60ch; margin: calc(-1 * clamp(12px, 2vw, 28px)) 0 clamp(36px, 5vw, 56px); }
 
 /* ---------------------------------------------------------- header */
 .site-header {
@@ -410,7 +457,8 @@ button.chip:hover { border-color: var(--fg); }
 <main id="main"></main>
 <footer class="site-footer tone-paper" id="footer"></footer>
 <div id="lightbox-root"></div>
-<div class="paper-grain" aria-hidden="true"></div>
+<div class="curtain tone-blue" id="curtain" aria-hidden="true"><div class="curtain-dots"></div><div class="curtain-inner"><p class="label" id="curtain-label"></p><p class="display-l curtain-title"><span id="curtain-title"></span></p></div></div>
+<div class="sbar" id="sbar" aria-hidden="true"><div class="sbar-thumb" id="sbar-thumb"></div></div>
 
 <script type="application/json" id="portfolio-data">/*__DATA__*/</script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
@@ -471,6 +519,8 @@ button.chip:hover { border-color: var(--fg); }
       return `<p>${inline(p)}</p>`
     }).join('')
   }
+  const words = (text, from = 0) => (text || '').split(/\s+/).filter(Boolean)
+    .map((w, i) => `<span class="enter-mask" aria-hidden="true"><span class="enter-word" style="--i:${i + from}">${esc(w)}</span></span>`).join(' ')
   const plain = (src) => (src || '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\*\*?([^*]+)\*\*?/g, '$1').replace(/\s+/g, ' ').trim()
 
   /* ------------------------------------------------------------ glyphs */
@@ -492,15 +542,17 @@ button.chip:hover { border-color: var(--fg); }
     </header>`
 
   /* ------------------------------------------------------------ images */
-  function dotImage({ media = null, effect = 'none', alt = '', parallax = 0, fit = 'cover', seed = 'mv', sizes = '100vw', eager = false, paper = true }) {
+  function dotImage({ media = null, effect = 'none', alt = '', parallax = 0, fit = 'cover', seed = 'mv', sizes = '100vw', eager = false, paper = true, reveal = false }) {
     const isImg = media && media.kind === 'image'
     const fx = isImg ? effect : 'placeholder'
     const canvas = !isImg || effect === 'dots'
+    const canReveal = reveal && isImg && effect !== 'none'
     const p = parallax > 0 ? ` parallax-layer" data-parallax="${parallax}" style="--p:${parallax}` : ''
-    return `<figure class="dimg fx-${fx}${fit === 'contain' ? ' is-contain' : ''}" data-seed="${esc(seed)}" data-fit="${fit}" data-canvas="${canvas ? 1 : 0}">
+    return `<figure class="dimg fx-${fx}${fit === 'contain' ? ' is-contain' : ''}${canReveal ? ' can-reveal' : ''}" data-seed="${esc(seed)}" data-fit="${fit}" data-canvas="${canvas ? 1 : 0}">
       <div class="dimg-layer${p}">
         ${isImg ? `<img src="${esc(media.url)}"${media.srcset ? ` srcset="${esc(media.srcset)}" sizes="${esc(sizes)}"` : ''}${media.width ? ` width="${media.width}" height="${media.height}"` : ''} alt="${esc(alt)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async" draggable="false">` : ''}
         ${canvas ? '<canvas aria-hidden="true"></canvas>' : ''}
+        ${canReveal ? `<img class="dimg-orig" src="${esc(media.url)}"${media.srcset ? ` srcset="${esc(media.srcset)}" sizes="${esc(sizes)}"` : ''} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable="false">` : ''}
         ${!isImg && alt ? `<span class="sr-only">${esc(alt)}</span>` : ''}
       </div>
       ${paper ? '<div class="dimg-paper" aria-hidden="true"></div>' : ''}
@@ -550,7 +602,7 @@ button.chip:hover { border-color: var(--fg); }
   }
 
   function drawDots(fig) {
-    const c = fig.querySelector('canvas'), box = fig.querySelector('.dimg-layer'), image = fig.querySelector('img')
+    const c = fig.querySelector('canvas'), box = fig.querySelector('.dimg-layer'), image = fig.querySelector('img:not(.dimg-orig)')
     if (!c || !box) return
     const W0 = box.clientWidth, H0 = box.clientHeight
     if (!W0 || !H0) return
@@ -606,7 +658,7 @@ button.chip:hover { border-color: var(--fg); }
   function mountImages(root) {
     root.querySelectorAll('figure.dimg[data-canvas="1"]').forEach((fig) => {
       let visible = false, raf = 0, lastW = 0, lastH = 0, timer
-      const img = fig.querySelector('img'), layer = fig.querySelector('.dimg-layer')
+      const img = fig.querySelector('img:not(.dimg-orig)'), layer = fig.querySelector('.dimg-layer')
       const schedule = () => { if (!visible) return; cancelAnimationFrame(raf); raf = requestAnimationFrame(() => drawDots(fig)) }
       if (img) img.addEventListener('load', schedule)
       const io = new IntersectionObserver((es) => {
@@ -620,6 +672,17 @@ button.chip:hover { border-color: var(--fg); }
       })
       ro.observe(layer)
       observers.push(io, ro)
+    })
+    root.querySelectorAll('figure.dimg.can-reveal').forEach((fig) => {
+      const at = (e, on) => {
+        if (e.pointerType !== 'mouse') return
+        const r = fig.getBoundingClientRect()
+        fig.style.setProperty('--mx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`)
+        fig.style.setProperty('--my', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`)
+        fig.classList.toggle('is-revealed', on)
+      }
+      fig.addEventListener('pointerenter', (e) => at(e, true))
+      fig.addEventListener('pointerleave', (e) => at(e, false))
     })
     root.querySelectorAll('.vid').forEach((box) => {
       const v = box.querySelector('video')
@@ -672,11 +735,14 @@ button.chip:hover { border-color: var(--fg); }
 
   function renderHeader() {
     const link = (id, ic) => `<button type="button" class="h-link" data-nav="${id}" title="${esc(t(id))}" aria-label="${esc(t(id))}">${icon(ic, 'h-ico')}<span class="h-txt nav-label link-underline${view === 'home' && activeSection === id ? ' is-active' : ''}">${esc(t(id))}</span></button>`
+    const ICON = { work: 'layout-grid', about: 'user-round', skills: 'sparkles', contact: 'mail' }
+    const navs = sections().map((x) => link(x.id, ICON[x.id]))
+    const half = Math.ceil(navs.length / 2)
     header.innerHTML = `<div class="wrap header-grid">
-      <nav class="h-group h-left" aria-label="${esc(t('home'))}"><span class="h-links">${link('work', 'layout-grid')}${link('about', 'user-round')}</span></nav>
+      <nav class="h-group h-left" aria-label="${esc(t('home'))}"><span class="h-links">${navs.slice(0, half).join('')}</span></nav>
       <button type="button" class="h-logo" data-nav="top" aria-label="${esc(S.name)} — ${esc(t('home'))}">${nameParts().map((p) => `<span>${esc(p)}</span>`).join('')}</button>
       <nav class="h-group h-right" aria-label="Menu">
-        <span class="h-links">${link('skills', 'sparkles')}${link('contact', 'mail')}</span>
+        <span class="h-links">${navs.slice(half).join('')}</span>
         <button type="button" class="h-link h-lang" data-lang title="${esc(t('lang'))}" aria-label="${esc(t('lang'))}"><span class="nav-label">${t('langShort')}</span></button>
         ${DATA.cvUrl ? `<a class="btn h-cv" href="${esc(DATA.cvUrl)}" target="_blank" rel="noopener" title="${esc(t('cvLong'))}">${icon('download')}<span class="h-txt">${esc(t('cv'))}</span></a>` : ''}
       </nav>
@@ -701,13 +767,16 @@ button.chip:hover { border-color: var(--fg); }
       </div>`
   }
 
-  let solid = false, lastY = 0
+  let solid = false, lastY = 0, pinUntil = 0
+  const pinHeader = (ms = 2200) => { pinUntil = Date.now() + ms }
   function onScroll() {
     const y = window.scrollY
     const s = y > 40
     if (s !== solid) { solid = s; header.classList.toggle('is-solid', s) }
-    if (Math.abs(y - lastY) > 6) { header.classList.toggle('is-hidden', y > lastY && y > 420); lastY = y }
+    if (Date.now() < pinUntil) { header.classList.remove('is-hidden'); lastY = y }
+    else if (Math.abs(y - lastY) > 6) { header.classList.toggle('is-hidden', y > lastY && y > 420); lastY = y }
     requestParallax()
+    updateScrollbar(true)
   }
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('resize', requestParallax, { passive: true })
@@ -728,7 +797,7 @@ button.chip:hover { border-color: var(--fg); }
         <p class="label pcard-meta"><span>${pad(i + 1)}</span>${cats.map((c) => `<span>${esc(c)}</span>`).join('')}${p.year ? `<span style="margin-left:auto">${esc(p.year)}</span>` : ''}</p>
         <h3 class="display-m pcard-title"><span class="pcard-title-text">${esc(tr(p.title))}</span>${icon('arrow-up-right', 'pcard-arrow')}</h3>
         ${tr(p.summary) ? `<p class="pcard-summary">${esc(plain(tr(p.summary)))}</p>` : ''}
-        <div class="pcard-media">${dotImage({ media: cover, effect: p.coverEffect, alt: cover ? tr(cover.alt) || tr(p.title) : tr(p.title), seed: p.id, parallax: 0.08, sizes })}</div>
+        <div class="pcard-media">${dotImage({ media: cover, effect: p.coverEffect, alt: cover ? tr(cover.alt) || tr(p.title) : tr(p.title), seed: p.id, parallax: 0.16, sizes })}</div>
       </a>
     </article>`
   }
@@ -749,55 +818,36 @@ button.chip:hover { border-color: var(--fg); }
     return list.length ? list.map(cardHtml).join('') : ''
   }
 
-  function renderHome() {
-    view = 'home'
-    const hero = M(S.hero.imageId)
-    const tabs = S.hero.tabs || []
-    const links = (S.socials || []).map((s) => ({ label: s.label, url: s.url }))
-    const hostOf = (url) => { try { const u = new URL(url); return u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/$/, '') } catch (e) { return url } }
-    main.innerHTML = `<div class="view-in">
-    <section class="hero tone-blue" id="top">
-      <div class="hero-frame" aria-hidden="true"></div>
-      <div class="wrap hero-grid">
-        <div class="hero-text">
-          <p class="label hero-kicker"><span class="hero-dot" aria-hidden="true"></span>${esc(tr(S.hero.kicker))} — ${esc(tr(S.role))}</p>
-          <h1 class="display-xl hero-title">${esc(tr(S.hero.title))}</h1>
-          ${tr(S.hero.intro) ? `<div class="rich hero-intro">${rich(tr(S.hero.intro))}</div>` : ''}
-          <div class="hero-actions">
-            <button type="button" class="btn btn-solid" data-nav="work">${icon('arrow-down')} ${esc(t('cta'))}</button>
-            ${DATA.cvUrl ? `<a class="btn btn-ghost" href="${esc(DATA.cvUrl)}" target="_blank" rel="noopener">${icon('download')} ${esc(t('cvLong'))}</a>` : ''}
-          </div>
-          ${tabs.length ? `<div class="console">
-            <div class="console-tabs" role="tablist">${tabs.map((tb, i) => `<button type="button" role="tab" class="console-tab${tab === i ? ' is-active' : ''}" aria-selected="${tab === i}" data-tab="${i}">${esc(tr(tb.label))}</button>`).join('')}</div>
-            <p class="console-line" aria-live="polite"><span class="console-prompt" aria-hidden="true">~/${esc((S.name.split(' ')[0] || 'me').toLowerCase())} $</span><span id="console-text">${esc(tr(tabs[tab] && tabs[tab].line))}</span></p>
-          </div>` : ''}
-        </div>
-        <div class="hero-media">${dotImage({ media: hero, effect: S.hero.effect, alt: hero ? tr(hero.alt) || S.name : S.name, parallax: 0.14, seed: 'globe-hero', sizes: '(max-width: 1023px) 100vw, 620px', eager: true })}</div>
-      </div>
-    </section>
 
+  /* Home sections, in the order / visibility set in the back-office (settings.home) */
+  const sections = () => ((S.home && S.home.sections) || ['work', 'about', 'skills', 'contact'].map((id) => ({ id, visible: true })))
+    .filter((x) => x.visible).map((x, i) => ({ id: x.id, index: pad(i + 1) }))
+  const hostOf = (url) => { try { const u = new URL(url); return u.hostname.replace(/^www\./, '') + u.pathname.replace(/\/$/, '') } catch (e) { return url } }
+  const SECTION = {
+    work: (index) => `
     <section class="section tone-paper guides" id="work" data-section>
       <div class="wrap">
-        ${sectionHead('01', t('workTitle'), 'eye', filtersHtml())}
+        ${sectionHead(index, tr(S.home && S.home.work.title) || t('workTitle'), 'eye', S.home && S.home.work.filters === false ? '' : filtersHtml())}
+        ${tr(S.home && S.home.work.intro) ? `<div class="rich lead work-intro">${rich(tr(S.home.work.intro))}</div>` : ''}
         <div class="grid3 work-grid" id="work-grid">${workGridHtml()}</div>
         <p class="label work-empty" id="work-empty"${filteredProjects().length ? ' hidden' : ''}>${esc(t('empty'))}</p>
       </div>
-    </section>
-
+    </section>`,
+    about: (index) => `
     <section class="section tone-blue" id="about" data-section>
       <div class="wrap">
-        ${sectionHead('02', tr(S.about.title) || t('aboutTitle'), 'spark')}
+        ${sectionHead(index, tr(S.about.title) || t('aboutTitle'), 'spark')}
         <div class="grid3 about-grid">
-          <div class="about-media">${dotImage({ media: M(S.about.imageId), effect: S.about.effect, alt: S.name, fit: 'contain', parallax: 0.06, seed: 'field-about', sizes: '400px' })}</div>
+          <div class="about-media">${dotImage({ media: M(S.about.imageId), effect: S.about.effect, alt: S.name, fit: 'contain', parallax: 0.12, seed: 'field-about', sizes: '400px' })}</div>
           <div class="rich about-body lead">${rich(tr(S.about.body))}</div>
           <dl class="facts">${(S.about.facts || []).map((f) => `<div class="fact"><dt class="label">${esc(tr(f.label))}</dt><dd>${esc(tr(f.value))}</dd></div>`).join('')}</dl>
         </div>
       </div>
-    </section>
-
+    </section>`,
+    skills: (index) => `
     <section class="section tone-paper guides" id="skills" data-section>
       <div class="wrap">
-        ${sectionHead('03', tr(S.skills.title) || t('skillsTitle'), 'grid')}
+        ${sectionHead(index, tr(S.skills.title) || t('skillsTitle'), 'grid')}
         <div class="grid3 skills-grid">${(S.skills.groups || []).map((g, gi, all) => `
           <div class="skill-col">
             <p class="label muted">${pad(gi + 1)} / ${pad(all.length)}</p>
@@ -806,19 +856,48 @@ button.chip:hover { border-color: var(--fg); }
           </div>`).join('')}
         </div>
       </div>
-    </section>
-
+    </section>`,
+    contact: (index) => `
     <section class="section tone-paper contact" id="contact" data-section>
       <div class="wrap">
-        ${sectionHead('04', tr(S.contact.title) || t('contactTitle'), 'mail')}
+        ${sectionHead(index, tr(S.contact.title) || t('contactTitle'), 'mail')}
         <div class="grid3 contact-grid">
           ${tr(S.contact.text) ? `<div class="rich lead contact-text">${rich(tr(S.contact.text))}</div>` : ''}
-          <ul class="contact-list">${links.map((l) => `<li><a class="contact-row" href="${esc(l.url)}" target="_blank" rel="noopener">
+          <ul class="contact-list">${(S.socials || []).map((l) => `<li><a class="contact-row" href="${esc(l.url)}" target="_blank" rel="noopener">
             <span class="label muted contact-host">${esc(hostOf(l.url))}</span><span class="display-m">${esc(l.label)}</span>${icon('arrow-up-right', 'contact-arrow')}</a></li>`).join('')}
           </ul>
         </div>
       </div>
-    </section></div>`
+    </section>`,
+  }
+
+  function renderHome() {
+    view = 'home'
+    const hero = M(S.hero.imageId)
+    const tabs = S.hero.tabs || []
+    main.innerHTML = `<div class="view-in">
+    <section class="hero tone-blue" id="top">
+      <div class="hero-frame" aria-hidden="true"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-text">
+          <p class="label hero-kicker enter" style="--i:0"><span class="hero-dot" aria-hidden="true"></span>${esc(tr(S.hero.kicker))} — ${esc(tr(S.role))}</p>
+          <h1 class="display-xl hero-title" aria-label="${esc(tr(S.hero.title))}">${words(tr(S.hero.title), 1)}</h1>
+          ${tr(S.hero.intro) ? `<div class="rich hero-intro enter" style="--i:4">${rich(tr(S.hero.intro))}</div>` : ''}
+          <div class="hero-actions enter" style="--i:5">
+            ${sections().some((x) => x.id === 'work') ? `<button type="button" class="btn btn-solid" data-nav="work">${icon('arrow-down')} ${esc(t('cta'))}</button>` : ''}
+            ${DATA.cvUrl ? `<a class="btn btn-ghost" href="${esc(DATA.cvUrl)}" target="_blank" rel="noopener">${icon('download')} ${esc(t('cvLong'))}</a>` : ''}
+          </div>
+          ${tabs.length ? `<div class="console enter" style="--i:6">
+            <div class="console-tabs" role="tablist">${tabs.map((tb, i) => `<button type="button" role="tab" class="console-tab${tab === i ? ' is-active' : ''}" aria-selected="${tab === i}" data-tab="${i}">${esc(tr(tb.label))}</button>`).join('')}</div>
+            <p class="console-line" aria-live="polite"><span class="console-prompt" aria-hidden="true">~/${esc((S.name.split(' ')[0] || 'me').toLowerCase())} $</span><span id="console-text">${esc(tr(tabs[tab] && tabs[tab].line))}</span></p>
+          </div>` : ''}
+        </div>
+        <div class="hero-media enter-media">${dotImage({ media: hero, effect: S.hero.effect, alt: hero ? tr(hero.alt) || S.name : S.name, parallax: 0.24, seed: 'globe-hero', sizes: '(max-width: 1023px) 100vw, 620px', eager: true })}</div>
+      </div>
+    </section>
+
+    ${sections().map((sec) => SECTION[sec.id](sec.index)).join('')}
+    </div>`
     mountImages(main)
     watchSections()
   }
@@ -847,7 +926,7 @@ button.chip:hover { border-color: var(--fg); }
         return `<div class="${cls}"><hr class="blk-hr"></div>`
       case 'image':
         return `<div class="${cls}" style="--ar:${ar}"><figure class="blk-fig">
-          ${m ? `<button type="button" class="blk-media blk-zoom" data-zoom="${esc(b.id)}" aria-label="${esc(cap || tr(m.alt) || 'Image')}">${dotImage({ media: m, effect: b.effect, fit: b.fit, alt: tr(m.alt) || cap, parallax: b.row > 1 ? 0.06 : 0.04, sizes, seed: b.id })}<span class="blk-zoom-ico" aria-hidden="true">${icon('maximize-2')}</span></button>`
+          ${m ? `<button type="button" class="blk-media blk-zoom" data-zoom="${esc(b.id)}" aria-label="${esc(cap || tr(m.alt) || 'Image')}">${dotImage({ media: m, effect: b.effect, fit: b.fit, alt: tr(m.alt) || cap, parallax: b.row > 1 ? 0.14 : 0.1, sizes, seed: b.id, reveal: true })}<span class="blk-zoom-ico" aria-hidden="true">${icon('maximize-2')}</span></button>`
             : `<div class="blk-media">${dotImage({ seed: b.id })}</div>`}
           ${cap ? `<figcaption class="label">${esc(cap)}</figcaption>` : ''}</figure></div>`
       case 'video': {
@@ -874,13 +953,13 @@ button.chip:hover { border-color: var(--fg); }
       <header class="proj-hero tone-blue">
         <div class="hero-frame" aria-hidden="true"></div>
         <div class="wrap">
-          <button type="button" class="proj-back nav-label" data-nav="work">${icon('arrow-left')} <span class="link-underline">${esc(t('back'))}</span></button>
+          <button type="button" class="proj-back nav-label enter" data-nav="work">${icon('arrow-left')} <span class="link-underline">${esc(t('back'))}</span></button>
           <div class="proj-head grid3">
             <div class="proj-title-wrap">
-              <p class="label proj-kicker">${cats.map((c) => `<span>${esc(c)}</span>`).join('')}${p.year ? `<span>${esc(p.year)}</span>` : ''}</p>
-              <h1 class="display-xl proj-title">${esc(tr(p.title))}</h1>
+              <p class="label proj-kicker enter" style="--i:1">${cats.map((c) => `<span>${esc(c)}</span>`).join('')}${p.year ? `<span>${esc(p.year)}</span>` : ''}</p>
+              <h1 class="display-xl proj-title" aria-label="${esc(tr(p.title))}">${words(tr(p.title), 2)}</h1>
             </div>
-            <div class="proj-side">
+            <div class="proj-side enter" style="--i:4">
               ${tr(p.summary) ? `<div class="rich proj-summary">${rich(tr(p.summary))}</div>` : ''}
               <dl class="proj-meta">
                 ${cats.length ? `<div><dt class="label">${esc(t('category'))}</dt><dd>${esc(cats.join(' · '))}</dd></div>` : ''}
@@ -892,11 +971,11 @@ button.chip:hover { border-color: var(--fg); }
           </div>
         </div>
       </header>
-      <div class="proj-cover-band"><div class="wrap"><div class="proj-cover">${dotImage({ media: cover, effect: p.coverEffect, alt: (cover && tr(cover.alt)) || tr(p.title), seed: p.id, parallax: 0.12, sizes: '(max-width: 1023px) 100vw, 1240px', eager: true })}</div></div></div>
+      <div class="proj-cover-band"><div class="wrap"><div class="proj-cover enter-media">${dotImage({ media: cover, effect: p.coverEffect, alt: (cover && tr(cover.alt)) || tr(p.title), seed: p.id, parallax: 0.22, sizes: '(max-width: 1023px) 100vw, 1240px', eager: true, reveal: true })}</div></div></div>
       ${p.blocks.length ? `<section class="proj-body tone-paper guides"><div class="wrap blocks">${p.blocks.map((b) => blockHtml(b, media)).join('')}</div></section>` : ''}
       ${next ? `<nav class="proj-next tone-blue" aria-label="${esc(t('next'))}"><div class="wrap"><a class="proj-next-link" href="#${esc(next.slug)}">
         <div class="proj-next-text"><p class="label">${esc(t('next'))}</p><p class="display-l">${esc(tr(next.title))} ${icon('arrow-right', 'proj-next-arrow')}</p></div>
-        <div class="proj-next-media">${dotImage({ media: M(next.coverId), effect: next.coverEffect, seed: next.slug, parallax: 0.1, sizes: '400px', alt: tr(next.title) })}</div>
+        <div class="proj-next-media">${dotImage({ media: M(next.coverId), effect: next.coverEffect, seed: next.slug, parallax: 0.2, sizes: '400px', alt: tr(next.title) })}</div>
       </a></div></nav>` : ''}
     </article>`
     mountImages(main)
@@ -939,6 +1018,28 @@ button.chip:hover { border-color: var(--fg); }
     main.querySelectorAll('section[data-section]').forEach((s) => sectionIO.observe(s))
   }
 
+  /* blue curtain between two views; the entrance animations wait under it */
+  const curtainEl = document.getElementById('curtain')
+  let firstRoute = true
+  function withCurtain(fn) {
+    if (firstRoute || reduceMotion) { firstRoute = false; fn(); return }
+    const slug = decodeURIComponent(location.hash.slice(1))
+    const i = DATA.projects.findIndex((p) => p.slug === slug)
+    const p = DATA.projects[i]
+    document.getElementById('curtain-label').textContent = p ? `(${pad(i + 1)})${p.year ? ` — ${p.year}` : ''}` : 'Portfolio'
+    document.getElementById('curtain-title').textContent = p ? tr(p.title) : S.name
+    curtainEl.className = 'curtain tone-blue is-cover'
+    document.documentElement.classList.add('is-covered')
+    setTimeout(() => {
+      fn()
+      setTimeout(() => {
+        curtainEl.className = 'curtain tone-blue is-reveal'
+        document.documentElement.classList.remove('is-covered')
+        setTimeout(() => { curtainEl.className = 'curtain tone-blue' }, 900)
+      }, 140)
+    }, 620)
+  }
+
   let pendingSection = null
   function route(keepScroll = false) {
     observers.forEach((o) => o.disconnect()); observers = []
@@ -968,12 +1069,12 @@ button.chip:hover { border-color: var(--fg); }
 
   document.addEventListener('click', (e) => {
     const nav = e.target.closest('[data-nav]')
-    if (nav) { e.preventDefault(); goSection(nav.dataset.nav); return }
+    if (nav) { e.preventDefault(); pinHeader(); goSection(nav.dataset.nav); return }
     if (e.target.closest('[data-lang]')) {
       lang = lang === 'fr' ? 'en' : 'fr'
       try { localStorage.setItem('mv-lang', lang) } catch (err) {}
       document.documentElement.lang = lang
-      route(true)
+      withCurtain(() => route(true))
       return
     }
     const f = e.target.closest('[data-filter]')
@@ -1007,10 +1108,47 @@ button.chip:hover { border-color: var(--fg); }
     if (e.key === 'ArrowRight') moveLightbox(1)
     if (e.key === 'ArrowLeft') moveLightbox(-1)
   })
-  window.addEventListener('hashchange', () => { if (lbIndex >= 0) closeLightbox(); route() })
+  window.addEventListener('hashchange', () => { if (lbIndex >= 0) closeLightbox(); withCurtain(() => route()) })
+
+  /* ------------------------------------------------------------ custom scrollbar */
+  const sbar = document.getElementById('sbar'), thumb = document.getElementById('sbar-thumb')
+  let sbIdle, sbRaf = 0, dragging = false
+  function updateScrollbar(wake) {
+    if (!sbRaf) sbRaf = requestAnimationFrame(() => {
+      sbRaf = 0
+      const docH = document.documentElement.scrollHeight, vh = window.innerHeight, trackH = sbar.clientHeight || vh
+      sbar.hidden = docH <= vh + 4
+      const h = Math.max(44, (vh / docH) * trackH), max = Math.max(1, docH - vh)
+      thumb.style.height = `${h}px`
+      thumb.style.transform = `translate3d(0, ${(Math.min(max, Math.max(0, window.scrollY)) / max) * (trackH - h)}px, 0)`
+    })
+    if (wake) {
+      sbar.classList.add('is-active')
+      clearTimeout(sbIdle)
+      sbIdle = setTimeout(() => { if (!dragging) sbar.classList.remove('is-active') }, 1100)
+    }
+  }
+  const scrollToY = (y, immediate) => lenis ? lenis.scrollTo(y, { immediate, force: true, duration: 1 }) : window.scrollTo({ top: y, behavior: immediate ? 'auto' : 'smooth' })
+  thumb.addEventListener('pointerdown', (e) => {
+    e.preventDefault(); e.stopPropagation()
+    dragging = true; sbar.classList.add('is-drag')
+    const startY = e.clientY, start = window.scrollY
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+    const ratio = max / Math.max(1, sbar.clientHeight - thumb.offsetHeight)
+    const move = (ev) => scrollToY(start + (ev.clientY - startY) * ratio, true)
+    const up = () => { dragging = false; sbar.classList.remove('is-drag'); updateScrollbar(true); window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up) }
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up)
+  })
+  sbar.addEventListener('pointerdown', (e) => {
+    if (e.target !== sbar) return
+    const r = sbar.getBoundingClientRect(), max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight)
+    scrollToY(Math.min(max, Math.max(0, ((e.clientY - r.top - thumb.offsetHeight / 2) / Math.max(1, r.height - thumb.offsetHeight)) * max)), false)
+  })
+  new ResizeObserver(() => updateScrollbar(false)).observe(document.body)
+  window.addEventListener('resize', () => updateScrollbar(false), { passive: true })
 
   document.documentElement.lang = lang
-  route()
+  withCurtain(() => route())
   onScroll()
 })()
 </script>

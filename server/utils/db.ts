@@ -44,6 +44,7 @@ async function load(): Promise<Database> {
 function migrate(db: Database): Database {
   const base = emptyDatabase()
   db.settings = { ...base.settings, ...db.settings }
+  db.settings.home = sanitizeHome(db.settings.home)
   db.categories ||= []
   db.projects ||= []
   db.media ||= []

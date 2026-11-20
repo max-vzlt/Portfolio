@@ -39,7 +39,7 @@ const sizes = computed(() => {
           :effect="project.coverEffect"
           :alt="cover ? tr(cover.alt) || tr(project.title) : tr(project.title)"
           :seed="project.id"
-          :parallax="0.08"
+          :parallax="0.16"
           :sizes="sizes"
         />
       </div>

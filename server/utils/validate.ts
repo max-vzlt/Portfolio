@@ -1,5 +1,7 @@
-import type {
-  Block, BlockType, Category, Database, I18nText, ImageEffect, Project, Settings,
+import {
+  HOME_SECTIONS,
+  type Block, type BlockType, type Category, type Database, type HomeSectionId, type HomeSettings,
+  type I18nText, type ImageEffect, type Project, type Settings,
 } from '#shared/types'
 
 const str = (v: unknown, max = 20000) => (typeof v === 'string' ? v : '').slice(0, max)
@@ -184,5 +186,28 @@ export function sanitizeSettings(db: Database, raw: any, current: Settings): Set
       : current.socials,
     cvId: 'cvId' in r ? mediaRef(db, r.cvId) : current.cvId,
     seo: { description: i18n(r.seo?.description ?? current.seo.description, 400) },
+    home: sanitizeHome(r.home ?? current.home),
+  }
+}
+
+/** Keeps every home section exactly once, in the given order. */
+export function sanitizeHome(raw: any): HomeSettings {
+  const base = defaultHome()
+  const seen = new Set<HomeSectionId>()
+  const sections: HomeSettings['sections'] = []
+  for (const s of Array.isArray(raw?.sections) ? raw.sections : []) {
+    if (HOME_SECTIONS.includes(s?.id) && !seen.has(s.id)) {
+      seen.add(s.id)
+      sections.push({ id: s.id, visible: bool(s.visible, true) })
+    }
+  }
+  for (const id of HOME_SECTIONS) if (!seen.has(id)) sections.push({ id, visible: true })
+  return {
+    sections,
+    work: {
+      title: raw?.work?.title ? i18n(raw.work.title, 120) : base.work.title,
+      intro: i18n(raw?.work?.intro, 2000),
+      filters: bool(raw?.work?.filters, true),
+    },
   }
 }

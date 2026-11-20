@@ -384,6 +384,10 @@ async function main() {
       { label: 'Instagram', url: 'https://www.instagram.com/maxime.vzlt/' },
     ],
     cvId: cv,
+    home: {
+      sections: ['work', 'about', 'skills', 'contact'].map((id) => ({ id, visible: true })),
+      work: { title: t('Réalisations', 'Selected work'), intro: t('', ''), filters: true },
+    },
     seo: {
       description: t(
         "Portfolio de Maxime Verzeletti, étudiant en BUT MMI à l'IUT de Troyes : développement web, design et communication.",
