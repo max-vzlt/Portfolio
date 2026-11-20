@@ -321,7 +321,7 @@ const hostOf = (url: string) => {
 }
 
 /* ------------------------------------------------------------------ work */
-.work-grid { row-gap: clamp(48px, 6vw, 88px); grid-auto-flow: row dense; }
+.work-grid { row-gap: clamp(48px, 6vw, 88px); }
 .work-empty { padding: 40px 0; color: var(--muted); }
 .cards-move, .cards-enter-active, .cards-leave-active { transition: opacity 0.45s var(--ease), transform 0.6s var(--ease); }
 .cards-enter-from, .cards-leave-to { opacity: 0; transform: translateY(24px) scale(0.98); }

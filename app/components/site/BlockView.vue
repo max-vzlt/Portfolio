@@ -75,7 +75,7 @@ const sizes = computed(() =>
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-rows: auto;
-  grid-auto-flow: row dense;
+  grid-auto-flow: row;
   gap: var(--gap);
 }
 .blk { --r: 1; position: relative; min-width: 0; }

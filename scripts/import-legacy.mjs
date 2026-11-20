@@ -311,7 +311,7 @@ async function main() {
       img(await addMedia('m_t4p2', v('pic2.jpg'), vxAlt), 1, 2),
       img(await addMedia('m_t4p3', v('pic3.jpg'), vxAlt), 1, 2),
       img(await addMedia('m_t4p4', v('pic4.jpg'), vxAlt), 1, 2),
-      h3('Autres armes', 'Other weapons', 2),
+      { ...h3('Autres armes', 'Other weapons', 2), row: 2 },
       img(await addMedia('m_t4p5', v('pic5.jpg'), vxAlt), 1, 2),
       img(await addMedia('m_t4p6', v('pic6.jpg'), vxAlt), 1, 2),
       img(await addMedia('m_t4p7', v('pic7.jpg'), vxAlt), 1, 2),

@@ -151,7 +151,7 @@ const tools: { type: BlockType; label: string; icon: any }[] = [
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-rows: auto;
-  grid-auto-flow: row dense;
+  grid-auto-flow: row;
   gap: var(--bc-gap);
 }
 .bc-empty { border: 1px dashed var(--line-strong); border-radius: 4px; }
