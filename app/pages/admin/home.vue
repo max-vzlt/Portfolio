@@ -107,7 +107,7 @@ function move<T>(arr: T[], i: number, d: number) {
 function texts(): I18nText[] {
   const v = s.value
   return [
-    v.hero.kicker, v.hero.title, v.hero.intro, ...v.hero.tabs.flatMap((t) => [t.label, t.line]),
+    v.hero.kicker, v.hero.title, v.hero.intro,
     v.home.work.title, v.home.work.intro,
     v.about.title, v.about.body, ...v.about.facts.flatMap((f) => [f.label, f.value]),
     v.method.title, v.method.intro, ...v.method.steps.flatMap((st) => [st.title, st.me, st.ai]),
@@ -198,7 +198,7 @@ onBeforeUnmount(() => {
         <section class="a-panel hm-card" :class="{ 'is-open': open.hero }">
           <header class="hm-card-head" @click="toggle('hero')">
             <span class="hm-handle is-fixed" aria-hidden="true">01</span>
-            <div class="hm-card-title"><strong>Haut de page</strong><span class="a-hint">Titre, introduction, image, console</span></div>
+            <div class="hm-card-title"><strong>Haut de page</strong><span class="a-hint">Titre, introduction, image</span></div>
             <ChevronDown class="hm-chevron" />
           </header>
           <div v-if="open.hero" class="a-panel-pad a-stack">
@@ -206,19 +206,6 @@ onBeforeUnmount(() => {
             <AdminI18nField v-model="s.hero.title" label="Grand titre" big />
             <AdminI18nField v-model="s.hero.intro" label="Introduction" multiline rich :rows="3" />
             <AdminMediaField v-model="s.hero.imageId" v-model:effect="s.hero.effect" label="Image principale (vide = visuel généré)" with-effect height="200px" />
-            <div class="a-field">
-              <span class="a-label">Onglets de la console (vide = pas de console)</span>
-              <div v-for="(tb, i) in s.hero.tabs" :key="i" class="hm-item">
-                <AdminI18nField v-model="tb.label" compact placeholder="Onglet" />
-                <AdminI18nField v-model="tb.line" compact placeholder="Phrase affichée" />
-                <div class="hm-item-actions">
-                  <button type="button" class="a-btn is-icon is-sm is-ghost" aria-label="Monter" @click="move(s.hero.tabs, i, -1)"><ArrowUp /></button>
-                  <button type="button" class="a-btn is-icon is-sm is-ghost" aria-label="Descendre" @click="move(s.hero.tabs, i, 1)"><ArrowDown /></button>
-                  <button type="button" class="a-btn is-icon is-sm is-ghost is-danger" aria-label="Supprimer" @click="s.hero.tabs.splice(i, 1)"><Trash2 /></button>
-                </div>
-              </div>
-              <button v-if="s.hero.tabs.length < 6" type="button" class="a-btn is-sm" @click="s.hero.tabs.push({ label: e(), line: e() })"><Plus /> Ajouter un onglet</button>
-            </div>
           </div>
         </section>
 

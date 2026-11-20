@@ -250,18 +250,10 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .hero-intro { max-width: 52ch; margin-bottom: 28px; font-size: clamp(15px, 1.15vw, 17px); color: color-mix(in srgb, var(--paper) 88%, var(--blue)); }
 .hero-intro strong { color: var(--white); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: clamp(32px, 4vw, 48px); }
-.console { max-width: 470px; padding: 4px; background: var(--blue-deep); border-radius: 4px; box-shadow: 0 20px 40px -24px rgba(9, 11, 208, .9); }
-.console-tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
-.console-tab { padding: 8px 10px; border: 0; border-radius: 2px; background: color-mix(in srgb, var(--paper) 7%, transparent); font-family: var(--font-mono); font-size: 11.5px; color: color-mix(in srgb, var(--paper) 75%, transparent); transition: background .2s, color .2s; }
-.console-tab:hover { color: var(--paper); }
-.console-tab.is-active { background: color-mix(in srgb, var(--paper) 16%, transparent); color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
-.console-line { display: flex; gap: 10px; padding: 14px 12px 12px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; min-height: 48px; }
-.console-prompt { flex: none; opacity: .55; }
 .hero-media { position: relative; aspect-ratio: 9 / 10; max-height: 76vh; width: 100%; max-width: 100%; justify-self: end; }
 .hero-media .dimg { border-radius: var(--radius); }
 @media (max-width: 1023px) { .hero-grid { grid-template-columns: 1fr; } .hero-media { aspect-ratio: 4 / 3; max-height: none; } }
-@media (max-width: 639px) { .hero-media { aspect-ratio: 1; } .console-tab { font-size: 10.5px; padding: 8px 4px; } }
-
+@media (max-width: 639px) { .hero-media { aspect-ratio: 1; } }
 /* ---------------------------------------------------------- work */
 .work-grid { row-gap: clamp(48px, 6vw, 88px); }
 .work-grid.is-changing .pcard { animation: viewIn .5s var(--ease) both; }
@@ -464,13 +456,24 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .vid.is-playing .vid-play { display: none; }
 
 /* lightbox */
-.lightbox { --lb-bg: color-mix(in srgb, var(--blue-deep) 70%, #000); position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: 1fr auto; gap: 16px; padding-block: calc(env(safe-area-inset-top, 0px) + clamp(12px, 3vw, 40px)) calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 3vw, 40px)); padding-left: var(--pad-l); padding-right: var(--pad-r); isolation: isolate; animation: lbIn .35s var(--ease) both; }
+.lightbox { --lb-bg: var(--blue); position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: 1fr auto; gap: 16px; padding-block: calc(env(safe-area-inset-top, 0px) + clamp(12px, 3vw, 40px)) calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 3vw, 40px)); padding-left: var(--pad-l); padding-right: var(--pad-r); isolation: isolate; animation: lbIn .35s var(--ease) both; }
 .lightbox.tone-blue { background: var(--lb-bg); }
 @keyframes lbIn { from { opacity: 0; } }
 .lb-ambient { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
-.lb-ambient img { position: absolute; inset: -10%; width: 120%; height: 120%; max-width: none; object-fit: cover; filter: blur(60px) saturate(.6); opacity: .32; }
+.halftone { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; pointer-events: none; }
+.lb-media { transition: transform .6s cubic-bezier(.22, 1, .36, 1), opacity .45s ease, clip-path .6s cubic-bezier(.22, 1, .36, 1); clip-path: inset(0 0 0 0 round 3px); }
+.lb-media.lb-next-enter { opacity: 0; transform: translate3d(9%, 0, 0) scale(.94) rotate(1.5deg); clip-path: inset(0 0 0 35% round 3px); transition: none; }
+.lb-media.lb-prev-enter { opacity: 0; transform: translate3d(-9%, 0, 0) scale(.94) rotate(-1.5deg); clip-path: inset(0 35% 0 0 round 3px); transition: none; }
+.lb-media.lb-next-leave { opacity: 0; transform: translate3d(-9%, 0, 0) scale(.94) rotate(-1.5deg); }
+.lb-media.lb-prev-leave { opacity: 0; transform: translate3d(9%, 0, 0) scale(.94) rotate(1.5deg); }
+.lb-num { display: inline-block; transition: transform .25s var(--ease), opacity .25s; }
+.lb-num.from-below { transform: translateY(70%); opacity: 0; transition: none; }
+.lb-num.from-above { transform: translateY(-70%); opacity: 0; transition: none; }
+.lightbox .lb-actions .btn-ghost { --btn-bg: var(--blue); border-color: color-mix(in srgb, var(--paper) 55%, transparent); }
+.lightbox .lb-actions .btn-ghost:hover { --btn-bg: var(--blue-deep); border-color: var(--paper); }
+.lightbox .lb-count { padding: 7px 10px 6px; background: var(--blue); border-radius: 3px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper) 25%, transparent); }
 .lb-frame { position: relative; min-height: 0; }
-.lb-media { position: absolute; inset: 0; margin: auto; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 3px; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .6), 0 0 0 1px color-mix(in srgb, var(--paper) 10%, transparent); }
+.lb-media { position: absolute; inset: 0; margin: auto; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 3px; box-shadow: 0 40px 90px -30px rgba(9, 11, 208, .85), 0 0 0 1px color-mix(in srgb, var(--paper) 18%, transparent); }
 video.lb-media { width: 100%; height: 100%; box-shadow: none; }
 .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .lb-actions { display: flex; gap: 8px; }
@@ -868,7 +871,6 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
 
   /* ------------------------------------------------------------ home */
   let filter = ''
-  let tab = 0
   const visibleCats = () => DATA.categories
     .map((c) => ({ ...c, count: DATA.projects.filter((p) => p.categoryIds.includes(c.id)).length }))
     .filter((c) => c.count > 0)
@@ -1000,7 +1002,6 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
   function renderHome() {
     view = 'home'
     const hero = M(S.hero.imageId)
-    const tabs = S.hero.tabs || []
     main.innerHTML = `<div class="view-in">
     <section class="hero tone-blue" id="top">
       <div class="wrap hero-grid">
@@ -1012,10 +1013,6 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
             ${sections().some((x) => x.id === 'work') ? `<button type="button" class="btn btn-solid" data-nav="work">${icon('arrow-down')} ${esc(t('cta'))}</button>` : ''}
             ${DATA.cvUrl ? `<a class="btn btn-ghost" href="${esc(DATA.cvUrl)}" target="_blank" rel="noopener">${icon('download')} ${esc(t('cvLong'))}</a>` : ''}
           </div>
-          ${tabs.length ? `<div class="console enter" style="--i:6">
-            <div class="console-tabs" role="tablist">${tabs.map((tb, i) => `<button type="button" role="tab" class="console-tab${tab === i ? ' is-active' : ''}" aria-selected="${tab === i}" data-tab="${i}">${esc(tr(tb.label))}</button>`).join('')}</div>
-            <p class="console-line" aria-live="polite"><span class="console-prompt" aria-hidden="true">~/${esc((S.name.split(' ')[0] || 'me').toLowerCase())} $</span><span id="console-text">${esc(tr(tabs[tab] && tabs[tab].line))}</span></p>
-          </div>` : ''}
         </div>
         <div class="hero-media enter-media">${dotImage({ media: hero, effect: S.hero.effect, alt: hero ? tr(hero.alt) || S.name : S.name, parallax: 0.24, seed: 'globe-hero', sizes: '(max-width: 1023px) 100vw, 620px', eager: true })}</div>
       </div>
@@ -1117,33 +1114,66 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
       ? `<video class="lb-media" src="${esc(it.media.url)}" controls autoplay playsinline aria-label="${esc(it.caption)}"></video>`
       : `<img class="lb-media" src="${esc(it.media.url)}"${it.media.srcset ? ` srcset="${esc(it.media.srcset)}" sizes="100vw"` : ''} alt="${esc(tr(it.media.alt) || it.caption)}" decoding="async">`
   }
+  /* halftone background: round pixels growing from a calm centre to the edges */
+  function drawHalftone(c) {
+    const w = c.parentElement.clientWidth, h = c.parentElement.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 2)
+    c.width = Math.round(w * dpr); c.height = Math.round(h * dpr)
+    const ctx = c.getContext('2d'); ctx.clearRect(0, 0, c.width, c.height)
+    ctx.fillStyle = 'rgba(244, 243, 255, .32)'; ctx.beginPath()
+    const step = 16 * dpr, rowH = step * 0.866, maxR = step * 0.44
+    const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
+    for (let j = 0, y = rowH / 2; y < c.height + rowH; j++, y += rowH) {
+      for (let x = j % 2 ? step / 2 : 0; x < c.width + step; x += step) {
+        const u = (x / c.width - 0.5) * 2, v = (y / c.height - 0.5) * 2
+        const r = smooth(0.32, 1.02, Math.hypot(u * 0.92, v) / Math.SQRT2) * maxR
+        if (r < 0.5 * dpr) continue
+        ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, Math.PI * 2)
+      }
+    }
+    ctx.fill()
+  }
+  let lbDir = 1
   function renderLightbox() {
     if (lbIndex < 0) { lbRoot.innerHTML = ''; return }
     const it = gallery[lbIndex]
-    const label = `${pad(lbIndex + 1)} / ${pad(gallery.length)}${it.caption ? ` — ${esc(it.caption)}` : ''}`
+    const count = `<span class="lb-num">${pad(lbIndex + 1)}</span> / ${pad(gallery.length)}${it.caption ? ` — ${esc(it.caption)}` : ''}`
     const shell = lbRoot.querySelector('.lightbox')
     if (shell) {
-      // change of media: swap the content only, no animation
-      shell.querySelector('.lb-frame').innerHTML = lbMedia(it)
-      shell.querySelector('.lb-ambient').innerHTML = it.media.kind === 'image' ? `<img src="${esc(it.media.url)}" alt="">` : ''
-      shell.querySelector('.lb-count').innerHTML = label
+      // change of media: the new one slides in from the side we go to, the old one leaves the other way
+      const frame = shell.querySelector('.lb-frame')
+      const name = lbDir > 0 ? 'lb-next' : 'lb-prev'
+      frame.querySelectorAll('.lb-media').forEach((old) => {
+        if (old.classList.contains('is-leaving')) return old.remove()
+        old.classList.add('is-leaving', `${name}-leave`)
+        if (old.tagName === 'VIDEO') old.pause()
+        setTimeout(() => old.remove(), 650)
+      })
+      frame.insertAdjacentHTML('beforeend', lbMedia(it))
+      const fresh = frame.lastElementChild
+      fresh.classList.add(`${name}-enter`)
+      requestAnimationFrame(() => requestAnimationFrame(() => fresh.classList.remove(`${name}-enter`)))
+      shell.querySelector('.lb-count').innerHTML = count
+      const num = shell.querySelector('.lb-num'); num.classList.add(lbDir > 0 ? 'from-below' : 'from-above')
+      requestAnimationFrame(() => requestAnimationFrame(() => num.classList.remove('from-below', 'from-above')))
       return
     }
     lbRoot.innerHTML = `<div class="lightbox tone-blue" role="dialog" aria-modal="true" data-lenis-prevent data-lb-bg>
-      <div class="lb-ambient" aria-hidden="true">${it.media.kind === 'image' ? `<img src="${esc(it.media.url)}" alt="">` : ''}</div>
+      <div class="lb-ambient" aria-hidden="true"><canvas class="halftone"></canvas></div>
       <div class="lb-frame" data-lb-bg>${lbMedia(it)}</div>
       <div class="lb-bar">
-        <p class="label lb-count">${label}</p>
+        <p class="label lb-count">${count}</p>
         <div class="lb-actions">
           ${gallery.length > 1 ? `<button type="button" class="btn btn-ghost" data-lb="-1" aria-label="${esc(t('prev'))}">${icon('arrow-left')}</button><button type="button" class="btn btn-ghost" data-lb="1" aria-label="${esc(t('next'))}">${icon('arrow-right')}</button>` : ''}
           <button type="button" class="btn btn-solid" data-lb="close">${icon('x')} ${esc(t('close'))}</button>
         </div>
       </div>
     </div>`
+    drawHalftone(lbRoot.querySelector('canvas.halftone'))
   }
+  window.addEventListener('resize', () => { const c = lbRoot.querySelector('canvas.halftone'); if (c) drawHalftone(c) }, { passive: true })
   function openLightbox(id) { const i = gallery.findIndex((g) => g.id === id); if (i < 0) return; lbIndex = i; lenis && lenis.stop(); document.documentElement.style.overflow = 'hidden'; renderLightbox() }
   function closeLightbox() { lbIndex = -1; lenis && lenis.start(); document.documentElement.style.overflow = ''; renderLightbox() }
-  function moveLightbox(d) { lbIndex = (lbIndex + d + gallery.length) % gallery.length; renderLightbox() }
+  function moveLightbox(d) { lbDir = d >= 0 ? 1 : -1; lbIndex = (lbIndex + d + gallery.length) % gallery.length; renderLightbox() }
 
   /* ------------------------------------------------------------ sections, routing, events */
   let sectionIO = null
@@ -1257,13 +1287,6 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
       f.parentElement.querySelectorAll('[data-filter]').forEach((b) => { const on = b.dataset.filter === filter; b.classList.toggle('is-active', on); b.setAttribute('aria-pressed', on) })
       mountImages(grid)
       if (lenis) lenis.resize()
-      return
-    }
-    const tb = e.target.closest('[data-tab]')
-    if (tb) {
-      tab = Number(tb.dataset.tab)
-      tb.parentElement.querySelectorAll('[data-tab]').forEach((b, i) => { b.classList.toggle('is-active', i === tab); b.setAttribute('aria-selected', i === tab) })
-      document.getElementById('console-text').textContent = tr(S.hero.tabs[tab] && S.hero.tabs[tab].line)
       return
     }
     const cp = e.target.closest('[data-copy]')

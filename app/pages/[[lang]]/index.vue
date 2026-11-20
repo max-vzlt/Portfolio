@@ -35,9 +35,6 @@ const filtered = computed(() => {
   return cat ? projects.value.filter((p) => p.categoryIds.includes(cat.id)) : projects.value
 })
 
-/* ---------- hero console tabs ---------- */
-const tab = ref(0)
-const tabs = computed(() => s.value?.hero.tabs || [])
 
 /* ---------- active section for the header ---------- */
 let io: IntersectionObserver | null = null
@@ -135,28 +132,6 @@ if (import.meta.client && route.query.preview !== undefined) {
             </a>
           </div>
 
-          <div v-if="tabs.length" class="console enter" style="--i: 6">
-            <div class="console-tabs" role="tablist">
-              <button
-                v-for="(tb, i) in tabs"
-                :key="i"
-                type="button"
-                role="tab"
-                class="console-tab"
-                :class="{ 'is-active': tab === i }"
-                :aria-selected="tab === i"
-                @click="tab = i"
-              >
-                {{ tr(tb.label) }}
-              </button>
-            </div>
-            <p class="console-line" aria-live="polite">
-              <span class="console-prompt" aria-hidden="true">~/{{ (s.name.split(' ')[0] || 'me').toLowerCase() }} $</span>
-              <Transition name="fade" mode="out-in">
-                <span :key="tab">{{ tr(tabs[tab]?.line) }}</span>
-              </Transition>
-            </p>
-          </div>
         </div>
 
         <div class="hero-media enter-media">
@@ -338,28 +313,6 @@ if (import.meta.client && route.query.preview !== undefined) {
 .hero-intro strong { color: var(--white); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: clamp(32px, 4vw, 48px); }
 
-.console {
-  max-width: 470px;
-  padding: 4px;
-  background: var(--blue-deep);
-  border-radius: 4px;
-  box-shadow: 0 20px 40px -24px rgba(9, 11, 208, 0.9);
-}
-.console-tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
-.console-tab {
-  padding: 8px 10px;
-  border: 0;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--paper) 7%, transparent);
-  font-family: var(--font-mono);
-  font-size: 11.5px;
-  color: color-mix(in srgb, var(--paper) 75%, transparent);
-  transition: background 0.2s, color 0.2s;
-}
-.console-tab:hover { color: var(--paper); }
-.console-tab.is-active { background: color-mix(in srgb, var(--paper) 16%, transparent); color: var(--paper); text-decoration: underline; text-underline-offset: 3px; }
-.console-line { display: flex; gap: 10px; padding: 14px 12px 12px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.5; min-height: 48px; }
-.console-prompt { flex: none; opacity: 0.55; }
 .fade-enter-active, .fade-leave-active { transition: opacity 0.2s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
@@ -395,7 +348,6 @@ if (import.meta.client && route.query.preview !== undefined) {
 }
 @media (max-width: 639px) {
   .hero-media { aspect-ratio: 1; }
-  .console-tab { font-size: 10.5px; padding: 8px 4px; }
 }
 
 /* ------------------------------------------------------------------ work */
