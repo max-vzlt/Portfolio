@@ -58,6 +58,30 @@ useSeo({
   image: () => media(s.value?.hero.imageId)?.url,
 })
 
+// structured data + Markdown twin for search engines and AI tools
+const siteOrigin = useSiteOrigin()
+useJsonLd(() => {
+  if (!s.value || !data.value) return null
+  const site = data.value
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      websiteLd(siteOrigin, s.value, tr, lang.value),
+      personLd(siteOrigin, s.value, tr, site.media),
+      {
+        '@type': 'ItemList',
+        name: tr(s.value.home?.work.title) || t('work.title'),
+        itemListElement: site.projects.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: projectLd(siteOrigin, p, { tr, lang: lang.value, categories: site.categories, media: site.media, path: `${lang.value === 'en' ? '/en' : ''}/work/${p.slug}` }),
+        })),
+      },
+    ],
+  }
+})
+useMarkdownAlternate(() => (lang.value === 'en' ? '/en/index.md' : '/index.md'))
+
 const heroTitle = computed(() => tr(s.value?.hero.title))
 const mailto = computed(() => (s.value?.contact.email ? `mailto:${s.value.contact.email}` : ''))
 const allLinks = computed(() => (s.value?.socials || []).map((x) => ({ label: x.label, url: x.url })))

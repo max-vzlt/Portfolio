@@ -36,6 +36,8 @@ export default defineNuxtConfig({
     libretranslateUrl: '',
     libretranslateApiKey: '',
     mymemoryEmail: '',
+    // false = block the crawlers that train AI models (search / assistant bots stay allowed)
+    aiTraining: 'true',
     public: {
       siteUrl: '',
     },

@@ -56,7 +56,8 @@ onBeforeUnmount(() => {
 
 <template>
   <button type="button" class="contact-row copy-row" :class="`is-${state}`" :title="t('contact.copy')" @click="copy">
-    <span ref="addr" class="label muted contact-host copy-addr" :aria-label="email"><span v-for="(ch, i) in email" :key="i" class="copy-ch" :style="{ '--i': i }" aria-hidden="true">{{ ch }}</span></span>
+    <!-- plain text in the HTML (readable by any tool); split into letters only while the copy animation plays -->
+    <span ref="addr" class="label muted contact-host copy-addr"><template v-if="state === 'in'"><span v-for="(ch, i) in email" :key="i" class="copy-ch" :style="{ '--i': i }">{{ ch }}</span></template><template v-else>{{ email }}</template></span>
     <span class="display-m contact-name">{{ label || 'Email' }}</span>
     <span class="copy-ico" aria-hidden="true">
       <Check v-if="state !== 'idle'" class="copy-check" />

@@ -8,7 +8,7 @@ definePageMeta({
 })
 
 const route = useRoute()
-const { t, tr, lp } = useI18n()
+const { t, tr, lp, lang } = useI18n()
 const lightbox = useLightbox()
 const preview = computed(() => route.query.preview !== undefined)
 
@@ -49,6 +49,27 @@ useSeo({
   image: () => cover.value?.url,
 })
 if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] })
+
+// structured data + Markdown twin for search engines and AI tools
+const { data: site } = useSite()
+const siteOrigin = useSiteOrigin()
+useJsonLd(() => {
+  if (!data.value) return null
+  const path = `${lang.value === 'en' ? '/en' : ''}/work/${p.value.slug}`
+  const graph: Record<string, unknown>[] = [
+    projectLd(siteOrigin, p.value, { tr, lang: lang.value, categories: data.value.categories, media: data.value.media, path }),
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: t('nav.home'), item: `${siteOrigin}${lp('/')}` },
+        { '@type': 'ListItem', position: 2, name: tr(p.value.title), item: `${siteOrigin}${path}` },
+      ],
+    },
+  ]
+  if (site.value) graph.push(personLd(siteOrigin, site.value.settings, tr, site.value.media))
+  return { '@context': 'https://schema.org', '@graph': graph }
+})
+useMarkdownAlternate(() => `${lang.value === 'en' ? '/en' : ''}/work/${p.value.slug}.md`)
 </script>
 
 <template>

@@ -53,6 +53,20 @@ Le fournisseur se règle dans `.env` (copie `.env.example`) :
 2. **LibreTranslate** (auto-hébergeable) : `NUXT_LIBRETRANSLATE_URL=…`
 3. Sans configuration, **MyMemory** (gratuit, quota journalier limité) est utilisé. `NUXT_MYMEMORY_EMAIL` augmente le quota.
 
+## Lisible par les IA et les moteurs de recherche
+
+Sans rien changer au design, le site expose des versions « machine » de son contenu, générées depuis le back-office et donc toujours à jour :
+
+| Adresse | Contenu |
+| --- | --- |
+| `/llms.txt`, `/en/llms.txt` | Résumé en Markdown : qui tu es, la liste des traces avec leurs liens, ta méthode IA, tes savoir-faire, le contact. |
+| `/llms-full.txt`, `/en/llms-full.txt` | Tout le contenu du site en un seul fichier, avec le texte complet de chaque trace. |
+| `/index.md`, `/work/<trace>.md` (et `/en/…`) | Chaque page en Markdown, signalée dans le `<head>` par `<link rel="alternate" type="text/markdown">`. |
+| JSON-LD dans chaque page | Données schema.org : `Person` (nom, métier, email, réseaux, savoir-faire), `WebSite`, `CreativeWork` pour chaque trace, fil d'Ariane. |
+| `/robots.txt` | Autorise les moteurs, les assistants IA (ChatGPT Search, Claude, Perplexity…) et les robots d'entraînement. `NUXT_AI_TRAINING=false` bloque uniquement les robots d'entraînement (GPTBot, ClaudeBot, CCBot…). |
+
+Pense à remplir le texte alternatif des images dans la Médiathèque : c'est ce qui décrit une image aux outils qui ne la voient pas.
+
 ## Les données
 
 Tout le contenu se trouve dans `data/`, qui n'est pas versionné dans git :
