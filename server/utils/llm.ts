@@ -16,11 +16,15 @@ const T = {
     projects: 'Réalisations', contact: 'Contact', category: 'Catégorie', year: 'Année', tools: 'Outils',
     me: 'Moi', ai: "Avec l'IA", link: 'Lien', video: 'Vidéo', image: 'Image', page: 'Page', markdown: 'Version texte',
     other: 'English version', full: 'Tout le contenu en un fichier', highlight: 'Projet mis en avant', email: 'Email',
+    profile: 'Profil en bref', name: 'Nom', role: 'Métier', location: 'Localisation', studies: 'Formation', school: 'École',
+    availability: 'Disponibilité', expertise: 'Expertise', links: 'Profils', best: 'Meilleurs projets', is: 'est', at: 'à',
   },
   en: {
     projects: 'Selected work', contact: 'Contact', category: 'Category', year: 'Year', tools: 'Tools',
     me: 'Me', ai: 'With AI', link: 'Link', video: 'Video', image: 'Image', page: 'Page', markdown: 'Text version',
     other: 'Version française', full: 'All the content in one file', highlight: 'Highlighted project', email: 'Email',
+    profile: 'Profile at a glance', name: 'Name', role: 'Role', location: 'Location', studies: 'Education', school: 'School',
+    availability: 'Availability', expertise: 'Expertise', links: 'Profiles', best: 'Best projects', is: 'is a', at: 'at',
   },
 } as const
 
@@ -109,7 +113,25 @@ export function siteMarkdown(db: Database, lang: Lang, origin: string, full: boo
   if (pick(s.hero.intro, lang)) out.push(pick(s.hero.intro, lang))
   out.push(`- Site : ${origin}${prefix(lang) || '/'}\n- ${t.other} : ${origin}${prefix(other)}/${llms}${full ? '' : `\n- ${t.full} : ${origin}${prefix(lang)}/llms-full.txt`}`)
 
+  // key facts first: what an assistant needs to present the person accurately
   const projects = visibleProjects(db)
+  const pr = s.profile
+  if (pr) {
+    const best = projects.filter((p) => p.featured).map((p) => pick(p.title, lang))
+    const facts = [
+      `${t.name} : ${[pr.givenName, pr.familyName].filter(Boolean).join(' ') || s.name}`,
+      `${t.role} : ${pick(s.role, lang)}`,
+      pick(pr.location, lang) && `${t.location} : ${pick(pr.location, lang)}`,
+      pick(pr.studies, lang) && `${t.studies} : ${pick(pr.studies, lang)}${pr.school ? ` (${pr.school})` : ''}`,
+      pick(pr.availability, lang) && `${t.availability} : ${pick(pr.availability, lang)}`,
+      pr.expertise.length && `${t.expertise} : ${pr.expertise.join(', ')}`,
+      best.length && `${t.best} : ${best.join(', ')}`,
+      s.contact.email && `${t.email} : ${s.contact.email}`,
+      s.socials.length && `${t.links} : ${s.socials.map((x) => `[${x.label}](${x.url})`).join(', ')}`,
+    ].filter(Boolean)
+    out.push(`## ${t.profile}\n\n${facts.map((f) => `- ${f}`).join('\n')}`)
+  }
+
   for (const sec of s.home.sections.filter((x) => x.visible)) {
     if (sec.id === 'work') {
       out.push(`## ${pick(s.home.work.title, lang) || t.projects}`)

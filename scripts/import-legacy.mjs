@@ -167,6 +167,18 @@ function defaultServices() {
   }
 }
 
+function defaultProfile() {
+  return {
+    givenName: 'Maxime',
+    familyName: 'Verzeletti',
+    location: t('Troyes, France', 'Troyes, France'),
+    school: 'IUT de Troyes',
+    studies: t("BUT MMI — Métiers du Multimédia et de l'Internet", 'BUT MMI — Multimedia & Internet degree'),
+    availability: t('Ouvert aux stages, alternances et projets', 'Open to internships, work-study positions and projects'),
+    expertise: ['Développement web', "Design d'interface", "Intégration de l'IA", 'Prototypage', 'Modélisation 3D (Blender)', 'Game dev (Unity)', 'Voxel art', 'Photographie', 'Stratégie de communication'],
+  }
+}
+
 /* ------------------------------------------------------------------- main */
 async function main() {
   if (!FROM) {
@@ -449,6 +461,7 @@ async function main() {
       { label: 'Instagram', url: 'https://www.instagram.com/maxime.vzlt/' },
     ],
     cvId: cv,
+    profile: defaultProfile(),
     method: defaultMethod(),
     services: defaultServices(),
     home: {

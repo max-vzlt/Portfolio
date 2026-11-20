@@ -2,6 +2,16 @@
    Back-office — same tokens as the site, denser UI
    ========================================================================== */
 .admin {
+  /* the back-office stays light, even when the system is in dark mode */
+  color-scheme: light;
+  --page: var(--paper);
+  --ink: var(--blue-deep);
+  --rule: color-mix(in srgb, var(--blue) 18%, transparent);
+  --accent: var(--blue);
+  --muted: color-mix(in srgb, var(--blue-deep) 62%, var(--paper));
+  --line: color-mix(in srgb, var(--blue) 20%, transparent);
+  --line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
+  --surface: color-mix(in srgb, var(--blue) 6%, var(--paper));
   --bg: var(--paper);
   --fg: var(--blue-deep);
   --panel: #fff;

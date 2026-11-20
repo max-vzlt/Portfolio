@@ -4,6 +4,7 @@ import { Github, Linkedin, Instagram, Globe, Mail, ArrowUp } from 'lucide-vue-ne
 const { t, otherLangPath, lang } = useI18n()
 const { data, cvUrl } = useSite()
 const { scrollTo } = useSmoothScroll()
+const rememberLang = useRememberLang()
 
 const settings = computed(() => data.value?.settings)
 const year = new Date().getFullYear()
@@ -43,7 +44,7 @@ const mark = computed(() => {
         <p class="nav-label footer-links">
           <a v-if="cvUrl" :href="cvUrl" download target="_blank" class="link-underline">{{ t('nav.cv') }}</a>
           <span v-if="cvUrl" aria-hidden="true">|</span>
-          <NuxtLink :to="otherLangPath" :hreflang="lang === 'fr' ? 'en' : 'fr'" class="link-underline">{{ t('nav.lang') }}</NuxtLink>
+          <NuxtLink :to="otherLangPath" :hreflang="lang === 'fr' ? 'en' : 'fr'" class="link-underline" @click="rememberLang(lang === 'fr' ? 'en' : 'fr')">{{ t('nav.lang') }}</NuxtLink>
           <span aria-hidden="true">|</span>
           <button type="button" class="link-underline footer-top" @click="scrollTo(0)">
             {{ t('footer.top') }} <ArrowUp aria-hidden="true" />
@@ -73,7 +74,7 @@ const mark = computed(() => {
   line-height: 1;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  color: color-mix(in srgb, var(--blue) 7%, var(--paper));
+  color: color-mix(in srgb, var(--accent) 8%, var(--bg));
   pointer-events: none;
   user-select: none;
 }
@@ -101,7 +102,7 @@ const mark = computed(() => {
 }
 .footer-socials a:hover { background: var(--blue); color: var(--paper); border-color: var(--blue); transform: translateY(-3px); }
 .footer-socials svg { width: 20px; height: 20px; stroke-width: 1.4; }
-.heart { color: var(--blue); }
+.heart { color: var(--accent); }
 
 @media (max-width: 767px) {
   .footer-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; }

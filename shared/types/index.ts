@@ -166,6 +166,18 @@ export interface Settings {
   services: { title: I18nText; intro: I18nText; items: ServiceItem[] }
   /** Home page: order / visibility of the sections + work section texts */
   home: HomeSettings
+  /** Public profile: facts used by Google and AI assistants (structured data, llms.txt) */
+  profile: PublicProfile
+}
+
+export interface PublicProfile {
+  givenName: string
+  familyName: string
+  location: I18nText
+  school: string
+  studies: I18nText
+  availability: I18nText
+  expertise: string[]
 }
 
 export interface MethodStep {

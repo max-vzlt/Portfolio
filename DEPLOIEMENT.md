@@ -251,7 +251,7 @@ Ouvre ces adresses :
 ## 9. Après la mise en ligne
 
 - [ ] **Google Search Console** (https://search.google.com/search-console) : ajouter `mverzeletti.com`, puis envoyer `https://mverzeletti.com/sitemap.xml`.
-- [ ] **Bing Webmaster Tools** (https://www.bing.com/webmasters) : idem. Bing alimente aussi la recherche de ChatGPT et d'autres assistants.
+- [ ] **Bing Webmaster Tools** (https://www.bing.com/webmasters) : idem. Bing alimente aussi la recherche de ChatGPT et d'autres assistants. Ensuite, chaque modification faite dans `/admin` est signalée automatiquement à Bing (IndexNow), il n'y a rien à faire.
 - [ ] **Données structurées** : tester l'accueil et une trace sur https://search.google.com/test/rich-results.
 - [ ] **Liens** : mettre à jour le lien du portfolio sur LinkedIn, GitHub, Instagram, ton CV…
 - [ ] **Artefact Claude** : demander à Claude de régénérer et republier l'aperçu avec le contenu du serveur.
@@ -315,7 +315,7 @@ Pas lié au serveur, mais à faire avant de partager le site :
 - [ ] **Accueil → Haut de page** : mettre ton **rendu Blender** comme image principale, avec le rendu « Original ».
 - [ ] **Médiathèque** : remplir le **texte alternatif** des images (accessibilité, Google, IA).
 - [ ] **Anglais** : vérifier les traductions (bouton « Traduire en anglais », puis relecture).
-- [ ] **Réglages** : CV à jour, description Google.
+- [ ] **Réglages** : CV à jour, description Google, et **Profil public** (ville, école, formation, disponibilité, domaines d'expertise). C'est ce que Google et les assistants IA reprennent pour te présenter.
 
 ---
 

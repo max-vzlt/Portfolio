@@ -43,15 +43,19 @@ function zoom(blockId: string) {
   if (i >= 0) lightbox.open(gallery.value, i)
 }
 
+const { data: site } = useSite()
 useSeo({
-  title: () => `${tr(p.value.title)} — Maxime Verzeletti`,
-  description: () => plainText(tr(p.value.summary)).slice(0, 200),
+  // "Prototype Unity — Game Dev | Maxime Verzeletti"
+  title: () => `${tr(p.value.title)}${cats.value.length ? ` — ${cats.value[0]}` : ''} | ${site.value?.settings.name || 'Maxime Verzeletti'}`,
+  description: () => plainText(tr(p.value.summary)) || plainText(tr(p.value.blocks.find((b) => b.type === 'text')?.text)),
   image: () => cover.value?.url,
+  imageAlt: () => tr(cover.value?.alt) || tr(p.value.title),
+  type: 'article',
+  modified: () => p.value.updatedAt,
 })
 if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] })
 
 // structured data + Markdown twin for search engines and AI tools
-const { data: site } = useSite()
 const siteOrigin = useSiteOrigin()
 useJsonLd(() => {
   if (!data.value) return null
@@ -197,7 +201,7 @@ useMarkdownAlternate(() => `${lang.value === 'en' ? '/en' : ''}/work/${p.value.s
 .proj-tools .chip { border-color: var(--line-strong); }
 
 .proj-cover-band { position: relative; margin-top: calc(-1 * clamp(110px, 14vw, 210px)); }
-.proj-cover-band::after { content: ''; position: absolute; inset: 50% 0 0; background: var(--paper); z-index: -1; }
+.proj-cover-band::after { content: ''; position: absolute; inset: 50% 0 0; background: var(--page); z-index: -1; }
 .proj-cover { position: relative; height: clamp(300px, 52vw, 680px); border-radius: var(--radius); overflow: hidden; box-shadow: 0 40px 80px -50px rgba(9, 11, 208, 0.6); }
 
 .proj-body { padding: clamp(64px, 9vw, 130px) 0 clamp(80px, 10vw, 150px); }

@@ -105,15 +105,24 @@ video.lb-media { width: 100%; height: 100%; background: transparent; box-shadow:
 .lb-enter-active, .lb-leave-active { transition: opacity 0.35s var(--ease); }
 .lb-enter-from, .lb-leave-to { opacity: 0; }
 
-/* change of media: the new one slides in from the side we go to, the old one leaves the other way */
+/* change of media: halftone dissolve. The new one appears through round pixels that grow,
+   the old one vanishes through shrinking ones; a small drift gives the direction. */
+@property --lbdot { syntax: '<length>'; inherits: false; initial-value: 0px; }
 .lb-next-enter-active, .lb-next-leave-active, .lb-prev-enter-active, .lb-prev-leave-active {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease, clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  -webkit-mask-image: radial-gradient(circle, #000 var(--lbdot), transparent calc(var(--lbdot) + 0.6px));
+  mask-image: radial-gradient(circle, #000 var(--lbdot), transparent calc(var(--lbdot) + 0.6px));
+  -webkit-mask-size: 22px 22px;
+  mask-size: 22px 22px;
+  -webkit-mask-position: center;
+  mask-position: center;
+  transition: --lbdot 0.8s cubic-bezier(0.65, 0, 0.35, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.lb-next-enter-from { opacity: 0; transform: translate3d(9%, 0, 0) scale(0.94) rotate(1.5deg); clip-path: inset(0 0 0 35% round 3px); }
-.lb-next-leave-to { opacity: 0; transform: translate3d(-9%, 0, 0) scale(0.94) rotate(-1.5deg); }
-.lb-prev-enter-from { opacity: 0; transform: translate3d(-9%, 0, 0) scale(0.94) rotate(-1.5deg); clip-path: inset(0 35% 0 0 round 3px); }
-.lb-prev-leave-to { opacity: 0; transform: translate3d(9%, 0, 0) scale(0.94) rotate(1.5deg); }
-.lb-next-enter-to, .lb-prev-enter-to { clip-path: inset(0 0 0 0 round 3px); }
+.lb-next-enter-from, .lb-prev-enter-from, .lb-next-leave-to, .lb-prev-leave-to { --lbdot: 0px; }
+.lb-next-enter-to, .lb-prev-enter-to, .lb-next-leave-from, .lb-prev-leave-from { --lbdot: 16px; }
+.lb-next-enter-from { transform: translate3d(3%, 0, 0) scale(1.02); }
+.lb-prev-enter-from { transform: translate3d(-3%, 0, 0) scale(1.02); }
+.lb-next-leave-to { transform: translate3d(-3%, 0, 0) scale(0.98); }
+.lb-prev-leave-to { transform: translate3d(3%, 0, 0) scale(0.98); }
 .lb-count { display: inline-flex; align-items: baseline; gap: 0.5ch; }
 .lb-num { display: inline-block; }
 .lb-num-next-enter-active, .lb-num-next-leave-active, .lb-num-prev-enter-active, .lb-num-prev-leave-active { transition: transform 0.25s var(--ease), opacity 0.25s; }

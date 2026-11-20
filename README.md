@@ -7,6 +7,8 @@ Portfolio bilingue (FR / EN) avec back-office intégré, construit avec **Nuxt 4
 - Images rendues en **pixels ronds bleu & blanc** (trame générée dans le navigateur), en **bichromie**, ou telles quelles (tes rendus Blender), avec une **texture papier** (sur les images uniquement). Sur une trace, le survol d'une image révèle ses couleurs d'origine dans un cercle qui part du curseur.
 - Transition entre les pages par un rideau bleu, puis animation d'entrée (titres mot par mot, couverture qui se dévoile). Barre de défilement personnalisée.
 - Responsive : sur tablette et téléphone, l'en-tête passe en icônes et la grille passe de 3 à 2 puis 1 colonne.
+- **Thème sombre** automatique selon le réglage du navigateur (bleu nuit et blanc ; le back-office reste clair).
+- **Langue automatique** : à la première visite, français pour les visiteurs francophones, anglais pour les autres (d'après la langue du navigateur). Le choix fait avec le bouton FR | EN est mémorisé. Les robots ne sont jamais redirigés.
 
 ## Démarrer en local
 
@@ -63,6 +65,9 @@ Sans rien changer au design, le site expose des versions « machine » de son co
 | `/llms-full.txt`, `/en/llms-full.txt` | Tout le contenu du site en un seul fichier, avec le texte complet de chaque trace. |
 | `/index.md`, `/work/<trace>.md` (et `/en/…`) | Chaque page en Markdown, signalée dans le `<head>` par `<link rel="alternate" type="text/markdown">`. |
 | JSON-LD dans chaque page | Données schema.org : `Person` (nom, métier, email, réseaux, savoir-faire), `WebSite`, `CreativeWork` pour chaque trace, fil d'Ariane. |
+| Profil public | Réglages → « Profil public » : prénom, nom, ville, école, formation, disponibilité, domaines d'expertise. Alimente les données `Person` / `ProfilePage` et la fiche « Profil en bref » de `llms.txt`. |
+| SEO | Titres et descriptions par page, Open Graph de type profil / article, `robots` (grands aperçus d'images), nom dans le titre principal (invisible), sitemap avec langues, dates et images. |
+| IndexNow | Quand une trace ou l'accueil change, Bing (qui alimente aussi la recherche de ChatGPT et Copilot), Yandex et Seznam sont prévenus automatiquement. Actif en production avec `NUXT_PUBLIC_SITE_URL` en `https://`. |
 | `/robots.txt` | Autorise les moteurs, les assistants IA (ChatGPT Search, Claude, Perplexity…) et les robots d'entraînement. `NUXT_AI_TRAINING=false` bloque uniquement les robots d'entraînement (GPTBot, ClaudeBot, CCBot…). |
 
 Pense à remplir le texte alternatif des images dans la Médiathèque : c'est ce qui décrit une image aux outils qui ne la voient pas.

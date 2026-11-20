@@ -20,6 +20,15 @@
   --line-strong: color-mix(in srgb, var(--blue) 55%, transparent);
   --surface: color-mix(in srgb, var(--blue) 6%, var(--paper));
 
+  /* Page-level tokens (switch with the colour scheme) */
+  --night: #050828;
+  --night-2: #0b1046;
+  --ink-light: #ecebff;
+  --accent-light: #91a6ff;
+  --page: var(--paper);
+  --ink: var(--blue-deep);
+  --rule: color-mix(in srgb, var(--blue) 18%, transparent);
+
   --font-display: 'Oswald Variable', 'Oswald', 'Arial Narrow', sans-serif;
   --font-body: 'Mona Sans Variable', 'Mona Sans', system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', monospace;
@@ -42,7 +51,7 @@
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--page);
   color: var(--fg);
   font-family: var(--font-body);
   font-size: 16px;
@@ -80,11 +89,37 @@ ul, ol { padding: 0; list-style: none; }
   color: var(--fg);
 }
 .tone-paper {
-  --bg: var(--paper);
-  --fg: var(--blue-deep);
+  --bg: var(--page);
+  --fg: var(--ink);
   --accent: var(--blue);
   background: var(--bg);
   color: var(--fg);
+}
+
+/* ---------------------------------------------------------- dark theme
+   Follows the visitor's system / browser setting. Still blue & white:
+   the light "paper" bands become a deep night blue, text turns white. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: var(--night);
+    --ink: var(--ink-light);
+    --rule: color-mix(in srgb, var(--ink-light) 14%, transparent);
+    --fg: var(--ink-light);
+    --accent: var(--accent-light);
+    --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
+    --line: color-mix(in srgb, var(--ink-light) 13%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent);
+    --surface: var(--night-2);
+  }
+  .tone-paper {
+    --accent: var(--accent-light);
+    --muted: color-mix(in srgb, var(--ink-light) 60%, var(--night));
+    --line: color-mix(in srgb, var(--ink-light) 13%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink-light) 30%, transparent);
+    --surface: var(--night-2);
+  }
+  .tone-paper .btn-solid:hover { --btn-bg: var(--blue-soft); --btn-fg: var(--blue-deep); }
 }
 
 /* --------------------------------------------------------------- layout */

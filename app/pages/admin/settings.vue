@@ -15,7 +15,7 @@ Object.assign(map, res.media)
 const s = ref<Settings>(structuredClone(res.settings))
 
 /* Only these keys are saved here; the home page content lives in /admin/home. */
-const KEYS = ['name', 'role', 'cvId', 'seo'] as const
+const KEYS = ['name', 'role', 'cvId', 'seo', 'profile'] as const
 const pick = (v: Settings) => JSON.stringify(KEYS.map((k) => v[k]))
 const saved = ref(pick(res.settings))
 const dirty = computed(() => pick(s.value) !== saved.value)
@@ -68,6 +68,21 @@ onBeforeRouteLeave(() => {
           <label class="a-field"><span class="a-label">Nom</span><input v-model="s.name" class="a-input"></label>
           <AdminI18nField v-model="s.role" label="Métier / rôle" />
           <AdminMediaField v-model="s.cvId" label="CV (PDF)" kind="file" />
+        </div>
+      </section>
+      <section class="a-panel">
+        <div class="a-panel-head"><p class="a-panel-title">Profil public (Google &amp; IA)</p></div>
+        <div class="a-panel-pad a-stack">
+          <p class="a-hint">Invisible sur le site : ces informations alimentent les données lues par Google et les assistants IA (qui tu es, où, ce que tu sais faire). Plus elles sont précises, plus ton profil ressort.</p>
+          <div class="a-grid2">
+            <label class="a-field"><span class="a-label">Prénom</span><input v-model="s.profile.givenName" class="a-input"></label>
+            <label class="a-field"><span class="a-label">Nom</span><input v-model="s.profile.familyName" class="a-input"></label>
+          </div>
+          <AdminI18nField v-model="s.profile.location" label="Ville / région" placeholder="Troyes, France" />
+          <label class="a-field"><span class="a-label">École</span><input v-model="s.profile.school" class="a-input" placeholder="IUT de Troyes"></label>
+          <AdminI18nField v-model="s.profile.studies" label="Formation" placeholder="BUT MMI…" />
+          <AdminI18nField v-model="s.profile.availability" label="Disponibilité" placeholder="Ouvert aux stages, alternances et projets" />
+          <AdminTags v-model="s.profile.expertise" label="Domaines d'expertise (mots-clés)" placeholder="Développement web, IA… puis Entrée" />
         </div>
       </section>
       <section class="a-panel">

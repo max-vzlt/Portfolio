@@ -30,20 +30,51 @@ const plain = (s: string) => plainText(s)
 
 export function personLd(o: string, s: Settings, tr: (v: any) => string, media: MediaMap) {
   const img = s.about.imageId ? media[s.about.imageId]?.url : null
+  const pr = s.profile
+  const location = pr ? tr(pr.location) : ''
   return {
     '@type': 'Person',
     '@id': `${o}/#person`,
     name: s.name,
+    ...(pr?.givenName ? { givenName: pr.givenName } : {}),
+    ...(pr?.familyName ? { familyName: pr.familyName } : {}),
     jobTitle: tr(s.role),
     description: plain(tr(s.about.body)),
+    disambiguatingDescription: [tr(s.role), pr && tr(pr.studies), pr?.school, location].filter(Boolean).join(' · '),
     url: `${o}/`,
+    mainEntityOfPage: `${o}/`,
     ...(s.contact.email ? { email: `mailto:${s.contact.email}` } : {}),
     ...(img ? { image: o + img } : {}),
+    ...(location ? { address: { '@type': 'PostalAddress', addressLocality: location.split(',')[0]!.trim(), ...(location.includes(',') ? { addressCountry: location.split(',').pop()!.trim() } : {}) }, homeLocation: { '@type': 'Place', name: location } } : {}),
+    ...(pr?.school ? { affiliation: { '@type': 'EducationalOrganization', name: pr.school }, alumniOf: { '@type': 'EducationalOrganization', name: pr.school } } : {}),
+    hasOccupation: {
+      '@type': 'Occupation',
+      name: tr(s.role),
+      ...(location ? { occupationLocation: { '@type': 'City', name: location } } : {}),
+      skills: [...(pr?.expertise || []), ...s.services.items.map((it) => tr(it.title))].filter(Boolean).join(', '),
+    },
+    ...(pr && tr(pr.availability) ? { seeks: { '@type': 'Demand', description: tr(pr.availability) } } : {}),
     sameAs: s.socials.map((x) => x.url),
-    knowsAbout: [
+    knowsAbout: [...new Set([
+      ...(pr?.expertise || []),
       ...s.services.items.map((it) => tr(it.title)),
-      ...new Set(s.method.steps.flatMap((st) => st.tools)),
-    ].filter(Boolean),
+      ...s.method.steps.flatMap((st) => st.tools),
+    ])].filter(Boolean),
+    knowsLanguage: ['fr', 'en'],
+  }
+}
+
+/** The home page is the profile of the person (schema.org ProfilePage). */
+export function profilePageLd(o: string, s: Settings, tr: (v: any) => string, lang: string, path: string, modified?: string) {
+  return {
+    '@type': 'ProfilePage',
+    '@id': `${o}${path}#profile`,
+    url: o + path,
+    name: `${s.name} — ${tr(s.role)}`,
+    inLanguage: lang,
+    ...(modified ? { dateModified: modified } : {}),
+    mainEntity: { '@id': `${o}/#person` },
+    isPartOf: { '@id': `${o}/#website` },
   }
 }
 
@@ -68,6 +99,7 @@ export function projectLd(
     ...(cats.length ? { genre: cats } : {}),
     ...(p.tools.length || cats.length ? { keywords: [...cats, ...p.tools].join(', ') } : {}),
     ...(/^\d{4}$/.test(p.year) ? { dateCreated: p.year } : {}),
+    ...('updatedAt' in p ? { dateModified: p.updatedAt, datePublished: p.createdAt } : {}),
     author: { '@id': `${o}/#person` },
     creator: { '@id': `${o}/#person` },
   }

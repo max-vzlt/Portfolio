@@ -173,6 +173,34 @@
       }
     ],
     "cvId": "m_cv",
+    "profile": {
+      "givenName": "Maxime",
+      "familyName": "Verzeletti",
+      "location": {
+        "fr": "Troyes, France",
+        "en": "Troyes, France"
+      },
+      "school": "IUT de Troyes",
+      "studies": {
+        "fr": "BUT MMI — Métiers du Multimédia et de l'Internet",
+        "en": "BUT MMI — Multimedia & Internet degree"
+      },
+      "availability": {
+        "fr": "Ouvert aux stages, alternances et projets",
+        "en": "Open to internships, work-study positions and projects"
+      },
+      "expertise": [
+        "Développement web",
+        "Design d'interface",
+        "Intégration de l'IA",
+        "Prototypage",
+        "Modélisation 3D (Blender)",
+        "Game dev (Unity)",
+        "Voxel art",
+        "Photographie",
+        "Stratégie de communication"
+      ]
+    },
     "method": {
       "title": {
         "fr": "Ma méthode avec l'IA",
@@ -753,8 +781,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T12:40:52.756Z",
-      "updatedAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z",
+      "updatedAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "p_dbsite",
@@ -888,8 +916,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T12:40:52.756Z",
-      "updatedAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z",
+      "updatedAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "p_photo",
@@ -1008,8 +1036,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T12:40:52.756Z",
-      "updatedAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z",
+      "updatedAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "p_voxel",
@@ -1270,8 +1298,8 @@
           }
         }
       ],
-      "createdAt": "2026-11-20T12:40:52.756Z",
-      "updatedAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z",
+      "updatedAt": "2026-11-20T15:04:34.272Z"
     }
   ],
   "media": [
@@ -1286,7 +1314,7 @@
         "fr": "Portrait dessiné de Maxime",
         "en": "Drawn portrait of Maxime"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 150,
       "height": 150
     },
@@ -1301,7 +1329,7 @@
         "fr": "CV de Maxime Verzeletti",
         "en": "Resume of Maxime Verzeletti"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "m_t1cover",
@@ -1314,7 +1342,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1110,
       "height": 622,
       "variants": [
@@ -1346,7 +1374,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1108,
       "variants": [
@@ -1383,7 +1411,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1112,
       "variants": [
@@ -1420,7 +1448,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1109,
       "variants": [
@@ -1457,7 +1485,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "m_t1p4",
@@ -1470,7 +1498,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1111,
       "variants": [
@@ -1507,7 +1535,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1110,
       "variants": [
@@ -1544,7 +1572,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1111,
       "variants": [
@@ -1581,7 +1609,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "m_t1v3",
@@ -1594,7 +1622,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "m_t1v4",
@@ -1607,7 +1635,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "m_t1v5",
@@ -1620,7 +1648,7 @@
         "fr": "Capture d'écran du prototype Unity",
         "en": "Screenshot of the Unity prototype"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z"
+      "createdAt": "2026-11-20T15:04:34.272Z"
     },
     {
       "id": "m_t2cover",
@@ -1633,7 +1661,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1904,
       "height": 1079,
       "variants": [
@@ -1670,7 +1698,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1904,
       "height": 1079,
       "variants": [
@@ -1707,7 +1735,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1904,
       "height": 1079,
       "variants": [
@@ -1744,7 +1772,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1905,
       "height": 1079,
       "variants": [
@@ -1781,7 +1809,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1905,
       "height": 1079,
       "variants": [
@@ -1818,7 +1846,7 @@
         "fr": "Capture d'écran du site osu!",
         "en": "Screenshot of the osu! website"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1919,
       "height": 1079,
       "variants": [
@@ -1855,7 +1883,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 776,
       "height": 776,
       "variants": [
@@ -1882,7 +1910,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 816,
       "height": 816,
       "variants": [
@@ -1909,7 +1937,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 779,
       "height": 779,
       "variants": [
@@ -1936,7 +1964,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 781,
       "height": 781,
       "variants": [
@@ -1963,7 +1991,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 776,
       "height": 776,
       "variants": [
@@ -1990,7 +2018,7 @@
         "fr": "Photographie de nature",
         "en": "Nature photograph"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 808,
       "height": 808,
       "variants": [
@@ -2017,7 +2045,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 967,
       "height": 967,
       "variants": [
@@ -2049,7 +2077,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 591,
       "height": 591,
       "variants": [
@@ -2076,7 +2104,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 992,
       "height": 992,
       "variants": [
@@ -2108,7 +2136,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 997,
       "height": 997,
       "variants": [
@@ -2140,7 +2168,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 978,
       "height": 978,
       "variants": [
@@ -2172,7 +2200,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1080,
       "height": 1080,
       "variants": [
@@ -2204,7 +2232,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1075,
       "height": 1075,
       "variants": [
@@ -2236,7 +2264,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1080,
       "height": 1080,
       "variants": [
@@ -2268,7 +2296,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 1080,
       "height": 1080,
       "variants": [
@@ -2300,7 +2328,7 @@
         "fr": "Modèle en voxel art",
         "en": "Voxel art model"
       },
-      "createdAt": "2026-11-20T12:40:52.756Z",
+      "createdAt": "2026-11-20T15:04:34.272Z",
       "width": 967,
       "height": 967,
       "variants": [

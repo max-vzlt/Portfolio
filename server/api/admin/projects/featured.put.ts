@@ -3,7 +3,7 @@
 export default defineEventHandler(async (event) => {
   const { ids } = await readBody<{ ids: string[] }>(event)
   if (!Array.isArray(ids)) throw createError({ statusCode: 400, statusMessage: 'ids manquants' })
-  return mutateDB((db) => {
+  const ids2 = await mutateDB((db) => {
     for (const p of db.projects) {
       const i = ids.indexOf(p.id)
       p.featured = i >= 0
@@ -12,4 +12,6 @@ export default defineEventHandler(async (event) => {
     normalizeRanks(db)
     return db.projects.filter((p) => p.featured).sort((a, b) => a.featuredRank - b.featuredRank).map((p) => p.id)
   })
+  void notifyContentChange()
+  return ids2
 })

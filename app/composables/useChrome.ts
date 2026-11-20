@@ -11,3 +11,11 @@ export type CurtainPhase = 'idle' | 'cover' | 'reveal'
 export function usePageCurtain() {
   return useState<{ phase: CurtainPhase; to: string }>('page-curtain', () => ({ phase: 'idle', to: '' }))
 }
+
+/** Remembers the language chosen by the visitor (read by server/middleware/lang.ts). */
+export function useRememberLang() {
+  return (lang: 'fr' | 'en') => {
+    if (import.meta.server) return
+    document.cookie = `mv_lang=${lang}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`
+  }
+}

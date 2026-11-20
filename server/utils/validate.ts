@@ -213,6 +213,17 @@ export function sanitizeSettings(db: Database, raw: any, current: Settings): Set
         }
       : current.services,
     home: sanitizeHome(r.home ?? current.home),
+    profile: r.profile
+      ? {
+          givenName: str(r.profile.givenName, 80).trim(),
+          familyName: str(r.profile.familyName, 80).trim(),
+          location: i18n(r.profile.location, 120),
+          school: str(r.profile.school, 160).trim(),
+          studies: i18n(r.profile.studies, 200),
+          availability: i18n(r.profile.availability, 200),
+          expertise: list(r.profile.expertise, (x) => str(x, 80).trim(), 30).filter(Boolean),
+        }
+      : current.profile,
   }
 }
 

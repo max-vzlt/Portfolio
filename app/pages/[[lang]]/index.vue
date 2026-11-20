@@ -53,9 +53,12 @@ onBeforeUnmount(() => {
 })
 
 useSeo({
-  title: () => `${s.value?.name || 'Maxime Verzeletti'} — ${tr(s.value?.role) || 'Portfolio'}`,
+  // "Maxime Verzeletti — Développeur web & designer | Portfolio"
+  title: () => `${s.value?.name || 'Maxime Verzeletti'} — ${tr(s.value?.role) || 'Portfolio'} | Portfolio`,
   description: () => tr(s.value?.seo.description) || plainText(tr(s.value?.hero.intro)),
-  image: () => media(s.value?.hero.imageId)?.url,
+  image: () => media(s.value?.hero.imageId)?.url || media(data.value?.projects[0]?.coverId)?.url,
+  imageAlt: () => `${s.value?.name} — ${tr(s.value?.role)}`,
+  type: 'profile',
 })
 
 // structured data + Markdown twin for search engines and AI tools
@@ -67,6 +70,7 @@ useJsonLd(() => {
     '@context': 'https://schema.org',
     '@graph': [
       websiteLd(siteOrigin, s.value, tr, lang.value),
+      profilePageLd(siteOrigin, s.value, tr, lang.value, lang.value === 'en' ? '/en' : '/'),
       personLd(siteOrigin, s.value, tr, site.media),
       {
         '@type': 'ItemList',
@@ -143,7 +147,9 @@ if (import.meta.client && route.query.preview !== undefined) {
             <span class="hero-dot" aria-hidden="true" />
             {{ tr(s.hero.kicker) }} — {{ tr(s.role) }}
           </p>
-          <h1 class="display-xl hero-title" :aria-label="heroTitle">
+          <h1 class="display-xl hero-title" :aria-label="`${s.name} — ${tr(s.role)}. ${heroTitle}`">
+            <!-- the name is in the main title for search engines and AI tools, without changing the look -->
+            <span class="sr-only">{{ s.name }} — {{ tr(s.role) }}. </span>
             <template v-for="(w, i) in heroWords" :key="i"><span class="enter-mask" aria-hidden="true"><span class="enter-word" :style="{ '--i': i + 1 }">{{ w }}</span></span>{{ ' ' }}</template>
           </h1>
           <SiteRichText v-if="tr(s.hero.intro)" :text="tr(s.hero.intro)" class="hero-intro enter" style="--i: 4" />
@@ -166,6 +172,7 @@ if (import.meta.client && route.query.preview !== undefined) {
             :parallax="0.24"
             seed="globe-hero"
             sizes="(max-width: 1023px) 100vw, 620px"
+            :paper="false"
             eager
           />
         </div>
@@ -407,10 +414,10 @@ if (import.meta.client && route.query.preview !== undefined) {
 .m-head { display: grid; gap: 10px; }
 .m-num { color: var(--muted); }
 .m-col { display: grid; gap: 8px; min-width: 0; font-size: 15.5px; }
-.m-ai-label { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); }
+.m-ai-label { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); }
 .m-ai-label .pixel-glyph { width: 10px; height: 10px; margin: 0; }
 .m-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.m-step:hover .m-head .display-m { color: var(--blue); }
+.m-step:hover .m-head .display-m { color: var(--accent); }
 @media (max-width: 1023px) {
   .m-head { grid-column: 1 / -1; }
 }
@@ -448,7 +455,7 @@ if (import.meta.client && route.query.preview !== undefined) {
   font-size: 15.5px;
   transition: padding 0.35s var(--ease), color 0.2s;
 }
-.skill-list li:hover { padding-left: 8px; color: var(--blue); }
+.skill-list li:hover { padding-left: 8px; color: var(--accent); }
 .skill-idx { color: var(--muted); }
 
 /* --------------------------------------------------------------- contact */
@@ -466,7 +473,7 @@ if (import.meta.client && route.query.preview !== undefined) {
   border-bottom: 1px solid var(--line-strong);
   transition: padding 0.45s var(--ease), color 0.25s;
 }
-.contact-row:hover { padding-left: 14px; color: var(--blue); }
+.contact-row:hover { padding-left: 14px; color: var(--accent); }
 .contact-host { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .contact-arrow { width: 26px; height: 26px; stroke-width: 1.2; transition: transform 0.45s var(--ease); }
 .contact-row:hover .contact-arrow { transform: translate(4px, -4px); }

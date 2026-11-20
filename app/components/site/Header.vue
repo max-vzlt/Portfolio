@@ -28,6 +28,7 @@ const half = computed(() => Math.ceil(links.value.length / 2))
 const left = computed(() => links.value.slice(0, half.value))
 const right = computed(() => links.value.slice(half.value))
 const { until: pinUntil, pin } = useHeaderPin()
+const rememberLang = useRememberLang()
 
 const name = computed(() => (data.value?.settings.name || 'Maxime Verzeletti').trim())
 const nameParts = computed(() => {
@@ -99,9 +100,18 @@ watch(() => route.fullPath, () => (hidden.value = false))
           <span class="h-txt nav-label link-underline" :class="{ 'is-active': isHome && active === l.id }">{{ l.label }}</span>
         </NuxtLink>
         </span>
-        <NuxtLink :to="otherLangPath" class="h-link h-lang" :hreflang="lang === 'fr' ? 'en' : 'fr'" :title="t('nav.lang')" :aria-label="t('nav.lang')">
-          <Languages class="h-ico" aria-hidden="true" />
-          <span class="nav-label">{{ t('nav.langShort') }}</span>
+        <!-- language switch: a FR | EN pill, different from the other header items -->
+        <NuxtLink
+          :to="otherLangPath"
+          class="h-lang"
+          :hreflang="lang === 'fr' ? 'en' : 'fr'"
+          :title="t('nav.lang')"
+          :aria-label="t('nav.lang')"
+          @click="rememberLang(lang === 'fr' ? 'en' : 'fr')"
+        >
+          <Languages class="h-lang-ico" aria-hidden="true" />
+          <span class="h-lang-opt" :class="{ 'is-on': lang === 'fr' }">FR</span>
+          <span class="h-lang-opt" :class="{ 'is-on': lang === 'en' }">EN</span>
         </NuxtLink>
         <a v-if="cvUrl" :href="cvUrl" class="btn h-cv" download target="_blank" :title="t('hero.cv')">
           <Download aria-hidden="true" />
@@ -115,7 +125,9 @@ watch(() => route.fullPath, () => (hidden.value = false))
 <style>
 .site-header {
   --fg: var(--paper);
+  --hdr-bg: var(--blue);
   --line: color-mix(in srgb, var(--paper) 25%, transparent);
+  background: var(--hdr-bg);
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
@@ -124,11 +136,9 @@ watch(() => route.fullPath, () => (hidden.value = false))
   transition: background 0.35s var(--ease), color 0.35s var(--ease), transform 0.5s var(--ease), box-shadow 0.35s var(--ease);
 }
 .site-header.is-solid {
-  --fg: var(--blue-deep);
-  --line: color-mix(in srgb, var(--blue) 18%, transparent);
-  background: color-mix(in srgb, var(--paper) 86%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
-  backdrop-filter: blur(14px) saturate(1.4);
+  --fg: var(--ink);
+  --hdr-bg: var(--page);
+  --line: var(--rule);
   box-shadow: 0 1px 0 var(--line);
 }
 .site-header.is-hidden { transform: translateY(-110%); }
@@ -149,9 +159,24 @@ watch(() => route.fullPath, () => (hidden.value = false))
 
 .h-link { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; }
 .h-ico { display: none; width: 20px; height: 20px; stroke-width: 1.5; }
-.h-lang .h-ico { display: none; }
-.h-lang { opacity: 0.8; transition: opacity 0.2s; }
-.h-lang:hover { opacity: 1; }
+.h-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 30px;
+  padding: 2px 3px 2px 8px;
+  border: 1px solid color-mix(in srgb, var(--fg) 45%, transparent);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  transition: border-color 0.25s var(--ease);
+}
+.h-lang:hover { border-color: var(--fg); }
+.h-lang-ico { width: 13px; height: 13px; margin-right: 3px; stroke-width: 1.6; opacity: 0.75; }
+.h-lang-opt { display: grid; place-items: center; min-width: 26px; height: 22px; padding: 0 6px; border-radius: 999px; opacity: 0.6; transition: background 0.25s var(--ease), color 0.25s var(--ease), opacity 0.25s; }
+.h-lang-opt.is-on { background: var(--fg); color: var(--hdr-bg); opacity: 1; }
+.h-lang:hover .h-lang-opt:not(.is-on) { opacity: 1; }
 
 .h-logo {
   display: flex;
@@ -195,7 +220,9 @@ watch(() => route.fullPath, () => (hidden.value = false))
   .h-group, .h-links { gap: 2px; }
   .h-link { min-width: 38px; min-height: 40px; }
   .h-ico { width: 19px; height: 19px; }
-  .h-lang .nav-label { font-size: 12px; }
+  .h-lang { padding-left: 3px; margin-left: 2px; }
+  .h-lang-ico { display: none; }
+  .h-lang-opt { min-width: 22px; padding: 0 4px; }
   .h-cv { min-height: 34px; padding: 7px 9px; margin-left: 6px; }
   .is-solid .header-grid { height: 58px; }
 }

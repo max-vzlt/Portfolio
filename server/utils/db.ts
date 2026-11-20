@@ -46,6 +46,7 @@ function migrate(db: Database): Database {
   db.settings = { ...base.settings, ...db.settings }
   db.settings.method ||= defaultMethod()
   db.settings.services ||= defaultServices()
+  db.settings.profile ||= defaultProfile()
   db.settings.home = sanitizeHome(db.settings.home)
   db.categories ||= []
   db.projects ||= []
