@@ -63,11 +63,7 @@ useSeo({
 
 const heroTitle = computed(() => tr(s.value?.hero.title))
 const mailto = computed(() => (s.value?.contact.email ? `mailto:${s.value.contact.email}` : ''))
-const allLinks = computed(() => {
-  const list = [...(s.value?.socials || [])].map((x) => ({ label: x.label, url: x.url, kind: 'social' as const }))
-  if (mailto.value) list.unshift({ label: 'Email', url: mailto.value, kind: 'social' })
-  return list
-})
+const allLinks = computed(() => (s.value?.socials || []).map((x) => ({ label: x.label, url: x.url })))
 const hostOf = (url: string) => {
   if (url.startsWith('mailto:')) return url.slice(7)
   try {
@@ -120,7 +116,6 @@ if (import.meta.client && route.query.preview !== undefined) {
   <div v-if="s" :key="lang">
     <!-- ===================================================== HERO -->
     <section id="top" class="hero tone-blue">
-      <div class="hero-frame" aria-hidden="true" />
       <div class="wrap hero-grid">
         <div class="hero-text">
           <p class="label hero-kicker enter" style="--i: 0">
@@ -303,6 +298,7 @@ if (import.meta.client && route.query.preview !== undefined) {
           <div class="grid3 contact-grid">
             <SiteRichText v-if="tr(s.contact.text)" :text="tr(s.contact.text)" class="lead contact-text" v-reveal />
             <ul class="contact-list">
+              <li v-if="s.contact.email" v-reveal><SiteCopyEmail :email="s.contact.email" /></li>
               <li v-for="(l, i) in allLinks" :key="l.url" v-reveal="i * 60">
                 <a :href="l.url" :target="l.url.startsWith('mailto:') ? undefined : '_blank'" rel="noopener" class="contact-row">
                   <span class="label muted contact-host">{{ hostOf(l.url) }}</span>
@@ -327,12 +323,6 @@ if (import.meta.client && route.query.preview !== undefined) {
   display: flex;
   align-items: center;
   overflow: hidden;
-}
-.hero-frame {
-  position: absolute;
-  inset: 6px;
-  border: 1px solid color-mix(in srgb, var(--paper) 30%, transparent);
-  pointer-events: none;
 }
 .hero-grid {
   display: grid;

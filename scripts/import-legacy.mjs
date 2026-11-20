@@ -416,8 +416,8 @@ async function main() {
     about: {
       title: t('Qui suis-je ?', 'Who am I?'),
       body: t(
-        "Étudiant en **BUT Métiers du Multimédia et de l'Internet** à l'IUT de Troyes, je navigue entre **code**, **design** et **communication**. J'aime construire des expériences interactives soignées, du site web au prototype de jeu vidéo.\n\nEn dehors des cours, je pratique la **photographie** avec le club photo de l'IUT, je modélise en **voxel art** et j'apprends en continu : Three.js, Vue.js, Symfony ou encore C# avec Unity.",
-        "A student in the **BUT MMI** (Multimedia & Internet) programme at the IUT of Troyes, I move between **code**, **design** and **communication**. I love building polished interactive experiences, from websites to video game prototypes.\n\nOutside class, I do **photography** with the IUT photo club, model in **voxel art** and keep learning: Three.js, Vue.js, Symfony and C# with Unity.",
+        "Étudiant en **BUT Métiers du Multimédia et de l'Internet** à l'IUT de Troyes, je navigue entre **code**, **design** et **communication**. J'aime construire des expériences interactives soignées, du site web au prototype de jeu vidéo.\n\nEn dehors des cours, je pratique la **photographie** avec le club photo de l'IUT, je modélise en **voxel art** et j'explore ce que l'**IA** change dans la création numérique.",
+        "A student in the **BUT MMI** (Multimedia & Internet) programme at the IUT of Troyes, I move between **code**, **design** and **communication**. I love building polished interactive experiences, from websites to video game prototypes.\n\nOutside class, I do **photography** with the IUT photo club, model in **voxel art** and explore how **AI** is changing digital creation.",
       ),
       imageId: avatar,
       effect: 'none',
@@ -425,7 +425,6 @@ async function main() {
         { label: t('Formation', 'Education'), value: t("BUT MMI — IUT de Troyes", 'BUT MMI — IUT of Troyes') },
         { label: t('Domaines', 'Fields'), value: t('Développement web, design, stratégie de communication', 'Web development, design, communication strategy') },
         { label: t('Passions', 'Interests'), value: t('Photographie, voxel art, jeu vidéo', 'Photography, voxel art, video games') },
-        { label: t('En ce moment', 'Right now'), value: t("J'apprends Three.js, Vue.js, Symfony et C#", "Learning Three.js, Vue.js, Symfony and C#") },
       ],
     },
     skills: {

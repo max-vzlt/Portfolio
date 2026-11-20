@@ -26,6 +26,10 @@ const cats = computed(() =>
   p.value.categoryIds.map((id) => data.value!.categories.find((c) => c.id === id)).filter(Boolean).map((c) => tr(c!.name)),
 )
 const cover = computed(() => m(p.value.coverId))
+const nextImg = ref<{ setReveal: (on: boolean, x: number, y: number) => void } | null>(null)
+const nextHover = (e: PointerEvent, on: boolean) => {
+  if (e.pointerType === 'mouse') nextImg.value?.setReveal(on, e.clientX, e.clientY)
+}
 const titleWords = computed(() => tr(p.value.title).split(/\s+/).filter(Boolean))
 const external = computed(() => /^https?:/i.test(p.value.link.url))
 
@@ -54,7 +58,6 @@ if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] }
 
     <!-- ===================================================== HEAD -->
     <header class="proj-hero tone-blue">
-      <div class="hero-frame" aria-hidden="true" />
       <div class="wrap">
         <NuxtLink :to="{ path: lp('/'), hash: '#work' }" class="proj-back nav-label enter" @click="pin()">
           <ArrowLeft aria-hidden="true" /> <span class="link-underline">{{ t('project.back') }}</span>
@@ -125,13 +128,18 @@ if (!p.value.visible) useHead({ meta: [{ name: 'robots', content: 'noindex' }] }
 
     <!-- ===================================================== NEXT -->
     <nav v-if="data.next" class="proj-next tone-blue" :aria-label="t('project.next')">
-      <NuxtLink :to="lp(`/work/${data.next.slug}`)" class="wrap proj-next-link">
+      <NuxtLink
+        :to="lp(`/work/${data.next.slug}`)"
+        class="wrap proj-next-link"
+        @pointerenter="nextHover($event, true)"
+        @pointerleave="nextHover($event, false)"
+      >
         <div class="proj-next-text">
           <p class="label">{{ t('project.next') }}</p>
           <p class="display-l">{{ tr(data.next.title) }} <ArrowRight class="proj-next-arrow" aria-hidden="true" /></p>
         </div>
         <div class="proj-next-media">
-          <DotImage :media="m(data.next.coverId)" :effect="data.next.coverEffect" :seed="data.next.slug" :parallax="0.2" sizes="400px" />
+          <DotImage ref="nextImg" reveal reveal-on="parent" :media="m(data.next.coverId)" :effect="data.next.coverEffect" :seed="data.next.slug" :parallax="0.2" sizes="400px" />
         </div>
       </NuxtLink>
     </nav>

@@ -22,6 +22,8 @@ const props = withDefaults(defineProps<{
   paper?: boolean
   /** On hover, the original image is revealed in a circle growing from the cursor */
   reveal?: boolean
+  /** 'self': hovering the image reveals it; 'parent': the parent calls setReveal() (a whole card) */
+  revealOn?: 'self' | 'parent'
 }>(), {
   media: null,
   effect: 'none',
@@ -34,6 +36,7 @@ const props = withDefaults(defineProps<{
   eager: false,
   paper: true,
   reveal: false,
+  revealOn: 'self',
 })
 
 const host = ref<HTMLElement | null>(null)
@@ -43,13 +46,18 @@ const canvas = ref<HTMLCanvasElement | null>(null)
 const drawn = ref(false)
 const revealed = ref(false)
 const canReveal = computed(() => props.reveal && isImage.value && props.effect !== 'none')
-function revealAt(e: PointerEvent, on: boolean) {
-  if (!canReveal.value || e.pointerType !== 'mouse' || !host.value) return
+function setReveal(on: boolean, clientX: number, clientY: number) {
+  if (!canReveal.value || !host.value) return
   const r = host.value.getBoundingClientRect()
-  host.value.style.setProperty('--mx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`)
-  host.value.style.setProperty('--my', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`)
+  host.value.style.setProperty('--mx', `${(((clientX - r.left) / r.width) * 100).toFixed(1)}%`)
+  host.value.style.setProperty('--my', `${(((clientY - r.top) / r.height) * 100).toFixed(1)}%`)
   revealed.value = on
 }
+function revealAt(e: PointerEvent, on: boolean) {
+  if (props.revealOn !== 'self' || e.pointerType !== 'mouse') return
+  setReveal(on, e.clientX, e.clientY)
+}
+defineExpose({ setReveal })
 const visible = ref(false)
 
 const isImage = computed(() => props.media?.kind === 'image')

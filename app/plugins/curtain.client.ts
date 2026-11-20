@@ -4,7 +4,7 @@
  * page's entrance animations play (they are paused while html.is-covered).
  */
 const COVER_MS = 620
-const REVEAL_MS = 900
+const REVEAL_MS = 1000
 
 export default defineNuxtPlugin((nuxtApp) => {
   const router = useRouter()

@@ -25,7 +25,6 @@ async function submit() {
 
 <template>
   <div class="login tone-blue">
-    <div class="hero-frame" aria-hidden="true" />
     <div class="login-art" aria-hidden="true"><DotImage seed="globe-login" /></div>
     <form class="login-card" @submit.prevent="submit">
       <img src="/favicon.svg" alt="" width="56" height="56">

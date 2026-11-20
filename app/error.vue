@@ -11,7 +11,6 @@ useHead({ title: () => `${props.error?.statusCode || 'Erreur'} — Maxime Verzel
 
 <template>
   <div class="err tone-blue">
-    <div class="hero-frame" aria-hidden="true" />
     <div class="err-media" aria-hidden="true">
       <DotImage seed="dunes-404" :parallax="0" />
     </div>

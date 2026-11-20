@@ -35,13 +35,14 @@ const target = computed(() => {
   display: grid;
   place-items: center;
   pointer-events: none;
-  transform: translate3d(0, 101%, 0);
+  transform: translate3d(0, calc(100% + 160px), 0);
   visibility: hidden;
 }
 .curtain.is-cover { visibility: visible; pointer-events: auto; animation: curtainIn 0.62s cubic-bezier(0.76, 0, 0.24, 1) both; }
-.curtain.is-reveal { visibility: visible; animation: curtainOut 0.9s cubic-bezier(0.76, 0, 0.24, 1) both; }
-@keyframes curtainIn { from { transform: translate3d(0, 101%, 0); } to { transform: none; } }
-@keyframes curtainOut { from { transform: none; } to { transform: translate3d(0, -101%, 0); } }
+.curtain.is-reveal { visibility: visible; animation: curtainOut 0.95s cubic-bezier(0.76, 0, 0.24, 1) both; }
+/* ±(100% + 160px): the dotted fringe (90px) also leaves the screen */
+@keyframes curtainIn { from { transform: translate3d(0, calc(100% + 160px), 0); } to { transform: none; } }
+@keyframes curtainOut { from { transform: none; } to { transform: translate3d(0, calc(-100% - 160px), 0); } }
 
 /* round-pixel edges, like the halftone images */
 .curtain-dots {

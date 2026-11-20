@@ -13,6 +13,11 @@ const { tr, lp, t } = useI18n()
 const cats = computed(() =>
   props.project.categoryIds.map((id) => props.categories.find((c) => c.id === id)).filter(Boolean).map((c) => tr(c!.name)),
 )
+// hovering the whole card shows the cover in its original colours
+const img = ref<{ setReveal: (on: boolean, x: number, y: number) => void } | null>(null)
+const hover = (e: PointerEvent, on: boolean) => {
+  if (e.pointerType === 'mouse') img.value?.setReveal(on, e.clientX, e.clientY)
+}
 const num = computed(() => String(props.index + 1).padStart(2, '0'))
 const sizes = computed(() => {
   const c = props.project.card.col
@@ -22,7 +27,13 @@ const sizes = computed(() => {
 
 <template>
   <article class="pcard" :class="[`c-${project.card.col}`, `r-${project.card.row}`]">
-    <NuxtLink :to="lp(`/work/${project.slug}`)" class="pcard-link" :aria-label="`${t('work.open')} : ${tr(project.title)}`">
+    <NuxtLink
+      :to="lp(`/work/${project.slug}`)"
+      class="pcard-link"
+      :aria-label="`${t('work.open')} : ${tr(project.title)}`"
+      @pointerenter="hover($event, true)"
+      @pointerleave="hover($event, false)"
+    >
       <p class="label pcard-meta">
         <span v-if="project.rank" class="pcard-top"><SitePixelGlyph name="star" /> {{ t('work.rank') }} {{ String(project.rank).padStart(2, '0') }}</span>
         <span v-else>{{ num }}</span>
@@ -36,6 +47,9 @@ const sizes = computed(() => {
       <p v-if="tr(project.summary)" class="pcard-summary">{{ plainText(tr(project.summary)) }}</p>
       <div class="pcard-media">
         <DotImage
+          ref="img"
+          reveal
+          reveal-on="parent"
           :media="cover"
           :effect="project.coverEffect"
           :alt="cover ? tr(cover.alt) || tr(project.title) : tr(project.title)"

@@ -31,7 +31,7 @@ watch(() => route.fullPath, close)
         <DotImage
           :key="current.media.id"
           :media="current.media"
-          :effect="current.effect"
+          effect="none"
           fit="contain"
           :alt="tr(current.media.alt) || current.caption || ''"
           sizes="100vw"
@@ -62,7 +62,8 @@ watch(() => route.fullPath, close)
   gap: 16px;
 }
 .lb-frame { position: relative; min-height: 0; }
-.lb-frame .dimg { background: transparent; }
+.lb-frame .dimg, .lb-frame .dimg.fx-none { background: transparent; }
+.lb-frame .dimg-paper { display: none; }
 .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .lb-actions { display: flex; gap: 8px; }
 .lb-enter-active, .lb-leave-active { transition: opacity 0.35s var(--ease), transform 0.45s var(--ease); }

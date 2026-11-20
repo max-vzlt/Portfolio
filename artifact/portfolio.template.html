@@ -78,18 +78,6 @@ ul { padding: 0; list-style: none; }
 @media (max-width: 639px) { .grid3 { grid-template-columns: minmax(0, 1fr); } }
 .section { position: relative; padding-block: clamp(72px, 11vw, 160px); }
 .section.tone-paper + .section.tone-paper, .section.tone-blue + .section.tone-blue { padding-top: clamp(24px, 4vw, 56px); }
-.guides { position: relative; isolation: isolate; }
-.guides::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  width: min(var(--container), 100% - var(--pad-l) - var(--pad-r)); margin-inline: auto;
-  background:
-    linear-gradient(var(--line), var(--line)) left / 1px 100% no-repeat,
-    linear-gradient(var(--line), var(--line)) calc(33.333% - var(--gap) / 6) 0 / 1px 100% no-repeat,
-    linear-gradient(var(--line), var(--line)) calc(66.666% + var(--gap) / 6) 0 / 1px 100% no-repeat,
-    linear-gradient(var(--line), var(--line)) right / 1px 100% no-repeat;
-  opacity: .55;
-}
-@media (max-width: 1023px) { .guides::before { display: none; } }
 
 .display-xl, .display-l, .display-m, .display-s { font-family: var(--font-display); font-weight: 300; letter-spacing: -0.012em; line-height: .95; text-wrap: balance; }
 .display-xl { font-size: clamp(3.2rem, 8.4vw, 8.4rem); line-height: .92; }
@@ -157,11 +145,11 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .is-covered :is(.enter, .enter-word, .enter-media, .enter-media > .dimg) { animation-play-state: paused; }
 
 /* page curtain between two views */
-.curtain { position: fixed; inset: 0; z-index: 98; display: grid; place-items: center; pointer-events: none; transform: translate3d(0, 101%, 0); visibility: hidden; }
+.curtain { position: fixed; inset: 0; z-index: 98; display: grid; place-items: center; pointer-events: none; transform: translate3d(0, calc(100% + 160px), 0); visibility: hidden; }
 .curtain.is-cover { visibility: visible; pointer-events: auto; animation: curtainIn .62s cubic-bezier(.76, 0, .24, 1) both; }
-.curtain.is-reveal { visibility: visible; animation: curtainOut .9s cubic-bezier(.76, 0, .24, 1) both; }
-@keyframes curtainIn { from { transform: translate3d(0, 101%, 0); } to { transform: none; } }
-@keyframes curtainOut { from { transform: none; } to { transform: translate3d(0, -101%, 0); } }
+.curtain.is-reveal { visibility: visible; animation: curtainOut .95s cubic-bezier(.76, 0, .24, 1) both; }
+@keyframes curtainIn { from { transform: translate3d(0, calc(100% + 160px), 0); } to { transform: none; } }
+@keyframes curtainOut { from { transform: none; } to { transform: translate3d(0, calc(-100% - 160px), 0); } }
 .curtain-dots { position: absolute; inset: -90px 0; background: radial-gradient(circle, var(--blue) 42%, transparent 46%) 0 0 / 14px 14px; -webkit-mask: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%); mask: linear-gradient(to bottom, transparent 0, #000 90px, #000 calc(100% - 90px), transparent 100%); }
 .curtain-inner { position: relative; display: grid; justify-items: center; gap: 18px; padding-inline: 24px; text-align: center; }
 .curtain-title { overflow: hidden; padding-bottom: .06em; }
@@ -240,7 +228,6 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 }
 
 /* ---------------------------------------------------------- shared bits */
-.hero-frame { position: absolute; inset: 6px; border: 1px solid color-mix(in srgb, var(--paper) 30%, transparent); pointer-events: none; z-index: 1; }
 .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; margin-bottom: clamp(36px, 5vw, 64px); }
 .section-index { margin-bottom: 14px; color: var(--muted); }
 .section-head-aside { padding-bottom: 8px; }
@@ -287,9 +274,26 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .pcard-meta span:first-child { color: var(--fg); }
 .pcard-meta span.pcard-top { display: inline-flex; align-items: center; gap: 6px; margin: -3px 0; padding: 3px 7px 2px; background: var(--blue); color: var(--paper); border-radius: var(--radius); }
 .pcard-top .pixel-glyph, .chip-top .pixel-glyph { width: 9px; height: 9px; margin: 0; }
-.contact-mail .contact-addr { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.3rem, 2.2vw, 2.1rem); line-height: 1.1; overflow-wrap: anywhere; user-select: all; }
-.contact-mail .btn { justify-self: end; }
-@media (max-width: 639px) { .contact-mail .btn { grid-row: span 2; } }
+.copy-row { position: relative; width: 100%; border: 0; border-bottom: 1px solid var(--line-strong); background: none; color: inherit; font: inherit; text-align: left; cursor: copy; isolation: isolate; }
+.copy-row::before { content: ''; position: absolute; inset: 0 -14px; z-index: -1; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.7, 0, .2, 1); }
+.copy-row.is-in::before { transform: scaleX(1); }
+.copy-row.is-out::before { transform: scaleX(0); transform-origin: right; }
+.contact-row.copy-row.is-in, .contact-row.copy-row.is-in:hover { color: var(--paper); }
+.contact-row.copy-row.is-in .muted { color: color-mix(in srgb, var(--paper) 80%, transparent); }
+.copy-ch { display: inline-block; white-space: pre; }
+.copy-row.is-in .copy-ch { animation: chWave .6s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(var(--i) * 16ms + 120ms); }
+@keyframes chWave { 40% { transform: translateY(-7px); } }
+.copy-ico { position: relative; display: grid; place-items: center; width: 26px; height: 26px; }
+.copy-ico .ico { width: 24px; height: 24px; stroke-width: 1.3; grid-area: 1 / 1; }
+.copy-ico .copy-check { display: none; }
+.copy-row.is-in .copy-ico .copy-copy, .copy-row.is-out .copy-ico .copy-copy { display: none; }
+.copy-row.is-in .copy-ico .copy-check, .copy-row.is-out .copy-ico .copy-check { display: block; animation: copyPop .55s cubic-bezier(.3, 1.8, .5, 1) both; }
+@keyframes copyPop { from { transform: scale(.2) rotate(-25deg); opacity: 0; } }
+.copy-burst { position: absolute; left: 50%; top: 50%; pointer-events: none; }
+.copy-burst i { position: absolute; width: 7px; height: 7px; margin: -3.5px; border-radius: 50%; background: var(--paper); box-shadow: 0 0 0 1.5px var(--blue); animation: copyBurst .85s cubic-bezier(.2, .8, .2, 1) both; animation-delay: var(--d); }
+@keyframes copyBurst { 0% { transform: translate(0, 0) scale(0); } 30% { transform: translate(calc(var(--dx) * .6), calc(var(--dy) * .6)) scale(var(--s)); } 100% { transform: translate(var(--dx), var(--dy)) scale(0); } }
+.copy-bubble { position: absolute; right: -6px; bottom: calc(100% + 12px); padding: 6px 10px 5px; background: var(--paper); color: var(--blue); border-radius: 3px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 10px 24px -12px rgba(9, 11, 208, .9); animation: copyBubble 1.15s cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes copyBubble { 0% { transform: translateY(10px) scale(.5); opacity: 0; } 25% { transform: translateY(-4px) scale(1.06); opacity: 1; } 40% { transform: none; } 85% { opacity: 1; } 100% { transform: translateY(-6px); opacity: 0; } }
 .pcard-title { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
 .pcard-title-text { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .55s var(--ease); }
 .pcard-arrow { width: .62em; height: .62em; margin-top: .12em; stroke-width: 1.2; opacity: 0; transform: translate(-8px, 8px); transition: opacity .35s var(--ease), transform .45s var(--ease); }
@@ -454,7 +458,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 /* lightbox */
 .lightbox { position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: 1fr auto; gap: 16px; padding-block: calc(env(safe-area-inset-top, 0px) + clamp(12px, 3vw, 40px)) calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 3vw, 40px)); padding-left: var(--pad-l); padding-right: var(--pad-r); animation: viewIn .35s var(--ease) both; }
 .lb-frame { position: relative; min-height: 0; }
-.lb-frame .dimg { background: transparent; }
+.lb-frame .dimg, .lb-frame .dimg.fx-none { background: transparent; }
 .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .lb-actions { display: flex; gap: 8px; }
 
@@ -508,10 +512,10 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       workTitle: 'Réalisations', all: 'Tout', filter: 'Filtrer', empty: 'Aucun projet dans cette catégorie pour le moment.',
       open: 'Voir le projet', aboutTitle: 'Qui suis-je ?', skillsTitle: 'Compétences', contactTitle: 'Contact',
       back: 'Toutes les réalisations', year: 'Année', category: 'Catégorie', tools: 'Outils', visit: 'Voir le projet en ligne',
-      next: 'Projet suivant', prev: 'Projet précédent', made: 'Design & code par', rights: 'Tous droits réservés',
+      next: 'Projet suivant', prev: 'Projet précédent', made: 'Réalisé par', rights: 'Tous droits réservés',
       top: 'Haut de page', close: 'Fermer', play: 'Lire la vidéo',
       method: 'Méthode', services: 'Savoir-faire', me: 'Moi', ai: "Avec l'IA",
-      highlights: 'Sélection', rank: 'Top', email: 'Email', copy: 'Copier', copied: 'Copié', copyFail: 'Sélectionne l’adresse',
+      highlights: 'Sélection', rank: 'Top', email: 'Email', copy: "Copier l'adresse", copied: 'Adresse copiée !', copyFail: "Sélectionne l'adresse",
     },
     en: {
       work: 'Work', about: 'About', skills: 'Skills', contact: 'Contact', cv: 'Resume', home: 'Home',
@@ -519,10 +523,10 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       workTitle: 'Selected work', all: 'All', filter: 'Filter', empty: 'No project in this category yet.',
       open: 'Open project', aboutTitle: 'Who am I?', skillsTitle: 'Skills', contactTitle: 'Contact',
       back: 'All projects', year: 'Year', category: 'Category', tools: 'Tools', visit: 'Visit the project',
-      next: 'Next project', prev: 'Previous project', made: 'Design & code by', rights: 'All rights reserved',
+      next: 'Next project', prev: 'Previous project', made: 'Made by', rights: 'All rights reserved',
       top: 'Back to top', close: 'Close', play: 'Play video',
       method: 'Method', services: 'What I do', me: 'Me', ai: 'With AI',
-      highlights: 'Highlights', rank: 'Top', email: 'Email', copy: 'Copy', copied: 'Copied', copyFail: 'Select the address',
+      highlights: 'Highlights', rank: 'Top', email: 'Email', copy: 'Copy the address', copied: 'Address copied!', copyFail: 'Select the address',
     },
   }
   let lang = 'fr'
@@ -578,13 +582,13 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
     </header>`
 
   /* ------------------------------------------------------------ images */
-  function dotImage({ media = null, effect = 'none', alt = '', parallax = 0, fit = 'cover', seed = 'mv', sizes = '100vw', eager = false, paper = true, reveal = false }) {
+  function dotImage({ media = null, effect = 'none', alt = '', parallax = 0, fit = 'cover', seed = 'mv', sizes = '100vw', eager = false, paper = true, reveal = false, revealOn = 'self' }) {
     const isImg = media && media.kind === 'image'
     const fx = isImg ? effect : 'placeholder'
     const canvas = !isImg || effect === 'dots'
     const canReveal = reveal && isImg && effect !== 'none'
     const p = parallax > 0 ? ` parallax-layer" data-parallax="${parallax}" style="--p:${parallax}` : ''
-    return `<figure class="dimg fx-${fx}${fit === 'contain' ? ' is-contain' : ''}${canReveal ? ' can-reveal' : ''}" data-seed="${esc(seed)}" data-fit="${fit}" data-canvas="${canvas ? 1 : 0}">
+    return `<figure class="dimg fx-${fx}${fit === 'contain' ? ' is-contain' : ''}${canReveal ? ' can-reveal' : ''}" data-reveal-on="${revealOn}" data-seed="${esc(seed)}" data-fit="${fit}" data-canvas="${canvas ? 1 : 0}">
       <div class="dimg-layer${p}">
         ${isImg ? `<img src="${esc(media.url)}"${media.srcset ? ` srcset="${esc(media.srcset)}" sizes="${esc(sizes)}"` : ''}${media.width ? ` width="${media.width}" height="${media.height}"` : ''} alt="${esc(alt)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async" draggable="false">` : ''}
         ${canvas ? '<canvas aria-hidden="true"></canvas>' : ''}
@@ -709,16 +713,23 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       ro.observe(layer)
       observers.push(io, ro)
     })
-    root.querySelectorAll('figure.dimg.can-reveal').forEach((fig) => {
-      const at = (e, on) => {
-        if (e.pointerType !== 'mouse') return
-        const r = fig.getBoundingClientRect()
-        fig.style.setProperty('--mx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`)
-        fig.style.setProperty('--my', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`)
-        fig.classList.toggle('is-revealed', on)
-      }
-      fig.addEventListener('pointerenter', (e) => at(e, true))
-      fig.addEventListener('pointerleave', (e) => at(e, false))
+    const revealAt = (fig, e, on) => {
+      if (e.pointerType !== 'mouse') return
+      const r = fig.getBoundingClientRect()
+      fig.style.setProperty('--mx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`)
+      fig.style.setProperty('--my', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`)
+      fig.classList.toggle('is-revealed', on)
+    }
+    root.querySelectorAll('figure.dimg.can-reveal[data-reveal-on="self"]').forEach((fig) => {
+      fig.addEventListener('pointerenter', (e) => revealAt(fig, e, true))
+      fig.addEventListener('pointerleave', (e) => revealAt(fig, e, false))
+    })
+    // a whole card (project card, next project) reveals its image
+    root.querySelectorAll('.pcard-link, .proj-next-link').forEach((card) => {
+      const fig = card.querySelector('figure.dimg.can-reveal')
+      if (!fig) return
+      card.addEventListener('pointerenter', (e) => revealAt(fig, e, true))
+      card.addEventListener('pointerleave', (e) => revealAt(fig, e, false))
     })
     root.querySelectorAll('.vid').forEach((box) => {
       const v = box.querySelector('video')
@@ -833,7 +844,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
         <p class="label pcard-meta">${p.rank ? `<span class="pcard-top">${glyph('star')} ${esc(t('rank'))} ${pad(p.rank)}</span>` : `<span>${pad(i + 1)}</span>`}${cats.map((c) => `<span>${esc(c)}</span>`).join('')}${p.year ? `<span style="margin-left:auto">${esc(p.year)}</span>` : ''}</p>
         <h3 class="display-m pcard-title"><span class="pcard-title-text">${esc(tr(p.title))}</span>${icon('arrow-up-right', 'pcard-arrow')}</h3>
         ${tr(p.summary) ? `<p class="pcard-summary">${esc(plain(tr(p.summary)))}</p>` : ''}
-        <div class="pcard-media">${dotImage({ media: cover, effect: p.coverEffect, alt: cover ? tr(cover.alt) || tr(p.title) : tr(p.title), seed: p.id, parallax: 0.16, sizes })}</div>
+        <div class="pcard-media">${dotImage({ media: cover, effect: p.coverEffect, alt: cover ? tr(cover.alt) || tr(p.title) : tr(p.title), seed: p.id, parallax: 0.16, sizes, reveal: true, revealOn: 'parent' })}</div>
       </a>
     </article>`
   }
@@ -936,9 +947,11 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
         ${sectionHead(index, tr(S.contact.title) || t('contactTitle'), 'mail')}
         <div class="grid3 contact-grid">
           ${tr(S.contact.text) ? `<div class="rich lead contact-text">${rich(tr(S.contact.text))}</div>` : ''}
-          <ul class="contact-list">${S.contact.email ? `<li><div class="contact-row contact-mail">
-            <span class="label muted contact-host">${esc(t('email'))}</span><span class="contact-addr">${esc(S.contact.email)}</span>
-            <button type="button" class="btn btn-solid" data-copy="${esc(S.contact.email)}">${esc(t('copy'))}</button></div></li>` : ''}${(S.socials || []).map((l) => `<li><a class="contact-row" href="${esc(l.url)}" target="_blank" rel="noopener">
+          <ul class="contact-list">${S.contact.email ? `<li><button type="button" class="contact-row copy-row" data-copy="${esc(S.contact.email)}" title="${esc(t('copy'))}">
+            <span class="label muted contact-host copy-addr" aria-label="${esc(S.contact.email)}">${[...S.contact.email].map((ch, i) => `<span class="copy-ch" style="--i:${i}" aria-hidden="true">${esc(ch)}</span>`).join('')}</span>
+            <span class="display-m">${esc(t('email'))}</span>
+            <span class="copy-ico" aria-hidden="true">${icon('copy', 'copy-copy')}${icon('check', 'copy-check')}</span>
+            <span class="sr-only copy-live" aria-live="polite"></span></button></li>` : ''}${(S.socials || []).map((l) => `<li><a class="contact-row" href="${esc(l.url)}" target="_blank" rel="noopener">
             <span class="label muted contact-host">${esc(hostOf(l.url))}</span><span class="display-m">${esc(l.label)}</span>${icon('arrow-up-right', 'contact-arrow')}</a></li>`).join('')}
           </ul>
         </div>
@@ -952,7 +965,6 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
     const tabs = S.hero.tabs || []
     main.innerHTML = `<div class="view-in">
     <section class="hero tone-blue" id="top">
-      <div class="hero-frame" aria-hidden="true"></div>
       <div class="wrap hero-grid">
         <div class="hero-text">
           <p class="label hero-kicker enter" style="--i:0"><span class="hero-dot" aria-hidden="true"></span>${esc(tr(S.hero.kicker))} — ${esc(tr(S.role))}</p>
@@ -1026,8 +1038,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
     const next = DATA.projects.length > 1 ? DATA.projects[(i + 1) % DATA.projects.length] : null
     main.innerHTML = `<article class="view-in">
       <header class="proj-hero tone-blue">
-        <div class="hero-frame" aria-hidden="true"></div>
-        <div class="wrap">
+          <div class="wrap">
           <button type="button" class="proj-back nav-label enter" data-nav="work">${icon('arrow-left')} <span class="link-underline">${esc(t('back'))}</span></button>
           <div class="proj-head grid3">
             <div class="proj-title-wrap">
@@ -1050,7 +1061,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       ${p.blocks.length ? `<section class="proj-body tone-paper guides"><div class="wrap blocks">${p.blocks.map((b) => blockHtml(b, media)).join('')}</div></section>` : ''}
       ${next ? `<nav class="proj-next tone-blue" aria-label="${esc(t('next'))}"><div class="wrap"><a class="proj-next-link" href="#${esc(next.slug)}">
         <div class="proj-next-text"><p class="label">${esc(t('next'))}</p><p class="display-l">${esc(tr(next.title))} ${icon('arrow-right', 'proj-next-arrow')}</p></div>
-        <div class="proj-next-media">${dotImage({ media: M(next.coverId), effect: next.coverEffect, seed: next.slug, parallax: 0.2, sizes: '400px', alt: tr(next.title) })}</div>
+        <div class="proj-next-media">${dotImage({ media: M(next.coverId), effect: next.coverEffect, seed: next.slug, parallax: 0.2, sizes: '400px', reveal: true, revealOn: 'parent', alt: tr(next.title) })}</div>
       </a></div></nav>` : ''}
     </article>`
     mountImages(main)
@@ -1065,7 +1076,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
     if (lbIndex < 0) { lbRoot.innerHTML = ''; return }
     const it = gallery[lbIndex]
     lbRoot.innerHTML = `<div class="lightbox tone-blue" role="dialog" aria-modal="true" data-lenis-prevent data-lb-bg>
-      <div class="lb-frame" data-lb-bg>${dotImage({ media: it.media, effect: it.effect, fit: 'contain', alt: tr(it.media.alt) || it.caption, sizes: '100vw', eager: true })}</div>
+      <div class="lb-frame" data-lb-bg>${dotImage({ media: it.media, effect: 'none', paper: false, fit: 'contain', alt: tr(it.media.alt) || it.caption, sizes: '100vw', eager: true })}</div>
       <div class="lb-bar">
         <p class="label">${pad(lbIndex + 1)} / ${pad(gallery.length)}${it.caption ? ` — ${esc(it.caption)}` : ''}</p>
         <div class="lb-actions">
@@ -1110,7 +1121,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       setTimeout(() => {
         curtainEl.className = 'curtain tone-blue is-reveal'
         document.documentElement.classList.remove('is-covered')
-        setTimeout(() => { curtainEl.className = 'curtain tone-blue' }, 900)
+        setTimeout(() => { curtainEl.className = 'curtain tone-blue' }, 1000)
       }, 140)
     }, 620)
   }
@@ -1140,6 +1151,36 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
     if (view === 'home') { const el = document.getElementById(id); if (el) scrollToTarget(el); return }
     pendingSection = id
     location.hash = ''
+  }
+
+  /* juicy copy: blue fill sweeping the row, letters bouncing, burst of round pixels, bubble */
+  let copyTimers = []
+  function copyEmail(row) {
+    const addr = row.querySelector('.copy-addr')
+    const ok = (good) => {
+      copyTimers.forEach(clearTimeout)
+      row.classList.remove('is-in', 'is-out'); void row.offsetWidth; row.classList.add('is-in')
+      row.querySelector('.copy-live').textContent = good ? t('copied') : t('copyFail')
+      const ico = row.querySelector('.copy-ico')
+      ico.querySelectorAll('.copy-bubble').forEach((b) => b.remove())
+      const bubble = document.createElement('span'); bubble.className = 'copy-bubble'; bubble.textContent = good ? t('copied') : t('copyFail')
+      ico.appendChild(bubble)
+      const burst = document.createElement('span'); burst.className = 'copy-burst'
+      for (let i = 0; i < 18; i++) {
+        const a = (i / 18) * Math.PI * 2 + Math.random() * 0.35, r = 30 + Math.random() * 46
+        const d = document.createElement('i')
+        d.style.cssText = `--dx:${(Math.cos(a) * r).toFixed(1)}px;--dy:${(Math.sin(a) * r).toFixed(1)}px;--s:${(0.45 + Math.random() * 0.9).toFixed(2)};--d:${Math.round(Math.random() * 90)}ms`
+        burst.appendChild(d)
+      }
+      ico.appendChild(burst)
+      copyTimers = [
+        setTimeout(() => { burst.remove() }, 1100),
+        setTimeout(() => { row.classList.add('is-out') }, 1150),
+        setTimeout(() => { row.classList.remove('is-in', 'is-out'); bubble.remove() }, 1700),
+      ]
+    }
+    const select = () => { const r = document.createRange(); r.selectNodeContents(addr); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r) }
+    try { navigator.clipboard.writeText(row.dataset.copy).then(() => ok(true), () => { select(); ok(false) }) } catch (err) { select(); ok(false) }
   }
 
   document.addEventListener('click', (e) => {
@@ -1172,14 +1213,7 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
       return
     }
     const cp = e.target.closest('[data-copy]')
-    if (cp) {
-      const done = (ok) => { cp.textContent = ok ? t('copied') : t('copyFail'); setTimeout(() => { cp.textContent = t('copy') }, 1800) }
-      const selectIt = () => { const addr = cp.parentElement.querySelector('.contact-addr'); const r = document.createRange(); r.selectNodeContents(addr); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r) }
-      try {
-        navigator.clipboard.writeText(cp.dataset.copy).then(() => done(true), () => { selectIt(); done(false) })
-      } catch (err) { selectIt(); done(false) }
-      return
-    }
+    if (cp) { copyEmail(cp); return }
     const z = e.target.closest('[data-zoom]')
     if (z) { openLightbox(z.dataset.zoom); return }
     const lb = e.target.closest('[data-lb]')
