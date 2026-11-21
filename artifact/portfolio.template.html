@@ -518,9 +518,8 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .vid.is-playing .vid-play { display: none; }
 
 /* lightbox */
-.lightbox { --lb-bg: var(--blue); position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: 1fr auto; gap: 16px; padding-block: calc(env(safe-area-inset-top, 0px) + clamp(12px, 3vw, 40px)) calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 3vw, 40px)); padding-left: var(--pad-l); padding-right: var(--pad-r); isolation: isolate; animation: lbIn .35s var(--ease) both; }
+.lightbox { --lb-bg: var(--blue); position: fixed; inset: 0; z-index: 100; display: grid; grid-template-rows: 1fr auto; gap: 16px; padding-block: calc(env(safe-area-inset-top, 0px) + clamp(12px, 3vw, 40px)) calc(env(safe-area-inset-bottom, 0px) + clamp(12px, 3vw, 40px)); padding-left: var(--pad-l); padding-right: var(--pad-r); isolation: isolate; }
 .lightbox.tone-blue { background: var(--lb-bg); }
-@keyframes lbIn { from { opacity: 0; } }
 .lb-ambient { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
 .halftone { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; pointer-events: none; }
 /* change of media: a wipe. The new one slides in and is uncovered from its side,
@@ -539,9 +538,10 @@ html::-webkit-scrollbar { width: 0; height: 0; display: none; }
 .lightbox .lb-actions .btn-ghost { --btn-bg: var(--blue); border-color: color-mix(in srgb, var(--paper) 55%, transparent); }
 .lightbox .lb-actions .btn-ghost:hover { --btn-bg: var(--blue-deep); border-color: var(--paper); }
 .lightbox .lb-count { padding: 7px 10px 6px; background: var(--blue); border-radius: 3px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--paper) 25%, transparent); }
-.lb-frame { position: relative; min-height: 0; }
-.lb-media { position: absolute; inset: 0; margin: auto; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 3px; box-shadow: 0 40px 90px -30px rgba(9, 11, 208, .85), 0 0 0 1px color-mix(in srgb, var(--paper) 18%, transparent); }
-video.lb-media { width: 100%; height: 100%; box-shadow: none; }
+.lb-frame { position: relative; min-height: 0; container-type: size; }
+/* contain box from the aspect ratio (known before the file loads, never larger than the original) */
+.lb-media { --w: min(100cqw, 100cqh * var(--ar, 1.5), var(--nw, 100cqw)); position: absolute; inset: 0; margin: auto; width: var(--w); height: calc(var(--w) / var(--ar, 1.5)); max-width: none; object-fit: contain; background: center / 100% 100% no-repeat; border-radius: 3px; box-shadow: 0 40px 90px -30px rgba(9, 11, 208, .85), 0 0 0 1px color-mix(in srgb, var(--paper) 18%, transparent); }
+video.lb-media { background-color: var(--blue-deep); }
 .lb-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .lb-actions { display: flex; gap: 8px; }
 
@@ -1191,10 +1191,65 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
   let gallery = []
   let lbIndex = -1
   const lbRoot = document.getElementById('lightbox-root')
+  // media box: aspect ratio from the data, or from the page's video player; low-res thumbnail as placeholder
+  const lbAspects = {}, lbThumbs = {}
+  const lbSource = (it) => { const z = it && document.querySelector(`[data-zoom="${CSS.escape(it.id)}"]`); return z ? z.closest('.blk-media') : null }
+  function lbRemember(it) {
+    const el = lbSource(it); if (!el) return
+    if (it.media.kind === 'video') { const v = el.querySelector('video'); if (v && v.videoWidth && !lbAspects[it.media.id]) lbAspects[it.media.id] = v.videoWidth / v.videoHeight }
+    else if (!lbThumbs[it.media.id]) { const img = el.querySelector('img'); if (img && img.currentSrc) lbThumbs[it.media.id] = img.currentSrc }
+  }
+  function lbStyle(it) {
+    const m = it.media, ar = m.width && m.height ? m.width / m.height : lbAspects[m.id] || 16 / 9
+    return `--ar:${ar.toFixed(4)};${m.kind === 'image' && m.width ? `--nw:${m.width}px;` : ''}${lbThumbs[m.id] ? `background-image:url('${lbThumbs[m.id]}');` : ''}`
+  }
   function lbMedia(it) {
+    lbRemember(it)
     return it.media.kind === 'video'
-      ? `<video class="lb-media" src="${esc(it.media.url)}" controls autoplay playsinline aria-label="${esc(it.caption)}"></video>`
-      : `<img class="lb-media" src="${esc(it.media.url)}"${it.media.srcset ? ` srcset="${esc(it.media.srcset)}" sizes="100vw"` : ''} alt="${esc(tr(it.media.alt) || it.caption)}" decoding="async">`
+      ? `<video class="lb-media" style="${esc(lbStyle(it))}" src="${esc(it.media.url)}" controls autoplay playsinline aria-label="${esc(it.caption)}"></video>`
+      : `<img class="lb-media" style="${esc(lbStyle(it))}" src="${esc(it.media.url)}"${it.media.srcset ? ` srcset="${esc(it.media.srcset)}" sizes="100vw"` : ''} alt="${esc(tr(it.media.alt) || it.caption)}" decoding="async">`
+  }
+  lbRoot.addEventListener('loadedmetadata', (e) => {
+    const v = e.target
+    if (v.tagName !== 'VIDEO' || !v.videoWidth) return
+    const it = gallery.find((g) => g.media.url && v.getAttribute('src') === g.media.url)
+    if (it) lbAspects[it.media.id] = v.videoWidth / v.videoHeight
+    v.style.setProperty('--ar', (v.videoWidth / v.videoHeight).toFixed(4))
+  }, true)
+  /* open / close: the viewer grows out of the clicked thumbnail (the backdrop opens from its frame,
+     the media flies from it and gets its colours back); closing sends it back into the thumbnail
+     of the media being shown, or fades when that one is off screen */
+  const LB_EASE = 'cubic-bezier(.7, 0, .2, 1)'
+  let lbLast = null, lbClosing = false
+  function lbAnimate(el, opening, done) {
+    const it = opening ? gallery[lbIndex] : lbLast
+    const media = el.querySelector('.lb-media'), bar = el.querySelector('.lb-bar')
+    const srcEl = lbSource(it), src = srcEl && srcEl.getBoundingClientRect()
+    const ms = opening ? 720 : 560, fill = opening ? 'none' : 'forwards', anims = []
+    const W = window.innerWidth, H = window.innerHeight
+    const onScreen = (r) => r.width > 8 && r.height > 8 && r.bottom > 0 && r.top < H && r.right > 0 && r.left < W
+    if (!el.animate) { done(); return }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) anims.push(el.animate({ opacity: opening ? [0, 1] : [1, 0] }, { duration: 200, fill }))
+    else if (src && onScreen(src) && media) {
+      const box = [`inset(${src.top}px ${W - src.right}px ${H - src.bottom}px ${src.left}px round 3px)`, 'inset(0px 0px 0px 0px round 0px)']
+      anims.push(el.animate({ clipPath: opening ? box : box.slice().reverse() }, { duration: ms, easing: LB_EASE, fill }))
+      const f = media.getBoundingClientRect()
+      if (f.width && f.height) {
+        const s = Math.max(src.width / f.width, src.height / f.height)
+        const dx = src.left + src.width / 2 - (f.left + f.width / 2), dy = src.top + src.height / 2 - (f.top + f.height / 2)
+        const iy = Math.max(0, (f.height - src.height / s) / 2), ix = Math.max(0, (f.width - src.width / s) / 2)
+        const thumb = { transform: `translate(${dx}px, ${dy}px) scale(${s})`, clipPath: `inset(${iy}px ${ix}px round ${3 / s}px)`, filter: `grayscale(${it.effect !== 'none' ? 1 : 0})` }
+        const shown = { transform: 'translate(0px, 0px) scale(1)', clipPath: 'inset(-140px -140px round 3px)', filter: 'grayscale(0)' }
+        anims.push(media.animate(opening ? [thumb, shown] : [shown, { opacity: 1, offset: .62 }, Object.assign({}, thumb, { opacity: 0 })], { duration: ms, easing: LB_EASE, fill }))
+      }
+    } else {
+      anims.push(el.animate({ opacity: opening ? [0, 1] : [1, 0] }, { duration: opening ? 420 : 320, easing: 'ease', fill }))
+      if (media) anims.push(media.animate({ transform: opening ? ['scale(.94)', 'scale(1)'] : ['scale(1)', 'scale(.96)'] }, { duration: opening ? 620 : 320, easing: LB_EASE, fill }))
+    }
+    if (bar) anims.push(opening
+      ? bar.animate([{ opacity: 0, transform: 'translateY(14px)' }, { opacity: 1, transform: 'none' }], { duration: 420, delay: ms * .55, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' })
+      : bar.animate([{ opacity: 1 }, { opacity: 0, transform: 'translateY(10px)' }], { duration: 180, easing: 'ease', fill: 'forwards' }))
+    Promise.all(anims.map((a) => a.finished)).then(done, done)
   }
   /* halftone background: round pixels growing from a calm centre to the edges */
   function drawHalftone(c) {
@@ -1258,8 +1313,21 @@ video.lb-media { width: 100%; height: 100%; box-shadow: none; }
     drawHalftone(lbRoot.querySelector('canvas.halftone'))
   }
   window.addEventListener('resize', () => { const c = lbRoot.querySelector('canvas.halftone'); if (c) drawHalftone(c) }, { passive: true })
-  function openLightbox(id) { const i = gallery.findIndex((g) => g.id === id); if (i < 0) return; lbIndex = i; lenis && lenis.stop(); document.documentElement.style.overflow = 'hidden'; renderLightbox() }
-  function closeLightbox() { lbIndex = -1; lenis && lenis.start(); document.documentElement.style.overflow = ''; renderLightbox() }
+  function openLightbox(id) {
+    const i = gallery.findIndex((g) => g.id === id); if (i < 0) return
+    if (lbClosing) { lbRoot.innerHTML = ''; lbClosing = false }
+    lbIndex = i; lenis && lenis.stop(); document.documentElement.style.overflow = 'hidden'
+    renderLightbox()
+    const el = lbRoot.querySelector('.lightbox'); if (el) lbAnimate(el, true, () => {})
+  }
+  function closeLightbox() {
+    if (lbIndex < 0 || lbClosing) return
+    lbLast = gallery[lbIndex]; lbIndex = -1; lenis && lenis.start(); document.documentElement.style.overflow = ''
+    const el = lbRoot.querySelector('.lightbox')
+    if (!el) { renderLightbox(); return }
+    lbClosing = true; el.style.pointerEvents = 'none'
+    lbAnimate(el, false, () => { if (lbClosing) { lbClosing = false; lbRoot.innerHTML = '' } })
+  }
   function moveLightbox(d) { lbDir = d >= 0 ? 1 : -1; lbIndex = (lbIndex + d + gallery.length) % gallery.length; renderLightbox() }
 
   /* ------------------------------------------------------------ sections, routing, events */

@@ -36,7 +36,7 @@ const external = computed(() => /^https?:/i.test(p.value.link.url))
 // images and videos of the page, in reading order, for the viewer
 const galleryBlocks = computed(() => p.value.blocks.filter((b) => (b.type === 'image' || b.type === 'video') && b.mediaId && m(b.mediaId)))
 const gallery = computed<LightboxItem[]>(() =>
-  galleryBlocks.value.map((b) => ({ media: m(b.mediaId)!, effect: b.effect || 'none', caption: tr(b.caption) })),
+  galleryBlocks.value.map((b) => ({ media: m(b.mediaId)!, effect: b.effect || 'none', caption: tr(b.caption), source: b.id })),
 )
 function zoom(blockId: string) {
   const i = galleryBlocks.value.findIndex((b) => b.id === blockId)

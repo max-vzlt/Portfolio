@@ -4,6 +4,8 @@ export interface LightboxItem {
   media: PublicMedia
   effect: ImageEffect
   caption?: string
+  /** id of the block showing it on the page: the viewer opens from / closes into it */
+  source?: string
 }
 
 export function useLightbox() {

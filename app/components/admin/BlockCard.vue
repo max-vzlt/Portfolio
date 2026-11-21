@@ -124,7 +124,7 @@ const effects: { value: ImageEffect; label: string; title: string }[] = [
         <AdminDropzone class="bk-media" :accept="block.type === 'video' ? 'video/*' : 'image/*,video/*'" :multiple="false" :clickable="!m" @files="onFiles">
           <template v-if="m">
             <DotImage v-if="m.kind === 'image'" :media="m" :effect="effect" :fit="fit" sizes="400px" :seed="block.id" />
-            <video v-else :src="m.url" muted playsinline preload="metadata" class="bk-video" :class="{ 'is-duo': effect === 'duotone', 'is-contain': fit === 'contain' }" />
+            <video v-else :src="`${m.url}#t=1`" muted playsinline preload="metadata" class="bk-vid" :class="{ 'is-duo': effect === 'duotone', 'is-contain': fit === 'contain' }" />
           </template>
           <div v-else class="bk-media-empty">
             <Upload /> <span>Glisser une {{ block.type === 'video' ? 'vidéo' : 'image' }} ou cliquer</span>
@@ -198,10 +198,11 @@ const effects: { value: ImageEffect; label: string; title: string }[] = [
 .bk-media { position: relative; flex: 1; min-height: 110px; border-radius: 3px; overflow: hidden; background: color-mix(in srgb, var(--blue) 5%, #fff); border: 1.5px dashed transparent; }
 .bk-media.is-over { border-color: var(--blue); }
 .bk-media .dimg { position: absolute; inset: 0; }
-.bk-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--blue); }
-.bk-video.is-contain { object-fit: contain; }
-.bk-video.is-duo { filter: grayscale(1) contrast(1.1); mix-blend-mode: screen; }
-.bk-media:has(.bk-video.is-duo) { background: var(--blue); }
+/* (the card itself is .bk-video: keep the <video> on its own class) */
+.bk-vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--blue); }
+.bk-vid.is-contain { object-fit: contain; }
+.bk-vid.is-duo { filter: grayscale(1) contrast(1.1); mix-blend-mode: screen; }
+.bk-media:has(.bk-vid.is-duo) { background: var(--blue); }
 .bk-media-empty { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 6px; padding: 10px; text-align: center; font-size: 12.5px; color: var(--muted); cursor: pointer; }
 .bk-media-empty svg { width: 20px; height: 20px; }
 .bk-media-actions { position: absolute; right: 6px; top: 6px; z-index: 3; opacity: 0; transition: opacity .2s; }

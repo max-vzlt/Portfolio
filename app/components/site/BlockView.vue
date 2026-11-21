@@ -50,7 +50,7 @@ const sizes = computed(() =>
     <hr v-else-if="block.type === 'divider'" class="blk-hr">
 
     <figure v-else-if="block.type === 'image'" class="blk-fig">
-      <button v-if="m" type="button" class="blk-media blk-zoom" :aria-label="caption || tr(m.alt) || 'Image'" @click="emit('zoom', block.id)">
+      <button v-if="m" type="button" class="blk-media blk-zoom" :data-lb-src="block.id" :aria-label="caption || tr(m.alt) || 'Image'" @click="emit('zoom', block.id)">
         <DotImage :media="m" :effect="block.effect" :fit="block.fit" :alt="tr(m.alt) || caption" :parallax="block.row > 1 ? 0.14 : 0.1" :sizes="sizes" :seed="block.id" reveal />
         <span class="blk-zoom-ico" aria-hidden="true"><Maximize2 /></span>
       </button>
@@ -59,7 +59,7 @@ const sizes = computed(() =>
     </figure>
 
     <figure v-else-if="block.type === 'video'" class="blk-fig">
-      <div class="blk-media">
+      <div class="blk-media" :data-lb-src="block.id">
         <SiteVideo v-if="m" :media="m" :effect="block.effect" :autoplay="block.autoplay" :fit="block.fit" :label="caption" zoomable @zoom="emit('zoom', block.id)" />
         <DotImage v-else :seed="block.id" />
       </div>
